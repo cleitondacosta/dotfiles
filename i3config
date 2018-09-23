@@ -1,0 +1,190 @@
+# ~/.config/i3/config
+# To load default config: delete this file and then run i3-config-wizard(1).
+#
+# Tip: Run "xmodmax -pke" to see the key codes.
+# Tip: The option --no-startup-id prevents the mouse cursor to become a watch
+#      for 60 sec.
+#
+# Requires: light (Controls monitor brightness)
+#           i3-gaps 
+#           pulseaudio
+#           pulseaudio-utils
+#           feh
+#           j4-dmenu-desktop
+#           scrot
+#           screenshot.sh (personal script in ~/.scripts)
+#           amixer
+#           pactl
+#           i3blocks
+#           ttf-awesome-font 
+#           pango
+#           ffmpeg
+
+# No title bar on window (necessary for i3-gaps):
+for_window [class="^.*"] border pixel 3
+
+# i3-gaps:
+gaps inner 5
+gaps outer 5
+smart_gaps on
+
+# $mod = super
+set $mod Mod4
+
+# i3block signals to update the blocks in status bar
+# (I must remember to use signal 10 in ~/.i3blocks.conf)
+set $toggleSoundMute "pactl set-sink-mute 0 toggle; pkill -RTMIN+10 i3blocks"
+set $downSoundVol "pactl set-sink-volume 0 -5%; pkill -RTMIN+10 i3blocks"
+set $upSoundVol "pactl set-sink-volume 0 +5%; pkill -RTMIN+10 i3blocks"
+set $upMicBoost "amixer set Mic\ Boost 1; pkill -RTMIN+10 i3blocks"
+set $downMicBoost "amixer set Mic\ Boost 0; pkill -RTMIN+10 i3blocks"
+
+# Font:
+font pango:monospace 8
+
+# Launch programs:
+bindsym $mod+Return exec urxvt
+bindsym $mod+c exec --no-startup-id ~/.scripts/color-picker.sh
+
+# Kill focused window:
+bindsym $mod+q kill
+
+# j4-dmenu-desktop:
+bindsym $mod+d exec j4-dmenu-desktop
+
+# Vim like keys to change window focus:
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Swap container with neighbor
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Changes current container's layout
+bindsym $mod+Left split h
+bindsym $mod+Right split h
+bindsym $mod+Up split v
+bindsym $mod+Down split v
+
+# Fullscreen mode
+bindsym $mod+f fullscreen toggle
+
+# Change a container's layout
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
+
+# Toggle float window mode
+bindsym $mod+Shift+space floating toggle
+
+# Mouse+$mod moves a floating window
+floating_modifier $mod
+
+# Workspaces:
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+bindsym $mod+space workspace $ws10
+
+# Moves focused window to a workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Restart i3 (usefull to reload this file)
+bindsym $mod+Shift+r restart
+
+# Sound
+bindsym XF86AudioMute exec $toggleSoundMute
+bindsym XF86AudioLowerVolume exec $downSoundVol
+bindsym XF86AudioRaiseVolume exec $upSoundVol
+
+# Screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 4"
+bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 4"
+
+# Screenshot
+bindsym Print --release exec --no-startup-id\
+    "~/.scripts/screenshot.sh FULL"
+bindsym $mod+Print --release exec --no-startup-id\
+    "~/.scripts/screenshot.sh SELECT"
+bindsym Shift+Print --release exec --no-startup-id\
+    "~/.scripts/screenshot.sh CURWIN"
+
+# Screenrecord (TODO)
+bindsym $mod+z exec --no-startup-id "~/.scripts/recordscreen.sh"
+bindsym $mod+Shift+z exec --no-startup-id killall ffmpeg
+
+# Status bar (i3blocks)
+bar {
+    status_command i3blocks
+    position top
+    mode dock
+    modifier None
+    font pango:Awesome Font 9
+
+    colors {
+        background #3a3a3a
+    }
+}
+
+mode "resize" {
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym k resize grow height 5 px or 5 ppt
+    bindsym j resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+mode "system" {
+    bindsym l exec --no-startup-id "i3lock --color=000000", mode "default"
+    bindsym s exec --no-startup-id "shutdown now"
+
+    bindsym $mod+y mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Going into modes
+bindsym $mod+y mode "system"
+bindsym $mod+r mode "resize"
+
+# Keyboard layout
+exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
+
+# Enables tap to click in laptop
+exec --no-startup-id "xinput set-prop 11 278 1"
+
+# Loads background image
+exec --no-startup-id "~/.fehbg &"
