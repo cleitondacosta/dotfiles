@@ -40,7 +40,15 @@ function install_directory()
     fi
 }
 
-DOTFILES_DIR=~/.dotfiles
+DOTFILES_DIR=`pwd`/dotfiles
+
+if [ ! -d "$DOTFILES_DIR" ]
+then
+    errcho "No such directory: $DOTFILES_DIR."
+    errcho "See the readme."
+
+    exit 1
+fi
 
 install_dotfile "$DOTFILES_DIR/Xdefaults" ~/.Xdefaults
 install_dotfile "$DOTFILES_DIR/i3blocks.conf" ~/.i3blocks.conf
