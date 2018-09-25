@@ -81,6 +81,8 @@
         Plug 'francoiscabrol/ranger.vim'
         Plug 'wellle/targets.vim'
         Plug 'andbar-ru/vim-unicon'
+        Plug 'leafgarland/typescript-vim'
+        Plug 'HerringtonDarkholme/yats.vim' 
     call plug#end()
 
 " Color
