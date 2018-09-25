@@ -1,7 +1,5 @@
 # Dotfiles
 
-It is public because I don't want to pay
-
 ### Installing
 
 Clone this repo, then:
