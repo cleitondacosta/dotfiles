@@ -77,6 +77,7 @@
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'scrooloose/nerdcommenter'
         Plug 'tpope/vim-surround'
+        Plug 'rbgrouleff/bclose.vim' " Dependency for ranger.vim
         Plug 'francoiscabrol/ranger.vim'
         Plug 'wellle/targets.vim'
         Plug 'andbar-ru/vim-unicon'
@@ -91,4 +92,4 @@
 " Ranger Plugin
 
     let g:ranger_map_keys = 0
-    map <leader>r :Ranger<Enter>
+    map <leader>r :RangerNewTab<Enter>
