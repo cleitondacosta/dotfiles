@@ -15,7 +15,6 @@
     vmap <Right> <NOP>
 
 " Config
-
     " Status bar
         set showcmd
         set laststatus=2
@@ -48,7 +47,6 @@
         set ttimeoutlen=100
 
 " Normal Mapping (:help map-which-keys)
-
     " Go to previous tab
         nmap , gT
 
@@ -62,17 +60,14 @@
         nmap <F9> :w<Enter>:!clear<Enter>:!%:p<Enter>
 
 " Insert Mapping
-
     " Change word case
         imap <C-u> <esc>gUiwea
 
 " Commands
-
     command Vimrc tabe ~/.config/nvim/init.vim
     command MainSplit vertical resize 84 
 
 " Plugins (requires: https://github.com/junegunn/vim-plug)
-
     call plug#begin('~/.config/nvim/bundle')
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'scrooloose/nerdcommenter'
@@ -82,16 +77,14 @@
         Plug 'wellle/targets.vim'
         Plug 'andbar-ru/vim-unicon'
         Plug 'leafgarland/typescript-vim'
-        Plug 'HerringtonDarkholme/yats.vim' 
+        Plug 'HerringtonDarkholme/yats.vim' " Dependency for typescript-vim
     call plug#end()
 
 " Color
-
     colorscheme unicon
     set background=dark
     set cursorline
 
 " Ranger Plugin
-
     let g:ranger_map_keys = 0
     map <leader>r :RangerNewTab<Enter>
