@@ -58,6 +58,7 @@ export HISTSIZE
 export SAVEHIST
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export TERMINAL=urxvt
 
 function is_software_installed()
 {
