@@ -65,8 +65,10 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # Changes current container's layout
-bindsym $mod+Up split v
+bindsym $mod+Up split h
 bindsym $mod+Down split v
+bindsym $mod+Left split h
+bindsym $mod+Right split h
 
 # Fullscreen mode
 bindsym $mod+f fullscreen toggle
@@ -155,10 +157,10 @@ bar {
 }
 
 mode "resize" {
-    bindsym h resize shrink width 5 px or 5 ppt
-    bindsym k resize grow height 5 px or 5 ppt
-    bindsym j resize shrink height 5 px or 5 ppt
-    bindsym l resize grow width 5 px or 5 ppt
+    bindsym h resize shrink width 1 px
+    bindsym k resize grow height 1 px
+    bindsym j resize shrink height 1 px
+    bindsym l resize grow width 1 px
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
