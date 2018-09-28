@@ -21,11 +21,11 @@
 #           ffmpeg
 
 # No title bar on window (necessary for i3-gaps):
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 1
 
 # i3-gaps:
-gaps inner 5
-gaps outer 5
+gaps inner 4
+gaps outer 4
 smart_gaps on
 
 # $mod = super
@@ -58,15 +58,13 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# Swap container with neighbor
+# Swap container with neighbor:
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # Changes current container's layout
-bindsym $mod+Left split h
-bindsym $mod+Right split h
 bindsym $mod+Up split v
 bindsym $mod+Down split v
 
