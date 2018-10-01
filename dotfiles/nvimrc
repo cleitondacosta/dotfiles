@@ -42,6 +42,11 @@
     " Specific language config
         filetype on
         autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+        
+    " Function/Method goto (]m replacement) -- It works for me
+        autocmd FileType javascript,sh,bash,zsh nmap ]m /^\s*function<CR>zz
+        autocmd FileType python,ruby nmap ]m /^\s*def<CR>zz
+        autocmd FileType c nmap ]m /\v^\s*(struct(\n\|\s)+)?\h(\h\|\d){0,30}\**(\s\|\n)+\**\h(\h\|\d){0,30}(\s\|\n)*\((.\|\n)*\)(\s\|\n)*\{<CR>zz
 
     " Misc
         set ttimeoutlen=100
