@@ -35,6 +35,7 @@ alias l="ls"
 alias pcregrep="pcregrep --color=auto"
 alias errcho=">&2 echo"
 alias keycodes="xmodmap -pke"
+alias nvimrc="nvim ~/.dotfiles/dotfiles/nvimrc"
 
 HISTFILE=~/.zsh_history
 HISTSIZE=2000

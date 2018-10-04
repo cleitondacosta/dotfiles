@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env dash
 
 . ~/.scripts/i3blocks/i3printcolor.sh
 . ~/.scripts/i3blocks/i3colortones.sh

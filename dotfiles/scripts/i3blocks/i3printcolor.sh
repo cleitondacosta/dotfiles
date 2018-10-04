@@ -1,6 +1,4 @@
-#!/bin/sh
-
-function i3_print_color()
+i3_print_color()
 {
     if [ $# -ne 2 ]
     then

@@ -14,82 +14,109 @@
     vmap <Left> <NOP>
     vmap <Right> <NOP>
 
-" Config
-    " Status bar
-        set showcmd
-        set laststatus=2
+" Status bar
+    set showcmd
+    set laststatus=2
 
-    " Indent
-        set tabstop=4
-        set shiftwidth=4
-        set softtabstop=4
-        set expandtab
-        set autoindent
-        set smartindent
+" Indent
+    set tabstop=4
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+    set autoindent
+    set smartindent
 
-    " Search
-        set nohlsearch
+" Search
+    set nohlsearch
 
-    " Line number
-        set nu
-        set relativenumber
+" Line number
+    set nu
+    set relativenumber
 
-    " Max chars per line
-        set colorcolumn=80
-        set textwidth=80
-        highlight ColorColumn ctermbg=darkgray
+" Max chars per line
+    set colorcolumn=80
+    set textwidth=80
+    highlight ColorColumn ctermbg=darkgray
 
-    " Specific language config
-        filetype on
-        autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-        
-    " Function/Method goto (]m replacement) -- It works for me
-        autocmd FileType javascript,sh,bash,zsh nmap ]m /^\s*function<CR>zz
-        autocmd FileType python,ruby nmap ]m /^\s*def<CR>zz
-        autocmd FileType c nmap ]m /\v^\s*(struct(\n\|\s)+)?\h(\h\|\d){0,30}\**(\s\|\n)+\**\h(\h\|\d){0,30}(\s\|\n)*\((.\|\n)*\)(\s\|\n)*\{<CR>zz
+" Specific language config
+    filetype on
+    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    
+    " Function/Method goto (]m replacement)
+        autocmd FileType javascript,sh,bash,zsh nmap <silent> ]m /^\s*function<CR>zz
+        autocmd FileType ruby nmap <silent> ]m /^\s*def<CR>zz
+        autocmd FileType c nmap <silent> ]m /\v^\s*(struct(\n\|\s)+)?\h(\h\|\d){0,30}\**(\s\|\n)+\**\h(\h\|\d){0,30}(\s\|\n)*\((.\|\n)*?\)(\s\|\n)*?\{<CR>zz
 
-    " Misc
-        set ttimeoutlen=100
+" Misc
+    set ttimeoutlen=100
 
 " Normal Mapping (:help map-which-keys)
     " Go to previous tab
-        nmap , gT
+        nnoremap , gT
 
     " Throws the content after the cursor to the line below
-        nmap <C-j> i<Enter><esc>k$
+        nnoremap <C-j> i<Enter><esc>k$
 
     " Enter (aka return) inserts new line below cursor (normal mode)
-        nmap <CR> o<esc>
+        nnoremap <CR> o<esc>
 
-    " <F9>: Execute current Script
-        nmap <F9> :w<Enter>:!clear<Enter>:!%:p<Enter>
+    " Next/back uppercase letter, useful for CamelCase identifiers
+        nnoremap <silent> ]w :call search('\u')<CR>
+        nnoremap <silent> [w :call search('\u', 'b')<CR>
 
+    " Next/back underscore, useful for snake_case identifiers
+        nnoremap <silent> ]_ :call search('_')<CR>
+        nnoremap <silent> [_ :call search('_', 'b')<CR>
+        
 " Insert Mapping
     " Change word case
         imap <C-u> <esc>gUiwea
 
 " Commands
-    command Vimrc tabe ~/.config/nvim/init.vim
-    command MainSplit vertical resize 84 
+    command Nvimrc tabe ~/.config/nvim/init.vim
+    command Mainsplit vertical resize 84 
 
 " Plugins (requires: https://github.com/junegunn/vim-plug)
     call plug#begin('~/.config/nvim/bundle')
-        Plug 'michaeljsmith/vim-indent-object'
-        Plug 'scrooloose/nerdcommenter'
-        Plug 'tpope/vim-surround'
-        Plug 'rbgrouleff/bclose.vim' " Dependency for ranger.vim
-        Plug 'francoiscabrol/ranger.vim'
-        Plug 'wellle/targets.vim'
-        Plug 'andbar-ru/vim-unicon'
-        Plug 'leafgarland/typescript-vim'
-        Plug 'HerringtonDarkholme/yats.vim' " Dependency for typescript-vim
+        " Adds the indent object (try: <normal>dii)
+            Plug 'michaeljsmith/vim-indent-object'
+
+        " Commenting stuff
+            Plug 'scrooloose/nerdcommenter'
+        
+        " Surrounding stuff
+            Plug 'tpope/vim-surround'
+
+        " Ranger
+            Plug 'rbgrouleff/bclose.vim' " Dependency
+            Plug 'francoiscabrol/ranger.vim'
+
+        " More motions
+            Plug 'wellle/targets.vim'
+
+        " Color scheme
+            Plug 'andbar-ru/vim-unicon'
+
+        " Latex live preview
+            Plug 'donRaphaco/neotex', { 'for': 'tex' }
+
+        " Typescript support
+            Plug 'leafgarland/typescript-vim', {'do': './install.sh'}
+
+        " Typescript syntax highlight
+            Plug 'HerringtonDarkholme/yats.vim'
     call plug#end()
+
+" Ranger Plugin
+    let g:ranger_map_keys = 0
+    map <leader>r :RangerNewTab<CR>
+
+" Latex plugin
+    let g:tex_flavor = 'latex'     " To avoid issues. See :h:tex_flavor
+    nmap <leader>le :NeoTexOn<CR>
+    nmap <leader>ld :NeoTexOff<CR>
 
 " Color
     colorscheme unicon
     set background=dark
     set cursorline
-
-" Ranger Plugin
-    let g:ranger_map_keys = 0
-    map <leader>r :RangerNewTab<Enter>
