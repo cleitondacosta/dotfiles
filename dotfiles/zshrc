@@ -49,6 +49,13 @@ then
     export JAVA_HOME
 fi
 
+# Ruby setup:
+if [ -d ~/.gem/ruby ]
+then
+    LASTEST_RUBY_GEM_BIN="$(ls ~/.gem/ruby | sort | tail -1)"
+    append_to_path ~/.gem/ruby/$LASTEST_RUBY_GEM_BIN/bin
+fi
+
 # Adding to PATH:
 [[ -d ~/.bin ]] && append_to_path ~/.bin
 [[ -d ~/.scripts ]] && append_to_path ~/.scripts

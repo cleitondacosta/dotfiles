@@ -41,6 +41,7 @@
 " Specific language config
     filetype on
     autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
     
     " Function/Method goto (]m replacement)
         autocmd FileType javascript,sh,bash,zsh nmap <silent> ]m /^\s*function<CR>zz
@@ -105,6 +106,12 @@
 
         " Typescript syntax highlight
             Plug 'HerringtonDarkholme/yats.vim'
+
+        " Javascript syntax highlight
+            Plug 'othree/yajs.vim'
+
+        " HTML 5
+            Plug 'othree/html5.vim'
     call plug#end()
 
 " Ranger Plugin
