@@ -28,6 +28,7 @@ function append_to_path()
     esac
 }
 
+alias rsync="rsync --progress -ha"
 alias diskusage="du -chad 1"
 alias ll="ls -l"
 alias llh="ls -lh"
