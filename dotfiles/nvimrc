@@ -43,11 +43,6 @@
     autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
     
-    " Function/Method goto (]m replacement)
-        autocmd FileType javascript,sh,bash,zsh nmap <silent> ]m /^\s*function<CR>zz
-        autocmd FileType ruby nmap <silent> ]m /^\s*def<CR>zz
-        autocmd FileType c nmap <silent> ]m /\v^\s*(struct(\n\|\s)+)?\h(\h\|\d){0,30}\**(\s\|\n)+\**\h(\h\|\d){0,30}(\s\|\n)*\((.\|\n)*?\)(\s\|\n)*?\{<CR>zz
-
 " Misc
     set ttimeoutlen=100
 
