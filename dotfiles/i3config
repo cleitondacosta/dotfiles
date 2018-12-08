@@ -180,6 +180,9 @@ mode "system" {
 bindsym $mod+y mode "system"
 bindsym $mod+r mode "resize"
 
+# Dunst
+exec --no-startup-id dunst
+
 # Keyboard layout
 exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
 
