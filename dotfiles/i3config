@@ -39,6 +39,26 @@ set $upSoundVol "pactl set-sink-volume 0 +5%; pkill -RTMIN+10 i3blocks"
 set $upMicBoost "amixer set Mic\ Boost 1; pkill -RTMIN+10 i3blocks"
 set $downMicBoost "amixer set Mic\ Boost 0; pkill -RTMIN+10 i3blocks"
 
+# Loading colors from Xresources (the # doesn't means a commentary, but the
+# fallback color, in case of not finding the color in Xresources.
+set_from_resource $darkblack color0 #000000
+set_from_resource $black color8 #000000
+set_from_resource $darkred color1 #000000
+set_from_resource $red color9 #000000
+set_from_resource $darkgreen color2 #000000
+set_from_resource $green color10 #000000
+set_from_resource $darkyellow color3 #000000
+set_from_resource $yellow color11 #000000
+set_from_resource $darkblue color4 #000000
+set_from_resource $blue color12 #000000
+set_from_resource $darkmagenta color5 #000000
+set_from_resource $magenta color13 #000000
+set_from_resource $darkcyan color6 #000000
+set_from_resource $cyan color14 #000000
+set_from_resource $darkwhite color7 #000000
+set_from_resource $white color15 #000000
+set $transparent #00000000
+
 # Font:
 font pango:monospace 8
 
@@ -152,7 +172,13 @@ bar {
     font pango:Awesome Font 9
 
     colors {
-        background #3a3a3a
+        background $darkblack
+        statusline $darkwhite
+        separator $white
+        focused_workspace  $blue $cyan $darkblack
+        active_workspace   $blue $cyen $darkblack
+        inactive_workspace $darkblack $darkblack $white
+        urgent_workspace   $darkblack $darkblack $white
     }
 }
 
