@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 alias errcho=">&2 echo"
 
@@ -56,5 +56,6 @@ install_dotfile "$DOTFILES_DIR/i3config" ~/.config/i3/config
 install_dotfile "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
 install_dotfile "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
 install_dotfile "$DOTFILES_DIR/zshrc" ~/.zshrc
+install_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
 install_dotfile "$DOTFILES_DIR/qutebrowser_config.py" ~/.config/qutebrowser/config.py
 install_directory "$DOTFILES_DIR/scripts" ~/.scripts
