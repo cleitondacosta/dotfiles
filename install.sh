@@ -27,6 +27,22 @@ function install_directory()
     DESTINATION=$2
     DESTINATION_PARENT_DIR=`dirname $DESTINATION`
 
+    if [ -d $DESTINATION ]
+    then
+        echo 
+        echo "\"$DESTINATION\" already exists."
+        echo "That means that \"$SOURCE\" will be at:"
+
+        echo "\"$DESTINATION/${SOURCE##*/}\""
+        read -p "Are you sure that you want to proceed? [y/n] " ANSWER
+        echo
+
+        case "$ANSWER" in
+            y|Y) ;;
+            *) exit 1
+        esac
+    fi
+
     if [ ! -d $SOURCE ]
     then
         errcho "No such directory: $SOURCE"
@@ -59,3 +75,4 @@ install_dotfile "$DOTFILES_DIR/zshrc" ~/.zshrc
 install_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
 install_dotfile "$DOTFILES_DIR/qutebrowser_config.py" ~/.config/qutebrowser/config.py
 install_directory "$DOTFILES_DIR/scripts" ~/.scripts
+install_directory "$DOTFILES_DIR/rofi-themes" ~/.config/rofi
