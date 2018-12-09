@@ -21,7 +21,7 @@ listview {
 inputbar {
     spacing: 7px;
     padding: 2px;
-    children: [ prompt, entry ];
+    children: [ prompt ];
 }
 
 #element selected {

@@ -18,15 +18,13 @@ window {
 listview {
     spacing: 5px;
     lines: 10;
-    border: 1px solid 0px 0px ;
-    border-color: #a6c9ff;
     scrollbar: @scrollbar;
 }
 
 inputbar {
     spacing: 7px;
     padding: 2px;
-    children: [ prompt, entry ];
+    children: [ prompt ];
 }
 
 scrollbar {
