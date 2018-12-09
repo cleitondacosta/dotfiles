@@ -10,7 +10,7 @@
 #           pulseaudio
 #           pulseaudio-utils
 #           feh
-#           j4-dmenu-desktop
+#           rofi
 #           scrot
 #           screenshot.sh (personal script in ~/.scripts)
 #           amixer
