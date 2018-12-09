@@ -69,8 +69,9 @@ bindsym $mod+c exec --no-startup-id ~/.scripts/color-picker.sh
 # Kill focused window:
 bindsym $mod+q kill
 
-# j4-dmenu-desktop:
-bindsym $mod+d exec j4-dmenu-desktop
+# rofi:
+bindsym $mod+d exec\
+    rofi -show drun -display-run "a" -theme ~/.config/rofi/dmenu-theme.rasi
 
 # Vim like keys to change window focus:
 bindsym $mod+h focus left
