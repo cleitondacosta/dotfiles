@@ -41,7 +41,7 @@ esac
 
 if [ $? -eq 0 ]
 then
-    notify-send "Screenshot:" "New screenshot in: $SCREENSHOT_DIR"
+    notify-send "Screenshot" "New screenshot in:\n$SCREENSHOT_DIR"
 else
-    notify-send "Screenshot:" "Couldn't take the screenshot."
+    notify-send "Screenshot" "Couldn't take the screenshot."
 fi
