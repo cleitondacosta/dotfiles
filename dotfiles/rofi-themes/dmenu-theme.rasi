@@ -19,7 +19,7 @@ configuration {
     anchor:     north;
     location:   north;
     width:      100%;
-    height:     2.5%;
+    height:     2.8%;
     padding:    0px;
     children:   [ horibox ];
 }
