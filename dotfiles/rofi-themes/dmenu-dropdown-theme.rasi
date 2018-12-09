@@ -1,0 +1,51 @@
+* {
+    background-color:     Black;
+    text-color:           #eeeeee;
+    font:                 "Monospace 11";
+    scrollbar: true;
+}
+
+configuration {
+}
+
+#prompt { enabled: false; }
+
+#window {
+    anchor:     north;
+    location:   north;
+    width:      100%;
+    padding:    0px;
+    children:   [ verticalbox ];
+}
+
+#verticalbox {
+    children:   [ entry, listview ];
+}
+
+#listview {
+    spacing:    5px;
+    lines:      10;
+    border: 1px solid 0px 0px ;
+    border-color: #a6c9ff;
+    scrollbar: @scrollbar;
+}
+
+scrollbar {
+    width: 5px;
+    height: 10px;
+    padding: 2px;
+    handle-color: #ffffff;
+}
+
+#entry {
+    expand:     false;
+    width:      10em;
+}
+
+#element {
+    padding: 5px 5px;
+}
+
+#element selected {
+    background-color: #363cb3;
+}
