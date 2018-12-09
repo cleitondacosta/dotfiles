@@ -70,8 +70,7 @@ bindsym $mod+c exec --no-startup-id ~/.scripts/color-picker.sh
 bindsym $mod+q kill
 
 # rofi:
-bindsym $mod+d exec\
-    rofi -show drun -display-run "a" -theme ~/.config/rofi/dmenu-theme.rasi
+bindsym $mod+d exec rofi -show drun -theme ~/.config/rofi/dmenu-theme.rasi
 
 # Vim like keys to change window focus:
 bindsym $mod+h focus left
@@ -160,7 +159,6 @@ bindsym $mod+Print --release exec --no-startup-id\
 bindsym Shift+Print --release exec --no-startup-id\
     "~/.scripts/screenshot.sh CURWIN"
 
-# Screenrecord (TODO)
 bindsym $mod+z exec --no-startup-id "~/.scripts/recordscreen.sh"
 bindsym $mod+Shift+z exec --no-startup-id killall ffmpeg
 
@@ -196,7 +194,8 @@ mode "resize" {
 
 mode "system" {
     bindsym l exec --no-startup-id "i3lock --color=000000", mode "default"
-    bindsym s exec --no-startup-id "shutdown now"
+    bindsym s exec --no-startup-id\
+        ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
 
     bindsym $mod+y mode "default"
     bindsym Return mode "default"
