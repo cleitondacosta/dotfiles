@@ -49,7 +49,7 @@ OPTIONS="$OPTION_30FPS_NO_SOUND\n$OPTION_60FPS_NO_SOUND"
 ANSWER=$(
     echo "$OPTIONS" |\
         rofi -dmenu -i -theme\
-        ~/.dotfiles/dotfiles/rofi-themes/dmenu-dropdown-theme.rasi
+        ~/.dotfiles/dotfiles/rofi-themes/option-list-theme.rasi
 )
 
 case "$ANSWER" 

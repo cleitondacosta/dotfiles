@@ -1,0 +1,45 @@
+* {
+    background-color: Black;
+    text-color: #eeeeee;
+    border-color: #5547df;
+    font: "Monospace 11";
+    scrollbar: true;
+}
+
+#prompt { enabled: false; }
+
+window {
+    width: 35%;
+    height: 35%;
+    padding: 10px;
+    border: 1px;
+}
+
+listview {
+    spacing: 5px;
+    lines: 10;
+    border: 1px solid 0px 0px ;
+    border-color: #a6c9ff;
+    scrollbar: @scrollbar;
+}
+
+inputbar {
+    spacing: 7px;
+    padding: 2px;
+    children: [ prompt, entry ];
+}
+
+scrollbar {
+    width: 5px;
+    height: 10px;
+    padding: 2px;
+    handle-color: #ffffff;
+}
+
+#element {
+    padding: 5px 5px;
+}
+
+#element selected {
+    background-color: #363cb3;
+}
