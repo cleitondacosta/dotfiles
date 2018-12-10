@@ -28,6 +28,7 @@ function append_to_path()
     esac
 }
 
+# Command alias:
 alias rsync="rsync --progress -ha"
 alias diskusage="du -chad 1"
 alias ll="ls -l"
@@ -36,7 +37,34 @@ alias l="ls"
 alias pcregrep="pcregrep --color=auto"
 alias errcho=">&2 echo"
 alias keycodes="xmodmap -pke"
-alias nvimrc="nvim ~/.dotfiles/dotfiles/nvimrc"
+
+# dotfiles alias:
+alias -g dunstrc="~/.dotfiles/dotfiles/dunstrc"
+alias -g i3bconfig="~/.dotfiles/dotfiles/i3blocks.conf"
+alias -g i3config="~/.dotfiles/dotfiles/i3config"
+alias -g nvimrc="~/.dotfiles/dotfiles/nvimrc"
+alias -g quteconf="~/.dotfiles/dotfiles/qutebrowser_config.py"
+alias -g rangerconf="~/.dotfiles/dotfiles/ranger.conf"
+alias -g zshrc="~/.dotfiles/dotfiles/zshrc"
+
+# Directory alias:
+alias -g dotfiles="~/.dotfiles/dotfiles"
+alias -g scripts="~/.dotfiles/dotfiles/scripts"
+alias -g rofithemes="~/.dotfiles/dotfiles/rofi-themes"
+alias -g rubycode="~/code/ruby/project"
+alias -g awkcode="~/code/awk/project"
+alias -g ccode="~/code/c/project"
+alias -g cppcode="~/code/c++/project"
+alias -g dashcode="~/code/dash/project"
+alias -g javacode="~/code/java/project"
+alias -g javascriptcode="~/code/javascript/project"
+alias -g latexcode="~/code/latex/project"
+alias -g luacode="~/code/lua/project"
+alias -g pythoncode="~/code/python/project"
+alias -g rcode="~/code/R/project"
+alias -g rubycode="~/code/ruby/project"
+alias -g shcode="~/code/sh/project"
+alias -g vimscriptcode="~/code/vimscript/project"
 
 HISTFILE=~/.zsh_history
 HISTSIZE=2000
