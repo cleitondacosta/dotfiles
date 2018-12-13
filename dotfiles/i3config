@@ -192,10 +192,12 @@ mode "resize" {
     bindsym $mod+r mode "default"
 }
 
+
+bindsym $mod+x exec --no-startup-id\
+    ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
+
 mode "system" {
     bindsym l exec --no-startup-id "i3lock --color=000000", mode "default"
-    bindsym s exec --no-startup-id\
-        ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
 
     bindsym $mod+y mode "default"
     bindsym Return mode "default"
