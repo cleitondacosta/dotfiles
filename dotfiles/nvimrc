@@ -108,7 +108,7 @@
 
         " Ranger
             Plug 'rbgrouleff/bclose.vim' " Dependency
-            Plug 'francoiscabrol/ranger.vim'
+            Plug 'cleitondacosta/ranger.vim'
 
         " More motions
             Plug 'wellle/targets.vim'
@@ -118,12 +118,6 @@
 
         " Latex live preview
             Plug 'donRaphaco/neotex', { 'for': 'tex' }
-
-        " Typescript support
-            Plug 'leafgarland/typescript-vim', {'do': './install.sh'}
-
-        " Typescript syntax highlight
-            Plug 'HerringtonDarkholme/yats.vim'
 
         " Javascript syntax highlight
             Plug 'othree/yajs.vim'
@@ -135,6 +129,8 @@
 " Ranger Plugin
     let g:ranger_map_keys = 0
     nnoremap <F2> :RangerNewTab<CR>
+    nnoremap <F3> :RangerNewVsplit<CR>
+    nnoremap <F4> :RangerNewSplit<CR>
 
 " Latex plugin
     let g:tex_flavor = 'latex'     " To avoid issues. See :h:tex_flavor
