@@ -38,7 +38,7 @@
     set textwidth=80
     highlight ColorColumn ctermbg=darkgray
 
-" Specific language config
+" Specific language config (TODO augroup)
     filetype on
     autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
     autocmd FileType tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
@@ -54,6 +54,8 @@
     autocmd FileType sh nnoremap <F9> <esc>:w<CR>:term bash %<CR>i
     autocmd FileType zsh nnoremap <F9> <esc>:w<CR>:term zsh %<CR>i
     autocmd FileType awk nnoremap <F9> <esc>:w<CR>:term awk -f %<CR>i
+    autocmd FileType html nnoremap <F9> <esc>:w<CR>:!chromium % &<CR><CR>
+    autocmd FileType perl nnoremap <F9> <esc>:w<CR>:term perl %<CR>i
 
 " Executing scripts (passing args, ie. no <CR> at the end)
     autocmd FileType ruby nnoremap <F10> <esc>:w<CR>:term ruby %
@@ -62,6 +64,7 @@
     autocmd FileType sh nnoremap <F10> <esc>:w<CR>:term bash %
     autocmd FileType zsh nnoremap <F10> <esc>:w<CR>:term zsh %
     autocmd FileType awk nnoremap <F10> <esc>:w<CR>:term awk -f %
+    autocmd FileType perl nnoremap <F10> <esc>:w<CR>:term perl %
     
 " Misc
     set ttimeoutlen=100
@@ -131,12 +134,12 @@
 
 " Ranger Plugin
     let g:ranger_map_keys = 0
-    map <leader>r :RangerNewTab<CR>
+    nnoremap <F2> :RangerNewTab<CR>
 
 " Latex plugin
     let g:tex_flavor = 'latex'     " To avoid issues. See :h:tex_flavor
-    nmap <leader>le :NeoTexOn<CR>
-    nmap <leader>ld :NeoTexOff<CR>
+    nnoremap <leader>le :NeoTexOn<CR>
+    nnoremap <leader>ld :NeoTexOff<CR>
 
 " Color
     colorscheme unicon
