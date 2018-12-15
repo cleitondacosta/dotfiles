@@ -31,16 +31,10 @@ function install_directory()
     then
         echo 
         echo "\"$DESTINATION\" already exists."
-        echo "That means that \"$SOURCE\" will be at:"
-
+        echo "That means that \"$SOURCE\" would be at:"
         echo "\"$DESTINATION/${SOURCE##*/}\""
-        read -p "Are you sure that you want to proceed? [y/n] " ANSWER
+        echo "Ignored ..."
         echo
-
-        case "$ANSWER" in
-            y|Y) ;;
-            *) exit 1
-        esac
     fi
 
     if [ ! -d $SOURCE ]
@@ -66,12 +60,13 @@ then
     exit 1
 fi
 
+install_dotfile "$DOTFILES_DIR/inputrc" ~/.inputrc
 install_dotfile "$DOTFILES_DIR/Xdefaults" ~/.Xdefaults
 install_dotfile "$DOTFILES_DIR/i3blocks.conf" ~/.i3blocks.conf
 install_dotfile "$DOTFILES_DIR/i3config" ~/.config/i3/config
 install_dotfile "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
 install_dotfile "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
-install_dotfile "$DOTFILES_DIR/zshrc" ~/.zshrc
+install_dotfile "$DOTFILES_DIR/bashrc" ~/.bashrc
 install_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
 install_dotfile "$DOTFILES_DIR/qutebrowser_config.py" ~/.config/qutebrowser/config.py
 install_directory "$DOTFILES_DIR/scripts" ~/.scripts

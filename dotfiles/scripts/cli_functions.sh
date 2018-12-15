@@ -1,23 +1,3 @@
-# oh my zsh:
-export ZSH=/home/gautley/.oh-my-zsh
-ZSH_THEME="robbyrussell"
-source $ZSH/oh-my-zsh.sh
-
-# Lines configured by zsh-newuser-install:
-unsetopt nomatch
-unsetopt appendhistory autocd beep extendedglob notify
-bindkey -e
-zstyle :compinstall filename '/home/gautley/.zshrc'
-autoload -Uz compinit
-compinit
-
-# Keybinds:
-bindkey "^[[H" beginning-of-line         # Home
-bindkey "^[[F" end-of-line               # End
-bindkey "^[[3~" delete-char              # Del
-bindkey '^[[5~' up-line-or-history       # PageUp
-bindkey '^[[6~' down-line-or-history     # PageDown
-
 function append_to_path()
 {
     case ":$PATH:" in
@@ -27,46 +7,6 @@ function append_to_path()
             PATH="$PATH:$1"
     esac
 }
-
-# Command alias:
-alias rsync="rsync --progress -ha"
-alias diskusage="du -chad 1"
-alias ll="ls -l"
-alias llh="ls -lh"
-alias l="ls"
-alias errcho=">&2 echo"
-alias keycodes="xmodmap -pke"
-
-HISTFILE=~/.zsh_history
-HISTSIZE=2000
-SAVEHIST=2000
-
-# Java setup:
-if [ -d /opt/jdk* ]
-then
-    JAVA_HOME=`ls -d /opt/jdk*`
-    PATH="$PATH:$JAVA_HOME/bin"
-    export JAVA_HOME
-fi
-
-# Ruby setup:
-if [ -d ~/.gem/ruby ]
-then
-    LASTEST_RUBY_GEM_BIN="$(ls ~/.gem/ruby | sort | tail -1)"
-    append_to_path ~/.gem/ruby/$LASTEST_RUBY_GEM_BIN/bin
-fi
-
-# Adding to PATH:
-[[ -d ~/.bin ]] && append_to_path ~/.bin
-[[ -d ~/.scripts ]] && append_to_path ~/.scripts
-
-export PATH
-export HISTFILE
-export HISTSIZE
-export SAVEHIST
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export TERMINAL=urxvt
 
 function is_software_installed()
 {

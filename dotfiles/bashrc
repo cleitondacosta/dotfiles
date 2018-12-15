@@ -1,0 +1,33 @@
+source ~/.dotfiles/dotfiles/scripts/cli_functions.sh
+
+set -o vi
+
+[[ $EUID != 0 ]]\
+    && PS1=" [\W] \e[38;5;82m\$\e[39m "\
+    || PS1=" [\W] \e[38;5;196m#\e[39m "
+
+# Command alias:
+alias ls="ls --color=auto"
+alias grep="grep --color=always"
+alias rsync="rsync --progress -ha"
+alias diskusage="du -chad 1"
+alias ll="ls -l"
+alias llh="ls -lh"
+alias l="ls"
+alias errcho=">&2 echo"
+alias keycodes="xmodmap -pke"
+
+# Ruby setup:
+if [ -d ~/.gem/ruby ]
+then
+    LASTEST_RUBY_GEM_BIN="$(ls ~/.gem/ruby | sort | tail -1)"
+    append_to_path ~/.gem/ruby/$LASTEST_RUBY_GEM_BIN/bin
+fi
+
+[[ -d ~/.bin ]] && append_to_path ~/.bin
+[[ -d ~/.scripts ]] && append_to_path ~/.scripts
+
+export PATH
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+export TERMINAL=urxvt
