@@ -35,9 +35,7 @@ function install_directory()
         echo "\"$DESTINATION/${SOURCE##*/}\""
         echo "Ignored ..."
         echo
-    fi
-
-    if [ ! -d $SOURCE ]
+    elif [ ! -d $SOURCE ]
     then
         errcho "No such directory: $SOURCE"
     else
