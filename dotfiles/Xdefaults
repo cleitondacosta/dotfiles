@@ -45,7 +45,7 @@ URxvt.shading: 15
 URxvt.intensityStyles: false
 URxvt*background: [90]#000000
 URxvt.depth: 20
-URxvt.font: xft:monospace:size=11
+URxvt.font: xft:monospace:size=10
 URxvt.scrollBar: false
 URxvt.cursorColor: white
 URxvt.externalBorder: 0
