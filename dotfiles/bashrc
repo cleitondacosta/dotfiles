@@ -1,10 +1,8 @@
 source ~/.dotfiles/dotfiles/scripts/cli_functions.sh
 
-set -o vi
-
 [[ $EUID != 0 ]]\
-    && PS1=" [\W] \e[38;5;82m\$\e[39m "\
-    || PS1=" [\W] \e[38;5;196m#\e[39m "
+    && PS1="[\W] \[\033[38;5;82m\]\$\[\033[39m\] "\
+    || PS1="[\W] \[\033[38;5;196m\]\$\[\033[39m\] "
 
 # Command alias:
 alias ls="ls --color=auto"
