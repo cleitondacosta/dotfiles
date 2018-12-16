@@ -40,8 +40,8 @@
 
 " Specific language config (TODO augroup)
     filetype on
-    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType ruby,tex,html,javascript,css
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Launch zathura with current latex script name, but with .pdf extension
     autocmd FileType tex nnoremap <F9>
@@ -128,9 +128,9 @@
 
 " Ranger Plugin
     let g:ranger_map_keys = 0
-    nnoremap <F2> :RangerNewTab<CR>
-    nnoremap <F3> :RangerNewVsplit<CR>
-    nnoremap <F4> :RangerNewSplit<CR>
+    nnoremap <F2> :w<CR>:RangerNewTab<CR>
+    nnoremap <F3> :w<CR>:RangerNewVsplit<CR>
+    nnoremap <F4> :w<CR>:RangerNewSplit<CR>
 
 " Latex plugin
     let g:tex_flavor = 'latex'     " To avoid issues. See :h:tex_flavor
