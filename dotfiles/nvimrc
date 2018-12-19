@@ -36,7 +36,6 @@
 " Max chars per line
     set colorcolumn=80
     set textwidth=80
-    highlight ColorColumn ctermbg=darkgray
 
 " Specific language config (TODO augroup)
     filetype on
@@ -75,17 +74,6 @@
 
     " Throws the content after the cursor to the line below
         nnoremap <C-j> i<Enter><esc>k$
-
-    " Enter (aka return) inserts new line below cursor (normal mode)
-        nnoremap <CR> o<esc>
-
-    " Next/back uppercase letter, useful for CamelCase identifiers
-        nnoremap <silent> ]w :call search('\u')<CR>
-        nnoremap <silent> [w :call search('\u', 'b')<CR>
-
-    " Next/back underscore, useful for snake_case identifiers
-        nnoremap <silent> ]_ :call search('_')<CR>
-        nnoremap <silent> [_ :call search('_', 'b')<CR>
         
 " Insert Mapping
     " Change word case
@@ -100,9 +88,6 @@
         " Adds the indent object (try: <normal>dii)
             Plug 'michaeljsmith/vim-indent-object'
 
-        " Commenting stuff
-            Plug 'scrooloose/nerdcommenter'
-        
         " Surrounding stuff
             Plug 'tpope/vim-surround'
 
@@ -118,12 +103,6 @@
 
         " Latex live preview
             Plug 'donRaphaco/neotex', { 'for': 'tex' }
-
-        " Javascript syntax highlight
-            Plug 'othree/yajs.vim'
-
-        " HTML 5
-            Plug 'othree/html5.vim'
     call plug#end()
 
 " Ranger Plugin
@@ -141,3 +120,4 @@
     colorscheme unicon
     set background=dark
     set cursorline
+    highlight ColorColumn ctermbg=darkgray
