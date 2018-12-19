@@ -26,7 +26,6 @@ for_window [class="^.*"] border pixel 1
 # i3-gaps:
 gaps inner 4
 gaps outer 4
-smart_gaps on
 
 # $mod = super
 set $mod Mod4
@@ -156,7 +155,7 @@ bindsym Print --release exec --no-startup-id\
     "~/.scripts/screenshot.sh FULL"
 bindsym $mod+Print --release exec --no-startup-id\
     "~/.scripts/screenshot.sh SELECT"
-bindsym Shift+Print --release exec --no-startup-id\
+bindsym $mod+Shift+Print --release exec --no-startup-id\
     "~/.scripts/screenshot.sh CURWIN"
 
 bindsym $mod+z exec --no-startup-id "~/.scripts/rofi/ffmpeg.sh"
@@ -192,17 +191,10 @@ mode "resize" {
     bindsym $mod+r mode "default"
 }
 
-
 bindsym $mod+x exec --no-startup-id\
     ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
 
-mode "system" {
-    bindsym l exec --no-startup-id "i3lock --color=000000", mode "default"
-
-    bindsym $mod+y mode "default"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
+bindsym $mod+p exec --no-startup-id "i3lock --color=151515", mode "default"
 
 # Going into modes
 bindsym $mod+y mode "system"
