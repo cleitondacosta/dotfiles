@@ -7,7 +7,7 @@ main() {
     try_to_include_screenshot_functions
 
     SCREENSHOT_DIR=~/image/screenshot
-    SCREENSHOT_FILE="$(date "+%d_%m_%Y - %H:%M:%S")"
+    SCREENSHOT_FILE="$(date "+%d_%m_%Y - %H:%M:%S").png"
 
     ask_option_and_screenshot "$SCREENSHOT_DIR" "$SCREENSHOT_FILE"
     ask_to_rename_file_and_notify "$SCREENSHOT_DIR" "$SCREENSHOT_FILE"
