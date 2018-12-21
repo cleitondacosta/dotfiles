@@ -4,7 +4,7 @@
 # Good:
 #   shutdown -h now
 # Bad:
-    # "~/my scripts/script to do something.sh" abc
+#   "~/my scripts/script to do something.sh" abc
 
 STRING_SIZE_LIMIT=25
 THIS_SCRIPT_NAME="rofi/prompt.sh"
