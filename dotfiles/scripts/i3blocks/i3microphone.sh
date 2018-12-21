@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 
-. ~/.scripts/i3blocks/i3printcolor.sh
-. ~/.scripts/i3blocks/i3colortones.sh
+. ~/.scripts/include/i3printcolor.sh
+. ~/.scripts/include/i3colortones.sh
 
 MICBOOST_PERCENTAGE=\
 "$(amixer get "Mic Boost" | tail -1 | grep -Eo "[0-9]{1,3}%")"

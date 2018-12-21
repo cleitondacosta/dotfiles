@@ -1,0 +1,29 @@
+* {
+    background-color: #151515;
+    text-color: #ffffff;
+    border-color: #5547df;
+    font: "Monospace 11";
+}
+
+window {
+    width: 50%;
+    height: 6%;
+    padding: 10;
+    border: 1px;
+}
+
+listview {
+    lines: 2;
+    padding: 20px;
+    spacing: 5px;
+}
+
+inputbar {
+    spacing: 7px;
+    padding: 2px;
+    children: [ prompt, entry ];
+}
+
+#element selected {
+    background-color: #363cb3;
+}

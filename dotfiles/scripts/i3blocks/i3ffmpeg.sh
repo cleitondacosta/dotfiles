@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 
-. ~/.scripts/i3blocks/i3printcolor.sh 
-. ~/.scripts/i3blocks/i3colortones.sh 
+. ~/.scripts/include/i3printcolor.sh 
+. ~/.scripts/include/i3colortones.sh 
 
 pgrep ffmpeg > /dev/null
 if [ $? -eq 0 ]

@@ -1,62 +1,96 @@
 #!/usr/bin/env dash
 
-THIS_SCRIPT_NAME="rofi/ffmpeg.sh"
-RECORD_DIR=~/video/capture
-FILE_NAME="$(date "+%d_%m_%Y - %H:%M:%S").mkv"
+# The .mp4 extension is added to the file name in record_functions.sh
 
-notify_if_recorded() {
-    if [ -f $RECORD_DIR/"$FILE_NAME" ]
+main() {
+    abort_if_ffmpeg_already_running
+
+    try_to_include_record_functions
+
+    RECORD_DIR=~/video/capture
+    DEFAULT_FILE_NAME="$(date "+%d_%m_%Y - %H:%M:%S")"
+
+    if [ ! -d $RECORD_DIR ]
     then
-        notify-send "$THIS_SCRIPT_NAME" "New capture in:\n$RECORD_DIR"
+        mkdir -p $RECORD_DIR
+    fi
+
+    ask_option_and_record "$RECORD_DIR/$DEFAULT_FILE_NAME" 
+    abort_if_file_doesnt_exists "$RECORD_DIR/$DEFAULT_FILE_NAME.mp4"
+    ask_to_rename_file_and_notify "$RECORD_DIR" "$DEFAULT_FILE_NAME.mp4"
+}
+
+abort_if_ffmpeg_already_running() {
+    if [ ! -z $(pgrep ffmpeg) ]
+    then
+        exit 0
     fi
 }
 
-record_no_sound() {
-    FRAME_RATE=$1
+try_to_include_record_functions() {
+    TO_INCLUDE=~/.dotfiles/dotfiles/scripts/include/record_functions.sh 
 
-    SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
-
-    ffmpeg \
-        -probesize 10M \
-        -y \
-        -f x11grab \
-        -s "$SCREEN_RESOLUTION" \
-        -r $FRAME_RATE \
-        -i :0.0 \
-        -c:v libx264rgb -crf 0 -preset ultrafast \
-        $RECORD_DIR/"$FILE_NAME"
-
-    return $?
+    if [ -e "$TO_INCLUDE" ]
+    then
+        . "$TO_INCLUDE"
+    else
+        notify-send "Capture" "Error: \"$TO_INCLUDE\" not found."
+        exit 1
+    fi
 }
 
-killall ffmpeg
+ask_option_and_record() {
+    CAPTURE_FILE=$1
 
-if [ $? -eq 0 ]
-then
-    notify_if_recorded
-    exit 0
-fi
+    ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/option-list-theme.rasi
 
-if [ ! -d $RECORD_DIR ]
-then 
-    mkdir -p $RECORD_DIR
-fi
+    OPTION_DESKTOP="mp4: Record 60fps with sound"
+    OPTION_WHATSAPP="mp4: Record 30fps with sound whatsapp compliant"
+    OPTIONS="$OPTION_DESKTOP\n$OPTION_WHATSAPP"
 
-OPTION_30FPS_NO_SOUND="Record 30fps without sound"
-OPTION_60FPS_NO_SOUND="Record 60fps without sound"
-OPTIONS="$OPTION_30FPS_NO_SOUND\n$OPTION_60FPS_NO_SOUND"
+    OPTION_CHOSEN=$(echo "$OPTIONS" | rofi -theme $ROFI_THEME -dmenu)
 
-ANSWER=$(
-    echo "$OPTIONS" |\
-        rofi -dmenu -i -theme\
-        ~/.dotfiles/dotfiles/rofi-themes/option-list-theme.rasi
-)
+    case $OPTION_CHOSEN in
+        $OPTION_DESKTOP) mp4_record "$CAPTURE_FILE" 60 ;;
+        $OPTION_WHATSAPP) mp4_record_whatsapp_compliant "$CAPTURE_FILE" 30 ;;
+        *) exit 0
+    esac
+}
 
-case "$ANSWER" 
-in
-    $OPTION_30FPS_NO_SOUND) record_no_sound 30 ;;
-    $OPTION_60FPS_NO_SOUND) record_no_sound 60 ;;
-    *) exit 0 ;;
-esac
+abort_if_file_doesnt_exists() {
+    FILE_NAME="$1"
 
-notify_if_recorded
+    if [ ! -f "$FILE_NAME" ]
+    then
+        notify-send "Capture" "Couldn't capture."
+        exit 1
+    fi
+}
+
+ask_to_rename_file_and_notify() {
+    FILE_DIR=$1
+    CURRENT_FILE_NAME="$2"
+
+    ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/type-theme.rasi
+    NEW_FILE_NAME="$(rofi -theme $ROFI_THEME -dmenu -p "File name: ")"
+
+    if [ ! -z "$NEW_FILE_NAME" ]
+    then
+        NEW_FILE_NAME="$NEW_FILE_NAME.mp4"
+
+        while [ -e $FILE_DIR/"$NEW_FILE_NAME" ]
+        do
+            NEW_FILE_NAME=$(
+                rofi -theme $ROFI_THEME -dmenu -p \
+                     "Already exists. Grab another name: "
+            )
+        done
+    
+        mv "$FILE_DIR/$CURRENT_FILE_NAME" "$FILE_DIR/$NEW_FILE_NAME"
+        CURRENT_FILE_NAME="$NEW_FILE_NAME"
+    fi
+
+    notify-send "New capture" "$FILE_DIR/$CURRENT_FILE_NAME"
+}
+
+main

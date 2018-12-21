@@ -158,6 +158,7 @@ bindsym $mod+Print --release exec --no-startup-id\
 bindsym $mod+Shift+Print --release exec --no-startup-id\
     "~/.scripts/screenshot.sh CURWIN"
 
+# ffmpeg
 bindsym $mod+z exec --no-startup-id "~/.scripts/rofi/ffmpeg.sh"
 bindsym $mod+Shift+z exec --no-startup-id killall ffmpeg
 

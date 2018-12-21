@@ -1,4 +1,4 @@
-source ~/.dotfiles/dotfiles/scripts/cli_functions.sh
+source ~/.dotfiles/dotfiles/scripts/include/cli_functions.sh
 
 [[ $EUID != 0 ]]\
     && PS1="[\W] \[\033[38;5;82m\]\$\[\033[39m\] "\
