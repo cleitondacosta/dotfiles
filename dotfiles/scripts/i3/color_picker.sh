@@ -1,5 +1,5 @@
-#!/usr/bin/env zsh
-# requires: zsh, zenity, xclip
+#!/usr/bin/env bash
+# requires: zenity, xclip
 
 RGB="$(zenity --color-selection --title="Color Picker" 2>/dev/null)"
 
@@ -8,14 +8,17 @@ then
     exit 0
 fi
 
-RGB=( $(echo $RGB | grep -Eo "([0-9]{1,3},?){3}" | tr ',' '\n') )
+RGB=( $(echo "$RGB" | grep -Eo "([0-9]{1,3},?){3}" | sed "s/,/\n/g" ) )
 
-HEX_COLOR="$(printf "#%2x%2x%2x" ${RGB[1]} ${RGB[2]} ${RGB[3]} | tr ' ' '0')"
+HEX_COLOR="$(printf "#%2x%2x%2x" ${RGB[0]} ${RGB[1]} ${RGB[2]})"
 
-printf "$HEX_COLOR" | xclip -selection clipboard
+HEX_COLOR="$(printf "$HEX_COLOR" | sed "s/\s/0/g")"
+printf $HEX_COLOR | xclip -selection clipboard
 
 if [ $? -ne 0 ]
 then
-    zenity --error --text="Internal error"
+    notify-send -u critical "Color picker" "Internal error."
     exit 1
+else
+    notify-send "Color picker" "$HEX_COLOR copied to the clipboard."
 fi
