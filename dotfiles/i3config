@@ -194,7 +194,6 @@ bindsym $mod+z exec --no-startup-id\
     ~/.scripts/rofi/prompt.sh "lock" "i3lock --color=151515"
 
 # Going into modes
-bindsym $mod+y mode "system"
 bindsym $mod+r mode "resize"
 
 # Dunst
