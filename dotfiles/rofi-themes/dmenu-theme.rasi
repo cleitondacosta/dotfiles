@@ -4,9 +4,6 @@
     font:                 "Monospace 10";
 }
 
-configuration {
-}
-
 #prompt { enabled: false; }
 
 #window {
