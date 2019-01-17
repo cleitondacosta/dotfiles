@@ -101,6 +101,8 @@ function recomendations()
     echo "  Install vim-plug?"
     echo "  Install light? (xbacklight may not work)"
     echo "  Change ~/.config/users-dirs.dirs?"
+    echo
+    echo "Remember: startx to launch the i3-gaps"
 }
 
 DOTFILES_DIR=$(pwd)/dotfiles
@@ -133,6 +135,7 @@ install_a_dotfile "$DOTFILES_DIR/bashrc" ~/.bashrc
 install_a_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
 install_a_dotfile "$DOTFILES_DIR/qutebrowser_config.py" \
                   ~/.config/qutebrowser/config.py
+install_a_dotfiles "$DOTFILES_DIR/xinitrc" ~/.xinitrc
 install_a_directory "$DOTFILES_DIR/scripts" ~/.scripts
 install_a_directory "$DOTFILES_DIR/rofi-themes" ~/.config/rofi
 

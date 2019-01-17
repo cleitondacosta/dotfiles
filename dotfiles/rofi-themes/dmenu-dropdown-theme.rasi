@@ -5,9 +5,6 @@
     scrollbar: true;
 }
 
-configuration {
-}
-
 #prompt { enabled: false; }
 
 #window {

@@ -5,7 +5,7 @@
 # Tip: The option --no-startup-id prevents the mouse cursor to become a watch
 #      for 60 sec.
 #
-# Requires: light (Controls monitor brightness)
+# Requires: light (Controls monitor brightness, xbacklight may not work)
 #           i3-gaps 
 #           pulseaudio
 #           pulseaudio-utils
@@ -35,6 +35,9 @@ set $downSoundVol "pactl set-sink-volume 0 -5%; pkill -RTMIN+10 i3blocks"
 set $upSoundVol "pactl set-sink-volume 0 +5%; pkill -RTMIN+10 i3blocks"
 set $upMicBoost "amixer set Mic\ Boost 1; pkill -RTMIN+10 i3blocks"
 set $downMicBoost "amixer set Mic\ Boost 0; pkill -RTMIN+10 i3blocks"
+set $toggleMusic "mpc toggle; pkill -RTMIN+10 i3blocks"
+set $nextMusic "mpc next; pkill -RTMIN+10 i3blocks"
+set $prevMusic "mpc prev; pkill -RTMIN+10 i3blocks"
 
 # Loading colors from Xresources (the # doesn't means a commentary, but the
 # fallback color, in case of not finding the color in Xresources.
@@ -143,6 +146,11 @@ bindsym $mod+Shift+r restart
 bindsym XF86AudioMute exec $toggleSoundMute
 bindsym XF86AudioLowerVolume exec $downSoundVol
 bindsym XF86AudioRaiseVolume exec $upSoundVol
+
+bindsym $mod+m exec "urxvt -e ncmpcpp"
+bindsym $mod+p exec $toggleMusic
+bindsym $mod+n exec $nextMusic
+bindsym $mod+Shift+n exec $prevMusic
 
 # Screen brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 4"

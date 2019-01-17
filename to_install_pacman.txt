@@ -1,3 +1,4 @@
+acpi
 cmake
 dash
 dunst
@@ -8,12 +9,15 @@ gimp
 git
 i3-gaps
 i3blocks
+i3blocks
 i3lock
+mpc
+mpd
+ncmpcpp
 neovim
 pdfgrep
 perl-image-exiftool
 pulseaudio
-pulseaudio-utils
 python3
 qutebrowser
 ranger
@@ -24,8 +28,9 @@ rxvt-unicode
 scrot
 sxiv
 task
-texlive-most
 texlive-lang
+texlive-most
 tree
-ttf-awesome-font
+xorg-server
+xorg-xinit
 zathura
