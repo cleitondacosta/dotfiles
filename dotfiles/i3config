@@ -36,8 +36,8 @@ set $upSoundVol "pactl set-sink-volume 0 +5%; pkill -RTMIN+10 i3blocks"
 set $upMicBoost "amixer set Mic\ Boost 1; pkill -RTMIN+10 i3blocks"
 set $downMicBoost "amixer set Mic\ Boost 0; pkill -RTMIN+10 i3blocks"
 set $toggleMusic "mpc toggle; pkill -RTMIN+10 i3blocks"
-set $nextMusic "mpc next; pkill -RTMIN+10 i3blocks"
-set $prevMusic "mpc prev; pkill -RTMIN+10 i3blocks"
+set $nextMusic "mpc next && pkill -RTMIN+10 i3blocks"
+set $prevMusic "mpc prev && pkill -RTMIN+10 i3blocks"
 
 # Loading colors from Xresources (the # doesn't means a commentary, but the
 # fallback color, in case of not finding the color in Xresources.
@@ -147,7 +147,7 @@ bindsym XF86AudioMute exec $toggleSoundMute
 bindsym XF86AudioLowerVolume exec $downSoundVol
 bindsym XF86AudioRaiseVolume exec $upSoundVol
 
-bindsym $mod+m exec "urxvt -e ncmpcpp"
+bindsym $mod+m exec "~/.scripts/i3/music.sh"
 bindsym $mod+p exec $toggleMusic
 bindsym $mod+n exec $nextMusic
 bindsym $mod+Shift+n exec $prevMusic

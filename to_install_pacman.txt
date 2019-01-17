@@ -13,7 +13,6 @@ i3blocks
 i3lock
 mpc
 mpd
-ncmpcpp
 neovim
 pdfgrep
 perl-image-exiftool

@@ -1,30 +1,36 @@
 #!/usr/bin/env dash
 
-. ~/.scripts/include/i3printcolor.sh
-. ~/.scripts/include/i3colortones.sh
+YELLOW_COLOR="#D6FC00"
+GREEN_COLOR="#71FC00"
+RED_COLOR="#EF2C28"
+
+i3_print_color()
+{
+    if [ $# -ne 2 ]
+    then
+        return 1
+    fi
+
+    TEXT="$1"
+    COLOR="$2"
+
+    echo "<span foreground=\"$COLOR\">$TEXT</span>"
+    return 0
+}
 
 MICBOOST_PERCENTAGE=\
 "$(amixer get "Mic Boost" | tail -1 | grep -Eo "[0-9]{1,3}%")"
 MICBOOST_NUMBER="$(echo $MICBOOST_PERCENTAGE | grep -Eo "[0-9]{1,3}")"
-MESSAGE="🎤 $MICBOOST_PERCENTAGE"
 
 if [ $MICBOOST_NUMBER -ge 100 ]
 then
-
-    i3_print_color "$MESSAGE" "$RED_TONE"
-
+    i3_print_color "$MICBOOST_PERCENTAGE" "$RED_COLOR"
 elif [ $MICBOOST_NUMBER -ge 66 ] && [ $MICBOOST_NUMBER -lt 100 ]
 then
-
-    i3_print_color "$MESSAGE" "$YELLOW_TONE"
-
+    i3_print_color "$MICBOOST_PERCENTAGE" "$YELLOW_COLOR"
 elif [ $MICBOOST_NUMBER -ge 33 ] && [ $MICBOOST_NUMBER -lt 66 ]
 then
-
-    i3_print_color "$MESSAGE" "$GREEN_TONE"
-
+    i3_print_color "$MICBOOST_PERCENTAGE" "$GREEN_COLOR"
 else
-
-    echo "$MESSAGE"
-
+    echo "$MICBOOST_PERCENTAGE"
 fi
