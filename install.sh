@@ -106,7 +106,7 @@ function recomendations()
 }
 
 DOTFILES_DIR=$(pwd)/dotfiles
-PACKAGE_LIST_FILE="./to_install_pacman.txt"
+PACKAGE_LIST_FILE="./lists/to_install_pacman.txt"
 
 if [ ! -d "$DOTFILES_DIR" ]
 then
