@@ -12,7 +12,6 @@ alias diskusage="du -chad 1"
 alias ll="ls -l"
 alias llh="ls -lh"
 alias l="ls"
-alias errcho=">&2 echo"
 alias keycodes="xmodmap -pke"
 
 # Ruby setup:

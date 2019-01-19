@@ -1,3 +1,5 @@
+alias errcho=">&2 echo"
+
 function append_to_path()
 {
     case ":$PATH:" in
