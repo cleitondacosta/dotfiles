@@ -21,6 +21,9 @@
 # No title bar on window (necessary for i3-gaps):
 for_window [class="^.*"] border pixel 1
 
+# Window colors
+client.focused #555555 #555555 #ffffff #2e9ef4 #ff9a00
+
 # i3-gaps:
 gaps inner 4
 gaps outer 4
