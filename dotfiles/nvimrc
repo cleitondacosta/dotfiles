@@ -98,9 +98,6 @@
         " More motions
             Plug 'wellle/targets.vim'
 
-        " Color scheme
-            Plug 'andbar-ru/vim-unicon'
-
         " Latex live preview
             Plug 'donRaphaco/neotex', { 'for': 'tex' }
     call plug#end()
@@ -117,7 +114,5 @@
     nnoremap <leader>ld :NeoTexOff<CR>
 
 " Color
-    colorscheme unicon
-    set background=dark
     set cursorline
     highlight ColorColumn ctermbg=darkgray

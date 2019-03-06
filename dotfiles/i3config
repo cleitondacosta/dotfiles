@@ -104,9 +104,9 @@ bindsym $mod+Shift+space floating toggle
 floating_modifier $mod
 
 # Workspaces:
-set $ws1 "1-research"
-set $ws2 "2-code"
-set $ws3 "3-media"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
@@ -173,10 +173,11 @@ bar {
 
     colors {
         background $darkblack
-        statusline $darkwhite
+        statusline #ff9a00
         separator $white
-        focused_workspace  $blue $cyan $darkblack
-        active_workspace   $blue $cyen $darkblack
+
+        focused_workspace  #ffc66f #ff9a00 $darkblack
+
         inactive_workspace $darkblack $darkblack $white
         urgent_workspace   $darkblack $darkblack $white
     }
