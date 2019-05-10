@@ -20,9 +20,7 @@
 
 # No title bar on window (necessary for i3-gaps):
 for_window [class="^.*"] border pixel 1
-
-# Window colors
-client.focused #ff9a00 #ff9a00 #ff9a00 #ff9a00 #ff9a00
+for_window [class="floating-window"] floating enable
 
 # i3-gaps:
 gaps inner 4
@@ -62,6 +60,9 @@ set_from_resource $darkwhite color7 #000000
 set_from_resource $white color15 #000000
 set $transparent #00000000
 
+# Window colors
+client.focused #ff9a00 $darkblack #ff9a00 #ff9a00 #ff9a00
+
 # Font:
 font pango:monospace 8
 
@@ -80,6 +81,7 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym Mod1+tab focus next
 
 # Swap container with neighbor:
 bindsym $mod+Shift+h move left
