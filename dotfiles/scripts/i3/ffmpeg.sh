@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/usr/bin/env bash
 
 # The .mp4 extension is added to the file name in record_functions.sh
 
@@ -45,14 +45,26 @@ ask_option_and_record() {
     ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/option-list-theme.rasi
 
     OPTION_DESKTOP="mp4: Record 60fps with sound"
-    OPTION_WHATSAPP="mp4: Record 30fps with sound whatsapp compliant"
-    OPTIONS="$OPTION_DESKTOP\n$OPTION_WHATSAPP"
+    OPTION_DESKTOP_NO_SOUND="mp4: Record 60fps without sound"
+    OPTION_WHATSAPP="mp4: Record 30fps with sound (Whatsapp)"
+    OPTION_WHATSAPP_NO_SOUND="mp4: Record 30fps without sound (Whatsapp)"
+    OPTIONS="$OPTION_DESKTOP\n$OPTION_DESKTOP_NO_SOUND\n$OPTION_WHATSAPP\n$OPTION_WHATSAPP_NO_SOUND"
 
-    OPTION_CHOSEN=$(echo "$OPTIONS" | rofi -theme $ROFI_THEME -dmenu)
+    OPTION_CHOSEN="$(echo -e "$OPTIONS" | rofi -theme $ROFI_THEME -dmenu)"
 
     case $OPTION_CHOSEN in
-        $OPTION_DESKTOP) mp4_record "$CAPTURE_FILE" 60 ;;
-        $OPTION_WHATSAPP) mp4_record_whatsapp_compliant "$CAPTURE_FILE" 30 ;;
+        $OPTION_DESKTOP)
+            mp4_record "$CAPTURE_FILE" 60
+            ;;
+        $OPTION_DESKTOP_NO_SOUND)
+            mp4_record_without_sound "$CAPTURE_FILE" 60
+            ;;
+        $OPTION_WHATSAPP)
+            mp4_record_whatsapp_compliant "$CAPTURE_FILE" 30
+            ;;
+        $OPTION_WHATSAPP_NO_SOUND) 
+            mp4_record_whatsapp_compliant_without_sound "$CAPTURE_FILE" 30
+            ;;
         *) exit 0
     esac
 }
@@ -62,7 +74,7 @@ abort_if_file_doesnt_exists() {
 
     if [ ! -f "$FILE_NAME" ]
     then
-        notify-send "Capture" "Couldn't capture."
+        notify-send -u critical "Capture" "Couldn't capture."
         exit 1
     fi
 }
