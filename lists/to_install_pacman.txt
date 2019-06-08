@@ -10,7 +10,6 @@ gimp
 git
 i3-gaps
 i3blocks
-i3blocks
 i3lock
 mpc
 mpd
@@ -24,7 +23,7 @@ ranger
 rofi
 rsync
 ruby
-rxvt-unicode
+termite
 scrot
 sxiv
 task

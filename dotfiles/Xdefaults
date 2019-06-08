@@ -38,30 +38,3 @@
 *.colorBD: #d9d9d9
 !*.colorIT:
 !*.colorUL:
-
-!! URXVT --
-URxvt.transparent: true
-URxvt.shading: 15
-URxvt.intensityStyles: false
-URxvt*background: [95]#000000
-URxvt.depth: 20
-URxvt.font: xft:monospace:size=10
-URxvt.scrollBar: false
-URxvt.cursorColor: white
-URxvt.externalBorder: 0
-URxvt.internalBorder: 0
-
-URxvt.perl-lib: /usr/lib/urxvt/perl/
-URxvt.perl-ext-common: default,resize-font,clipboard,url-select,keyboard-select
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-s: perl:keyboard-select:search
-URxvt.keyboard-select.clipboard: true
-Urxvt.keysym.M-u: perl:url-select:select_text
-
-URxvt.url-select.launcher: qutebrowser
-URxvt.url-select.underline: true
-URxvt.url-launcher: qutebrowser
-URxvt.matcher.button: 1
-
-URxvt.resize-font.smaller: M-Down
-URxvt.resize-font.bigger: M-Up

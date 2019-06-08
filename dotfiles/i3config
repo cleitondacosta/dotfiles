@@ -67,7 +67,7 @@ client.focused #ff9a00 $darkblack #ff9a00 #ff9a00 #ff9a00
 font pango:monospace 8
 
 # Launch programs:
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec termite
 bindsym $mod+c exec --no-startup-id ~/.scripts/i3/color_picker.sh
 
 # Kill focused window:

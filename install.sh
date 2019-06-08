@@ -130,6 +130,7 @@ install_a_dotfile "$DOTFILES_DIR/Xdefaults" ~/.Xdefaults
 install_a_dotfile "$DOTFILES_DIR/i3blocks.conf" ~/.i3blocks.conf
 install_a_dotfile "$DOTFILES_DIR/i3config" ~/.config/i3/config
 install_a_dotfile "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
+install_a_dotfile "$DOTFILES_DIR/termite.conf" ~/.config/termite/config
 install_a_dotfile "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
 install_a_dotfile "$DOTFILES_DIR/bashrc" ~/.bashrc
 install_a_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
