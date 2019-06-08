@@ -96,6 +96,10 @@
 
         " Latex live preview
             Plug 'donRaphaco/neotex', { 'for': 'tex' }
+
+        " JSX syntax highlight (React)
+            Plug 'pangloss/vim-javascript'
+            Plug 'mxw/vim-jsx'
     call plug#end()
 
 " Latex plugin
