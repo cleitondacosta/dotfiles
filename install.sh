@@ -134,9 +134,10 @@ install_a_dotfile "$DOTFILES_DIR/termite.conf" ~/.config/termite/config
 install_a_dotfile "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
 install_a_dotfile "$DOTFILES_DIR/bashrc" ~/.bashrc
 install_a_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
+install_a_dotfile "$DOTFILES_DIR/xinitrc" ~/.xinitrc
 install_a_dotfile "$DOTFILES_DIR/qutebrowser_config.py" \
                   ~/.config/qutebrowser/config.py
-install_a_dotfiles "$DOTFILES_DIR/xinitrc" ~/.xinitrc
+
 install_a_directory "$DOTFILES_DIR/scripts" ~/.scripts
 install_a_directory "$DOTFILES_DIR/rofi-themes" ~/.config/rofi
 
