@@ -44,5 +44,6 @@ scrollbar {
 }
 
 #element selected {
-    background-color: #363cb3;
+    color: black;
+    background-color: #ff9a00;
 }

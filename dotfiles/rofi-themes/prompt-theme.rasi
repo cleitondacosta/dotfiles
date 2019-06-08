@@ -10,6 +10,7 @@ window {
     height: 28%;
     padding: 50;
     border: 1px;
+    border-color: #ff9a00;
 }
 
 listview {
@@ -25,5 +26,6 @@ inputbar {
 }
 
 #element selected {
-    background-color: #363cb3;
+    color: black;
+    background-color: #ff9a00;
 }
