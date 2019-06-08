@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-alias errcho=">&2 echo"
-
 function install_packages()
 {
     PACKAGES_TO_INSTALL=$1
@@ -27,7 +25,7 @@ function softlink_and_print()
     ln -s $SOURCE $DESTINATION
     [[ $? -eq 0 ]]\
         && echo "[>] $DESTINATION → $SOURCE"\
-        || errcho "Couldn't link \"$SOURCE\" to \"$DESTINATION\"."
+        || echo "Couldn't link \"$SOURCE\" to \"$DESTINATION\"."
 }
 
 function softlink_force_and_print()
@@ -38,7 +36,7 @@ function softlink_force_and_print()
     ln -sf $SOURCE $DESTINATION
     [[ $? -eq 0 ]]\
         && echo "[>] $DESTINATION → $SOURCE"\
-        || errcho "Couldn't link \"$SOURCE\" to \"$DESTINATION\"."
+        || echo "Couldn't link \"$SOURCE\" to \"$DESTINATION\"."
 }
 
 function install_a_dotfile()
@@ -49,7 +47,7 @@ function install_a_dotfile()
 
     if [ ! -f $SOURCE ]
     then
-        errcho "Dotfile $SOURCE not found."
+        echo "Dotfile $SOURCE not found."
     else
         if [ ! -d $DESTINATION_PARENT_DIR ]
         then
@@ -78,7 +76,7 @@ function install_a_directory()
 
     if [ ! -d $SOURCE ]
     then
-        errcho "No such directory: \"$SOURCE\". Ignored ..."
+        echo "No such directory: \"$SOURCE\". Ignored ..."
     elif [ -e $DESTINATION ]
     then
         echo "\"$DESTINATION\" already exists. Ignored ..."
@@ -110,16 +108,16 @@ PACKAGE_LIST_FILE="./lists/to_install_pacman.txt"
 
 if [ ! -d "$DOTFILES_DIR" ]
 then
-    errcho "No such directory: \"$DOTFILES_DIR\""
-    errcho "See the readme."
+    echo "No such directory: \"$DOTFILES_DIR\""
+    echo "See the readme."
 
     exit 1
 fi
 
 if [ ! -f "$PACKAGE_LIST_FILE" ]
 then
-    errcho "No such file: \"$PACKAGE_LIST_FILE\""
-    errcho "See the readme."
+    echo "No such file: \"$PACKAGE_LIST_FILE\""
+    echo "See the readme."
 
     exit 1
 fi
