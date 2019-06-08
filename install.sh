@@ -17,77 +17,44 @@ function install_packages()
     echo
 }
 
+function smart_link()
+{
+    SOURCE="$1"
+    DESTINATION="$2"
+    DESTINATION_PARENT_DIR="$(dirname $DESTINATION)"
+
+    if [ ! -e $SOURCE ]
+    then
+        echo "No such file: \"$SOURCE\""
+    else
+        [[ ! -d $DESTINATION_PARENT_DIR ]] && mkdir -p $DESTINATION_PARENT_DIR
+
+        [[ ! -e "$DESTINATION" ]]\
+            && softlink_and_print "$SOURCE" "$DESTINATION"\
+            || ask_to_replace_link "$SOURCE" "$DESTINATION"
+    fi
+}
+
+
 function softlink_and_print()
 {
-    SOURCE=$1
-    DESTINATION=$2
+    SOURCE="$1"
+    DESTINATION="$2"
 
-    ln -s $SOURCE $DESTINATION
-    [[ $? -eq 0 ]]\
-        && echo "[>] $DESTINATION → $SOURCE"\
-        || echo "Couldn't link \"$SOURCE\" to \"$DESTINATION\"."
+    ln -sf "$SOURCE" "$DESTINATION"
+    [[ $? -eq 0 ]] && echo "  $DESTINATION → $SOURCE"
 }
 
-function softlink_force_and_print()
-{
-    SOURCE=$1
-    DESTINATION=$2
+function ask_to_replace_link() {
+    SOURCE="$1"
+    DESTINATION="$2"
 
-    ln -sf $SOURCE $DESTINATION
-    [[ $? -eq 0 ]]\
-        && echo "[>] $DESTINATION → $SOURCE"\
-        || echo "Couldn't link \"$SOURCE\" to \"$DESTINATION\"."
-}
+    echo -n "\"$DESTINATION\" already exists. Replace it? [y/n] "
+    read ANSWER
 
-function install_a_dotfile()
-{
-    SOURCE=$1
-    DESTINATION=$2
-    DESTINATION_PARENT_DIR=$(dirname $DESTINATION)
-
-    if [ ! -f $SOURCE ]
-    then
-        echo "Dotfile $SOURCE not found."
-    else
-        if [ ! -d $DESTINATION_PARENT_DIR ]
-        then
-            mkdir -p $DESTINATION_PARENT_DIR
-        fi
-
-        if [ -e "$DESTINATION" ]
-        then
-            echo -n "\"$DESTINATION\" already exists. Replace it? [y/n] "
-            read ANSWER
-
-            case $ANSWER in
-                y|Y) softlink_force_and_print $SOURCE $DESTINATION
-            esac
-        else
-            softlink_and_print $SOURCE $DESTINATION
-        fi
-    fi
-}
-
-function install_a_directory()
-{
-    SOURCE=$1
-    DESTINATION=$2
-    DESTINATION_PARENT_DIR=$(dirname $DESTINATION)
-
-    if [ ! -d $SOURCE ]
-    then
-        echo "No such directory: \"$SOURCE\". Ignored ..."
-    elif [ -e $DESTINATION ]
-    then
-        echo "\"$DESTINATION\" already exists. Ignored ..."
-    else
-        if [ ! -d $DESTINATION_PARENT_DIR ]
-        then
-            mkdir -p $DESTINATION_PARENT_DIR
-        fi
-
-        softlink_and_print $SOURCE $DESTINATION
-    fi
+    case $ANSWER in
+        y|Y) softlink_and_print $SOURCE $DESTINATION
+    esac
 }
 
 function recomendations()
@@ -124,19 +91,19 @@ fi
 
 install_packages "$(tr '\n' ' ' < $PACKAGE_LIST_FILE)"
 
-install_a_dotfile "$DOTFILES_DIR/Xdefaults" ~/.Xdefaults
-install_a_dotfile "$DOTFILES_DIR/i3blocks.conf" ~/.i3blocks.conf
-install_a_dotfile "$DOTFILES_DIR/i3config" ~/.config/i3/config
-install_a_dotfile "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
-install_a_dotfile "$DOTFILES_DIR/termite.conf" ~/.config/termite/config
-install_a_dotfile "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
-install_a_dotfile "$DOTFILES_DIR/bashrc" ~/.bashrc
-install_a_dotfile "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
-install_a_dotfile "$DOTFILES_DIR/xinitrc" ~/.xinitrc
-install_a_dotfile "$DOTFILES_DIR/qutebrowser_config.py" \
+smart_link "$DOTFILES_DIR/Xdefaults" ~/.Xdefaults
+smart_link "$DOTFILES_DIR/i3blocks.conf" ~/.i3blocks.conf
+smart_link "$DOTFILES_DIR/i3config" ~/.config/i3/config
+smart_link "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
+smart_link "$DOTFILES_DIR/termite.conf" ~/.config/termite/config
+smart_link "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
+smart_link "$DOTFILES_DIR/bashrc" ~/.bashrc
+smart_link "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
+smart_link "$DOTFILES_DIR/xinitrc" ~/.xinitrc
+smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
                   ~/.config/qutebrowser/config.py
 
-install_a_directory "$DOTFILES_DIR/scripts" ~/.scripts
-install_a_directory "$DOTFILES_DIR/rofi-themes" ~/.config/rofi
+smart_link "$DOTFILES_DIR/scripts" ~/.scripts
+smart_link "$DOTFILES_DIR/rofi-themes" ~/.config/rofi
 
 recomendations
