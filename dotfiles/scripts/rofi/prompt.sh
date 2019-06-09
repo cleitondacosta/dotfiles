@@ -8,6 +8,7 @@
 
 STRING_SIZE_LIMIT=25
 THIS_SCRIPT_NAME="rofi/prompt.sh"
+THEME=~/.config/rofi/prompt-theme.rasi
 
 rofi_error() {
     rofi -e "$THIS_SCRIPT_NAME: Error: $1"
@@ -30,7 +31,7 @@ fi
 
 ANSWER=$(
     echo "Yes\nNo"\ | rofi -dmenu -i -p "Are you sure about $ACTION?"\
-                      -theme ~/.dotfiles/dotfiles/rofi-themes/prompt-theme.rasi
+                      -theme $THEME
 )
 
 command -v "${COMMAND%% *}" > /dev/null

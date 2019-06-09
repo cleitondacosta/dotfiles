@@ -1,6 +1,6 @@
 #!/usr/bin/env dash
 
-ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/dmenu-dropdown-theme.rasi
+ROFI_THEME=~/.config/rofi/dmenu-dropdown-theme.rasi
 
 ARTIST_DIR="$(ls ~/music | rofi -dmenu -i -theme $ROFI_THEME)"
 

@@ -104,6 +104,6 @@ smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
                   ~/.config/qutebrowser/config.py
 
 smart_link "$DOTFILES_DIR/scripts" ~/.scripts
-smart_link "$DOTFILES_DIR/rofi-themes" ~/.config/rofi
+smart_link "./rofi-themes" ~/.config/rofi
 
 recomendations

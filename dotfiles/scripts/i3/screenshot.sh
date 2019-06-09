@@ -29,7 +29,7 @@ ask_option_and_screenshot() {
     SCREENSHOT_DIR=$1
     SCREENSHOT_FILE=$2
 
-    ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/option-list-theme.rasi
+    ROFI_THEME=~/.config/rofi/option-list-theme.rasi
 
     OPTION_FULL_SCREEN="Full screen"
     OPTION_CURRENT_WINDOW="Current window"
@@ -59,20 +59,23 @@ ask_to_rename_file_and_notify() {
     FILE_DIR=$1
     FILE_NAME="$2"
 
-    ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/type-theme.rasi
+    ROFI_THEME=~/.config/rofi/type-theme.rasi
     NEW_FILE_NAME="$(rofi -theme $ROFI_THEME -dmenu -p "File name: ")"
 
     if [ ! -z "$NEW_FILE_NAME" ]
     then
+        NEW_FILE_NAME="$(add_png_extension "$NEW_FILE_NAME")"
+
         while [ -e "$FILE_DIR/$NEW_FILE_NAME" ]
         do
             NEW_FILE_NAME=$(
                 rofi -theme $ROFI_THEME -dmenu -p \
                      "Already exists. Grab another name: "
             )
+
+            NEW_FILE_NAME="$(add_png_extension "$NEW_FILE_NAME")"
         done
 
-        NEW_FILE_NAME="$(add_png_extension "$NEW_FILE_NAME")"
     
         mv "$FILE_DIR/$FILE_NAME" "$FILE_DIR/$NEW_FILE_NAME"
         FILE_NAME="$NEW_FILE_NAME"

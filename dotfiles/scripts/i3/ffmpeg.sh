@@ -42,7 +42,7 @@ try_to_include_record_functions() {
 ask_option_and_record() {
     CAPTURE_FILE=$1
 
-    ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/option-list-theme.rasi
+    ROFI_THEME=~/.config/rofi/option-list-theme.rasi
 
     OPTION_DESKTOP="mp4: Record 60fps with sound"
     OPTION_DESKTOP_NO_SOUND="mp4: Record 60fps without sound"
@@ -83,7 +83,7 @@ ask_to_rename_file_and_notify() {
     FILE_DIR=$1
     CURRENT_FILE_NAME="$2"
 
-    ROFI_THEME=~/.dotfiles/dotfiles/rofi-themes/type-theme.rasi
+    ROFI_THEME=~/.config/rofi/type-theme.rasi
     NEW_FILE_NAME="$(rofi -theme $ROFI_THEME -dmenu -p "File name: ")"
 
     if [ ! -z "$NEW_FILE_NAME" ]
@@ -96,6 +96,7 @@ ask_to_rename_file_and_notify() {
                 rofi -theme $ROFI_THEME -dmenu -p \
                      "Already exists. Grab another name: "
             )
+            NEW_FILE_NAME="$NEW_FILE_NAME.mp4"
         done
     
         mv "$FILE_DIR/$CURRENT_FILE_NAME" "$FILE_DIR/$NEW_FILE_NAME"
