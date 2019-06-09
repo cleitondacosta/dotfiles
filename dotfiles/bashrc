@@ -22,7 +22,7 @@ then
 fi
 
 [[ -d ~/.bin ]] && append_to_path ~/.bin
-[[ -d ~/.scripts ]] && append_to_path ~/.scripts
+[[ -d ~/.scripts/cli-commands ]] && append_to_path ~/.scripts/cli-commands
 
 export PATH
 export VISUAL=nvim
