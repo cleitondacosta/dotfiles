@@ -41,7 +41,7 @@ function softlink_and_print()
     SOURCE="$1"
     DESTINATION="$2"
 
-    ln -sf "$SOURCE" "$DESTINATION"
+    ln -nsrf "$SOURCE" "$DESTINATION"
     [[ $? -eq 0 ]] && echo "  $DESTINATION → $SOURCE"
 }
 
