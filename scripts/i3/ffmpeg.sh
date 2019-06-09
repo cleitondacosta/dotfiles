@@ -28,7 +28,7 @@ abort_if_ffmpeg_already_running() {
 }
 
 try_to_include_record_functions() {
-    TO_INCLUDE=~/.dotfiles/dotfiles/scripts/include/record_functions.sh 
+    TO_INCLUDE=~/.dotfiles/scripts/include/record_functions.sh 
 
     if [ -e "$TO_INCLUDE" ]
     then

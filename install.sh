@@ -103,7 +103,7 @@ smart_link "$DOTFILES_DIR/xinitrc" ~/.xinitrc
 smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
                   ~/.config/qutebrowser/config.py
 
-smart_link "$DOTFILES_DIR/scripts" ~/.scripts
+smart_link "./scripts" ~/.scripts
 smart_link "./rofi-themes" ~/.config/rofi
 
 recomendations
