@@ -55,6 +55,7 @@
     autocmd FileType awk nnoremap <F9> <esc>:w<CR>:term awk -f %<CR>i
     autocmd FileType html nnoremap <F9> <esc>:w<CR>:!chromium % &<CR><CR>
     autocmd FileType perl nnoremap <F9> <esc>:w<CR>:term perl %<CR>i
+    autocmd FileType javascript nnoremap <F9> <esc>:w<CR>:term node %<CR>i
 
 " Executing scripts (passing args, ie. no <CR> at the end)
     autocmd FileType ruby nnoremap <F10> <esc>:w<CR>:term ruby %
@@ -64,6 +65,7 @@
     autocmd FileType zsh nnoremap <F10> <esc>:w<CR>:term zsh %
     autocmd FileType awk nnoremap <F10> <esc>:w<CR>:term awk -f %
     autocmd FileType perl nnoremap <F10> <esc>:w<CR>:term perl %
+    autocmd FileType javascript nnoremap <F10> <esc>:w<CR>:term node %
     
 " Misc
     set ttimeoutlen=100
@@ -100,12 +102,20 @@
         " JSX syntax highlight (React)
             Plug 'pangloss/vim-javascript'
             Plug 'mxw/vim-jsx'
+
+        " Ranger plugin
+            Plug 'rafaqz/ranger.vim'
     call plug#end()
 
 " Latex plugin
     let g:tex_flavor = 'latex'     " To avoid issues. See :h:tex_flavor
     nnoremap <leader>le :NeoTexOn<CR>
     nnoremap <leader>ld :NeoTexOff<CR>
+
+" Ranger plugin
+    map <F2> :RangerTab<CR>
+    map <F3> :RangerVSplit<CR>
+    map <F4> :RangerSplit<CR>
 
 " Color
     set cursorline
