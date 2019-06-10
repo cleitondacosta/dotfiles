@@ -14,7 +14,7 @@ main() {
 }
 
 try_to_include_screenshot_functions() {
-    TO_INCLUDE=~/.dotfiles/scripts/include/screenshot_functions.sh
+    TO_INCLUDE=~/.scripts/include/screenshot_functions.sh
 
     if [ -f "$TO_INCLUDE" ]
     then
