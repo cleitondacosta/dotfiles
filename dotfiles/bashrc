@@ -27,4 +27,5 @@ fi
 export PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export TERMINAL=urxvt
+export TERMINAL=termite
+export TERM=termite
