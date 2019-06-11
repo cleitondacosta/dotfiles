@@ -66,7 +66,7 @@
     autocmd FileType awk nnoremap <F10> <esc>:w<CR>:term awk -f %
     autocmd FileType perl nnoremap <F10> <esc>:w<CR>:term perl %
     autocmd FileType javascript nnoremap <F10> <esc>:w<CR>:term node %
-    
+
 " Misc
     set ttimeoutlen=100
 
@@ -76,14 +76,14 @@
 
     " Throws the content after the cursor to the line below
         nnoremap <C-j> i<Enter><esc>k$
-        
+
 " Insert Mapping
     " Change word case
         imap <C-u> <esc>gUiwea
 
 " Commands
     command Nvimrc tabe ~/.config/nvim/init.vim
-    command Mainsplit vertical resize 84 
+    command Mainsplit vertical resize 84
 
 " Plugins (requires: https://github.com/junegunn/vim-plug)
     call plug#begin('~/.config/nvim/bundle')
@@ -128,6 +128,7 @@
 
 " Airline
     let g:airline_powerline_fonts = 1
+    let g:airline_skip_empty_sections = 1
 
 " Fugitive
     set diffopt+=vertical
