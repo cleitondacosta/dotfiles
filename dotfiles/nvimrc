@@ -105,6 +105,9 @@
 
         " Ranger plugin
             Plug 'rafaqz/ranger.vim'
+
+        " Colorscheme
+            Plug 'morhetz/gruvbox'
     call plug#end()
 
 " Latex plugin
@@ -118,5 +121,6 @@
     map <F4> :RangerSplit<CR>
 
 " Color
+    colorscheme gruvbox
     set cursorline
     highlight ColorColumn ctermbg=darkgray
