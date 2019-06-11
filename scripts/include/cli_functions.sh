@@ -65,6 +65,17 @@ function search_software()
     done
 }
 
+function ffind() {
+    if [ $# -ne 2 ]
+    then
+        errcho "ffind: Error: expected 2 arguments."
+        errcho "ffind: Usage: ffind FILE_PATTERN TEXT_PATTERN"
+        return 1
+    fi
+
+    find . -type f -iname "$1" -exec grep --color=auto -EHn "$2" {} \;
+}
+
 function translate_english_to_portuguese()
 {
     if [ $(is_software_installed trans) -ne 0 ]
