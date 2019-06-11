@@ -129,6 +129,9 @@
 " Airline
     let g:airline_powerline_fonts = 1
 
+" Fugitive
+    set diffopt+=vertical
+
 " Color
     colorscheme gruvbox
     set cursorline
