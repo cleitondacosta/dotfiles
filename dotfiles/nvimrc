@@ -27,7 +27,7 @@
     set smartindent
 
 " Search
-    set nohlsearch
+    nnoremap <leader><space> :noh<CR>
 
 " Line number
     set nu
