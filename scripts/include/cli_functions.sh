@@ -10,6 +10,10 @@ function append_to_path()
     esac
 }
 
+function add_to_path_if_exists() {
+    [[ -d $1 ]] && append_to_path $1
+}
+
 function is_software_installed()
 {
     # Checks if a software is installed. Only one parameter, Arch Linux only.

@@ -18,11 +18,19 @@ alias keycodes="xmodmap -pke"
 if [ -d ~/.gem/ruby ]
 then
     LASTEST_RUBY_GEM_BIN="$(ls ~/.gem/ruby | sort | tail -1)"
-    append_to_path ~/.gem/ruby/$LASTEST_RUBY_GEM_BIN/bin
+    add_to_path_if_exists ~/.gem/ruby/$LASTEST_RUBY_GEM_BIN/bin
 fi
 
-[[ -d ~/.bin ]] && append_to_path ~/.bin
-[[ -d ~/.scripts/cli-commands ]] && append_to_path ~/.scripts/cli-commands
+# Android setup:
+if [ -d /opt/android-sdk ]
+then
+    ANDROID_SDK_ROOT=/opt/android-sdk
+    add_to_path_if_exists $ANDROID_SDK_ROOT/tools/bin
+    export ANDROID_SDK_ROOT
+fi
+
+add_to_path_if_exists ~/.bin
+add_to_path_if_exists ~/.scripts/cli-commands
 
 export PATH
 export VISUAL=nvim
