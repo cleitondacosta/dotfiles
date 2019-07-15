@@ -64,7 +64,7 @@ function recomendations()
     echo "  Install a display manager (with greeter?)?"
     echo "  Install aurman?"
     echo "  Install vim-plug?"
-    echo "  Install fura mono for powerline font? (xbacklight may not work)"
+    echo "  Install Fura Mono Font for powerline?"
     echo "  Install light? (xbacklight may not work)"
     echo "  Change ~/.config/users-dirs.dirs?"
     echo
