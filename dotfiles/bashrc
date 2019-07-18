@@ -13,6 +13,8 @@ alias ll="ls -l"
 alias llh="ls -lh"
 alias l="ls"
 alias keycodes="xmodmap -pke"
+alias tetp="translate_english_to_portuguese"
+alias tpte="translate_portuguese_to_english"
 
 # Ruby setup:
 if [ -d ~/.gem/ruby ]
