@@ -109,9 +109,6 @@
         " Status Line
             Plug 'vim-airline/vim-airline'
 
-        " Git Wrapper (Required  by default airline configuration)
-            Plug 'tpope/vim-fugitive'
-
         " Colorscheme
             Plug 'morhetz/gruvbox'
     call plug#end()
@@ -130,9 +127,6 @@
     let g:airline_powerline_fonts = 1
     let g:airline_skip_empty_sections = 1
     let g:airline#extensions#whitespace#enabled = 0
-
-" Fugitive
-    set diffopt+=vertical
 
 " Color
     colorscheme gruvbox
