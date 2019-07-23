@@ -106,9 +106,6 @@
         " Ranger plugin
             Plug 'rafaqz/ranger.vim'
 
-        " Status Line
-            Plug 'vim-airline/vim-airline'
-
         " Colorscheme
             Plug 'morhetz/gruvbox'
     call plug#end()
@@ -122,11 +119,6 @@
     map <F2> :RangerTab<CR>
     map <F3> :RangerVSplit<CR>
     map <F4> :RangerSplit<CR>
-
-" Airline
-    let g:airline_powerline_fonts = 1
-    let g:airline_skip_empty_sections = 1
-    let g:airline#extensions#whitespace#enabled = 0
 
 " Color
     colorscheme gruvbox
