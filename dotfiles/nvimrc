@@ -23,9 +23,9 @@
     set colorcolumn=80
     set textwidth=80
 
-" Specific language config (TODO augroup)
+" Specific language indent (TODO augroup)
     filetype on
-    autocmd FileType ruby,tex,html,javascript,css
+    autocmd FileType ruby,tex,html,javascript,css,json
         \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Launch zathura with current latex script name, but with .pdf extension
