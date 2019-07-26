@@ -39,10 +39,6 @@
     " Throws the content after the cursor to the line below
         nnoremap <CR> i<Enter><esc>k$
 
-" Insert Mapping
-    " Change word case
-        imap <C-u> <esc>gUiwea
-
 " Commands
     command Nvimrc tabe ~/.config/nvim/init.vim
     command Mainsplit vertical resize 84
