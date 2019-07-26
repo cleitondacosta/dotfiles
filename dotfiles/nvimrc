@@ -37,7 +37,7 @@
 
 " Normal Mapping (:help map-which-keys)
     " Throws the content after the cursor to the line below
-        nnoremap <C-j> i<Enter><esc>k$
+        nnoremap <CR> i<Enter><esc>k$
 
 " Insert Mapping
     " Change word case
