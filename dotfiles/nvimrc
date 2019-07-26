@@ -36,9 +36,6 @@
     set ttimeoutlen=100
 
 " Normal Mapping (:help map-which-keys)
-    " Go to previous tab
-        nnoremap , gT
-
     " Throws the content after the cursor to the line below
         nnoremap <C-j> i<Enter><esc>k$
 
