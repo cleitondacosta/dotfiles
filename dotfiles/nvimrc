@@ -28,9 +28,6 @@
     autocmd FileType ruby,tex,html,javascript,css,json
         \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
-" Launch zathura with current latex script name, but with .pdf extension
-    autocmd FileType tex nnoremap <F9>
-        \ <esc>:!FILENAME=%; zathura ${FILENAME\%.*}.pdf &<CR><CR>
 
 " Misc
     set ttimeoutlen=100
@@ -68,10 +65,15 @@
             Plug 'morhetz/gruvbox'
     call plug#end()
 
-" Latex plugin
-    let g:tex_flavor = 'latex'     " To avoid issues. See :h:tex_flavor
-    nnoremap <leader>le :NeoTexOn<CR>
-    nnoremap <leader>ld :NeoTexOff<CR>
+" Latex config
+augroup latexconf
+    autocmd!
+    autocmd FileType tex let g:tex_flavor = 'latex'
+    autocmd FileType tex nnoremap <leader>le :NeoTexOn<CR>
+    autocmd FileType tex nnoremap <leader>ld :NeoTexOff<CR>
+    autocmd FileType tex nnoremap <F9>
+        \ <esc>:!FILENAME=%; zathura ${FILENAME\%.*}.pdf &<CR><CR>
+augroup end
 
 " Ranger plugin
     map <F2> :RangerTab<CR>
