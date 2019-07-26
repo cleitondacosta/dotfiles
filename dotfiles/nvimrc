@@ -1,4 +1,4 @@
-"~/.config/nvim/init.vim
+" See :help map-which-keys
 
 " Status bar
     set showcmd
@@ -11,6 +11,9 @@
     set expandtab
     set autoindent
     set smartindent
+    filetype on
+    autocmd FileType ruby,tex,html,javascript,css,json
+        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Search
     set nohlsearch
@@ -23,46 +26,26 @@
     set colorcolumn=80
     set textwidth=80
 
-" Specific language indent (TODO augroup)
-    filetype on
-    autocmd FileType ruby,tex,html,javascript,css,json
-        \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
-
-
 " Misc
     set ttimeoutlen=100
 
-" Normal Mapping (:help map-which-keys)
-    " Throws the content after the cursor to the line below
-        nnoremap <CR> i<Enter><esc>k$
+" Throws the content after the cursor to the line below
+    nnoremap <CR> i<Enter><esc>k$
 
 " Commands
     command Nvimrc tabe ~/.config/nvim/init.vim
     command Mainsplit vertical resize 84
 
-" Plugins (requires: https://github.com/junegunn/vim-plug)
+" Plugins (Requires vim-plug)
     call plug#begin('~/.config/nvim/bundle')
-        " Adds the indent object (try: <normal>dii)
-            Plug 'michaeljsmith/vim-indent-object'
-
-        " Surrounding stuff
-            Plug 'tpope/vim-surround'
-
-        " More motions
-            Plug 'wellle/targets.vim'
-
-        " Latex live preview
-            Plug 'donRaphaco/neotex', { 'for': 'tex' }
-
-        " JSX syntax highlight (React)
-            Plug 'pangloss/vim-javascript'
-            Plug 'mxw/vim-jsx'
-
-        " Ranger plugin
-            Plug 'rafaqz/ranger.vim'
-
-        " Colorscheme
-            Plug 'morhetz/gruvbox'
+        Plug 'michaeljsmith/vim-indent-object'
+        Plug 'tpope/vim-surround'
+        Plug 'wellle/targets.vim'
+        Plug 'donRaphaco/neotex', { 'for': 'tex' }
+        Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+        Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+        Plug 'rafaqz/ranger.vim'
+        Plug 'morhetz/gruvbox'
     call plug#end()
 
 " Latex config
