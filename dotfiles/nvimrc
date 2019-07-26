@@ -46,27 +46,6 @@
     autocmd FileType tex nnoremap <F9>
         \ <esc>:!FILENAME=%; zathura ${FILENAME\%.*}.pdf &<CR><CR>
 
-" Executing scripts (without passing args)
-    autocmd FileType ruby nnoremap <F9> <esc>:w<CR>:term ruby %<CR>i
-    autocmd FileType python nnoremap <F9> <esc>:w<CR>:term python3 %<CR>i
-    autocmd FileType lua nnoremap <F9> <esc>:w<CR>:term lua %<CR>i
-    autocmd FileType sh nnoremap <F9> <esc>:w<CR>:term bash %<CR>i
-    autocmd FileType zsh nnoremap <F9> <esc>:w<CR>:term zsh %<CR>i
-    autocmd FileType awk nnoremap <F9> <esc>:w<CR>:term awk -f %<CR>i
-    autocmd FileType html nnoremap <F9> <esc>:w<CR>:!chromium % &<CR><CR>
-    autocmd FileType perl nnoremap <F9> <esc>:w<CR>:term perl %<CR>i
-    autocmd FileType javascript nnoremap <F9> <esc>:w<CR>:term node %<CR>i
-
-" Executing scripts (passing args, ie. no <CR> at the end)
-    autocmd FileType ruby nnoremap <F10> <esc>:w<CR>:term ruby %
-    autocmd FileType python nnoremap <F10> <esc>:w<CR>:term python3 %
-    autocmd FileType lua nnoremap <F10> <esc>:w<CR>:term lua %
-    autocmd FileType sh nnoremap <F10> <esc>:w<CR>:term bash %
-    autocmd FileType zsh nnoremap <F10> <esc>:w<CR>:term zsh %
-    autocmd FileType awk nnoremap <F10> <esc>:w<CR>:term awk -f %
-    autocmd FileType perl nnoremap <F10> <esc>:w<CR>:term perl %
-    autocmd FileType javascript nnoremap <F10> <esc>:w<CR>:term node %
-
 " Misc
     set ttimeoutlen=100
 
