@@ -38,13 +38,15 @@
 
 " Plugins (Requires vim-plug)
     call plug#begin('~/.config/nvim/bundle')
+        Plug 'scrooloose/nerdcommenter'
+        Plug 'scrooloose/nerdtree'
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'Raimondi/delimitMate'
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'tpope/vim-surround'
         Plug 'wellle/targets.vim'
         Plug 'donRaphaco/neotex', { 'for': 'tex' }
-        Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-        Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-        Plug 'rafaqz/ranger.vim'
+        Plug 'sheerun/vim-polyglot'
         Plug 'morhetz/gruvbox'
     call plug#end()
 
@@ -58,10 +60,9 @@ augroup latexconf
         \ <esc>:!FILENAME=%; zathura ${FILENAME\%.*}.pdf &<CR><CR>
 augroup end
 
-" Ranger plugin
-    map <F2> :RangerTab<CR>
-    map <F3> :RangerVSplit<CR>
-    map <F4> :RangerSplit<CR>
+" NerdTree
+    map <F2> :NERDTreeToggle<CR>
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Color
     colorscheme gruvbox
