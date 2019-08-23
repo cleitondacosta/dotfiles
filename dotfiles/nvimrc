@@ -17,6 +17,8 @@
 
 " Search
     set nohlsearch
+    set ignorecase
+    set smartcase
 
 " Line number
     set nu
@@ -40,6 +42,7 @@
     call plug#begin('~/.config/nvim/bundle')
         Plug 'scrooloose/nerdcommenter'
         Plug 'scrooloose/nerdtree'
+        Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript.jsx']}
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         Plug 'Raimondi/delimitMate'
         Plug 'michaeljsmith/vim-indent-object'
@@ -60,8 +63,21 @@ augroup latexconf
         \ <esc>:!FILENAME=%; zathura ${FILENAME\%.*}.pdf &<CR><CR>
 augroup end
 
+" Emmet
+    autocmd FileType javascript set ft=javascript.jsx
+    autocmd FileType html,css,javascript.jsx EmmetInstall
+    let g:user_emmet_leader_key = ','
+    let g:user_emmet_settings = {
+        \  'javascript.jsx' : {
+        \      'extends': 'jsx',
+        \      'quote_char': "'",
+        \  },
+        \}
+
 " NerdTree
     map <F2> :NERDTreeToggle<CR>
+    let g:NERDTreeMapUpdir = 'h'
+    let g:NERDTreeMapActivateNode = 'l'
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Color
