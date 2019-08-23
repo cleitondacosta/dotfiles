@@ -20,13 +20,14 @@ pulseaudio
 python3
 qutebrowser
 ranger
+redshift
 rofi
 rsync
 ruby
-termite
 scrot
 sxiv
 task
+termite
 texlive-lang
 texlive-most
 tree

@@ -1,22 +1,6 @@
 # ~/.config/i3/config
 # To load default config: delete this file and then run i3-config-wizard(1).
-#
 # Tip: Run "xmodmax -pke" to see the key codes.
-# Tip: The option --no-startup-id prevents the mouse cursor to become a watch
-#      for 60 sec.
-#
-# Requires: light (Controls monitor brightness, xbacklight may not work)
-#           i3-gaps 
-#           pulseaudio
-#           pulseaudio-utils
-#           feh
-#           rofi
-#           scrot
-#           screenshot.sh (personal script in ~/.scripts)
-#           i3blocks
-#           ttf-awesome-font 
-#           pango
-#           ffmpeg
 
 # No title bar on window (necessary for i3-gaps):
 for_window [class="^.*"] border pixel 1
@@ -219,3 +203,6 @@ exec --no-startup-id "xinput set-prop 11 278 1"
 
 # Loads background image
 exec --no-startup-id "~/.fehbg &"
+
+# Execute redshift
+exec --no-startup-id redshift
