@@ -71,6 +71,17 @@ function recomendations()
     echo "Remember: startx to launch the i3-gaps"
 }
 
+function ask_to_install_oh_my_zsh() {
+    URL='https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh'
+
+    echo -n "Install oh my zsh? [y/n]"
+    read ANSWER
+
+    case $ANSWER in
+        y|Y) sh -c "$(wget $URL -O -)"
+    esac
+}
+
 DOTFILES_DIR=$(pwd)/dotfiles
 PACKAGE_LIST_FILE="./lists/to_install_pacman.txt"
 
@@ -98,7 +109,7 @@ smart_link "$DOTFILES_DIR/i3config" ~/.config/i3/config
 smart_link "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
 smart_link "$DOTFILES_DIR/termite.conf" ~/.config/termite/config
 smart_link "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
-smart_link "$DOTFILES_DIR/bashrc" ~/.bashrc
+smart_link "$DOTFILES_DIR/zshrc" ~/.zshrc
 smart_link "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
 smart_link "$DOTFILES_DIR/xinitrc" ~/.xinitrc
 smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
@@ -106,5 +117,7 @@ smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
 
 smart_link "./scripts" ~/.scripts
 smart_link "./rofi-themes" ~/.config/rofi
+
+ask_to_install_oh_my_zsh
 
 recomendations

@@ -1,29 +1,23 @@
+plugins=(rsync fzf)
+export ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="robbyrussell"
+HIST_STAMPS="dd.mm.yyyy"
+source $ZSH/oh-my-zsh.sh
+
+export FZF_BASE=/usr/bin
+
 source ~/.scripts/include/cli_functions.sh
 
-[[ $EUID != 0 ]]\
-    && PS1="[\W] \[\033[38;5;82m\]\$\[\033[39m\] "\
-    || PS1="[\W] \[\033[38;5;196m\]\$\[\033[39m\] "
-
-# Command alias:
-alias ls="ls --color=auto"
-alias grep="grep --color=always"
-alias rsync="rsync --progress -ha"
 alias diskusage="du -chad 1"
-alias ll="ls -l"
-alias llh="ls -lh"
-alias l="ls"
 alias keycodes="xmodmap -pke"
-alias tetp="translate_english_to_portuguese"
-alias tpte="translate_portuguese_to_english"
+alias enpt="translate_english_to_portuguese"
+alias pten="translate_portuguese_to_english"
 
-# Ruby setup:
-if [ -d ~/.gem/ruby ]
-then
+if [ -d ~/.gem/ruby ]; then
     LASTEST_RUBY_GEM_BIN="$(ls ~/.gem/ruby | sort | tail -1)"
     add_to_path_if_exists ~/.gem/ruby/$LASTEST_RUBY_GEM_BIN/bin
 fi
 
-# Android setup:
 if [ -d /opt/android-sdk ]
 then
     export ANDROID_HOME=/opt/android-sdk
