@@ -12,8 +12,6 @@ export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
 # Aliases
 alias find="fd"
 alias keycodes="xmodmap -pke"
-alias enpt="translate_english_to_portuguese"
-alias pten="translate_portuguese_to_english"
 alias c='cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
 alias e='nvim "$(fd --type f --hidden --follow --exclude .git | fzf)"'
 
