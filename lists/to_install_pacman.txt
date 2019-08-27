@@ -23,6 +23,7 @@ python3
 qutebrowser
 ranger
 redshift
+ripgrep
 rofi
 rsync
 ruby
