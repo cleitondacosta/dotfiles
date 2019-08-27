@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-function install_packages()
-{
+function install_packages() {
     PACKAGES_TO_INSTALL=$1
 
     echo "$PACKAGES_TO_INSTALL"
@@ -17,14 +16,12 @@ function install_packages()
     echo
 }
 
-function smart_link()
-{
+function smart_link() {
     SOURCE="$1"
     DESTINATION="$2"
     DESTINATION_PARENT_DIR="$(dirname $DESTINATION)"
 
-    if [ ! -e $SOURCE ]
-    then
+    if [ ! -e $SOURCE ]; then
         echo "No such file: \"$SOURCE\""
     else
         [[ ! -d $DESTINATION_PARENT_DIR ]] && mkdir -p $DESTINATION_PARENT_DIR
@@ -36,8 +33,7 @@ function smart_link()
 }
 
 
-function softlink_and_print()
-{
+function softlink_and_print() {
     SOURCE="$1"
     DESTINATION="$2"
 
@@ -57,14 +53,13 @@ function ask_to_replace_link() {
     esac
 }
 
-function recomendations()
-{
+function recomendations() {
     echo
     echo "Now that you're set, maybe you want to: "
     echo "  Install a display manager (with greeter?)?"
     echo "  Install aurman?"
     echo "  Install vim-plug?"
-    echo "  Install Fura Mono Font for powerline?"
+    echo "  Install Fura Mono Font?"
     echo "  Install light? (xbacklight may not work)"
     echo "  Change ~/.config/users-dirs.dirs?"
     echo
@@ -85,16 +80,14 @@ function ask_to_install_oh_my_zsh() {
 DOTFILES_DIR=$(pwd)/dotfiles
 PACKAGE_LIST_FILE="./lists/to_install_pacman.txt"
 
-if [ ! -d "$DOTFILES_DIR" ]
-then
+if [ ! -d "$DOTFILES_DIR" ]; then
     echo "No such directory: \"$DOTFILES_DIR\""
     echo "See the readme."
 
     exit 1
 fi
 
-if [ ! -f "$PACKAGE_LIST_FILE" ]
-then
+if [ ! -f "$PACKAGE_LIST_FILE" ]; then
     echo "No such file: \"$PACKAGE_LIST_FILE\""
     echo "See the readme."
 
@@ -117,6 +110,7 @@ smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
 
 smart_link "./scripts" ~/.scripts
 smart_link "./rofi-themes" ~/.config/rofi
+smart_link "./scripts/zsh-plugins/myutils" ~/.oh-my-zsh/custom/plugins/myutils
 
 ask_to_install_oh_my_zsh
 

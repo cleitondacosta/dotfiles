@@ -3,8 +3,10 @@ calcurse
 cmake
 dash
 dunst
+fd
 feh
 ffmpeg
+fzf
 gcc
 gimp
 git
