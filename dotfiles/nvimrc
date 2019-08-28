@@ -1,4 +1,6 @@
 " See :help map-which-keys
+" leader
+    let mapleader=","
 
 " Status bar
     set showcmd
@@ -41,9 +43,9 @@
 " Plugins (Requires vim-plug)
     call plug#begin('~/.config/nvim/bundle')
         Plug 'scrooloose/nerdcommenter'
-        Plug 'scrooloose/nerdtree'
-        Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript.jsx']}
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript']}
+        Plug 'dense-analysis/ale'
+        Plug 'shougo/deoplete.nvim'
         Plug 'Raimondi/delimitMate'
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'tpope/vim-surround'
@@ -51,7 +53,14 @@
         Plug 'donRaphaco/neotex', { 'for': 'tex' }
         Plug 'sheerun/vim-polyglot'
         Plug 'morhetz/gruvbox'
+        Plug 'junegunn/fzf.vim'
     call plug#end()
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
+
+" fzf
+nmap <leader>o :Files<CR>
 
 " Latex config
 augroup latexconf
@@ -64,21 +73,14 @@ augroup latexconf
 augroup end
 
 " Emmet
-    autocmd FileType javascript set ft=javascript.jsx
     autocmd FileType html,css,javascript.jsx EmmetInstall
     let g:user_emmet_leader_key = ','
     let g:user_emmet_settings = {
-        \  'javascript.jsx' : {
+        \  'javascript' : {
         \      'extends': 'jsx',
         \      'quote_char': "'",
         \  },
         \}
-
-" NerdTree
-    map <F2> :NERDTreeToggle<CR>
-    let g:NERDTreeMapUpdir = 'h'
-    let g:NERDTreeMapActivateNode = 'l'
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Color
     colorscheme gruvbox
