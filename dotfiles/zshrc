@@ -13,7 +13,7 @@ export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
 alias find="fd"
 alias keycodes="xmodmap -pke"
 alias c='cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
-alias e='nvim "$(fd --type f --hidden --follow --exclude .git | fzf)"'
+alias e="fd --type f --hidden --follow --exclude .git | fzf | xargs -r nvim"
 
 # Adding to PATH
 function add_to_path() {
@@ -22,15 +22,8 @@ function add_to_path() {
     PATH="$PATH:$1"
 }
 
-if [ -d /opt/android-sdk ]; then
-    export ANDROID_HOME=/opt/android-sdk
-    add_to_path "$ANDROID_HOME/emulator"
-    add_to_path "$ANDROID_HOME/tools"
-    add_to_path "$ANDROID_HOME/tools/bin"
-    add_to_path "$ANDROID_HOME/platform-tools"
-fi
-
 add_to_path ~/.yarn/bin
+add_to_path ~/.cargo/bin
 add_to_path ~/.bin
 add_to_path ~/.scripts/cli-commands
 
