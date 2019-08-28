@@ -13,6 +13,7 @@ export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
 alias find="fd"
 alias keycodes="xmodmap -pke"
 alias c='cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
+alias p='cd "$(ls ~/code/*/project/* -d | fzf)"'
 alias e="fd --type f --hidden --follow --exclude .git | fzf | xargs -r nvim"
 
 # Adding to PATH
