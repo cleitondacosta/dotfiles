@@ -1,36 +1,22 @@
-# ZSH SPECIFIC
-plugins=(fzf myutils)
+plugins=(fzf)
 ZSH_THEME="robbyrussell"
 HIST_STAMPS="dd.mm.yyyy"
-export ZSH=$HOME/.oh-my-zsh
-source $ZSH/oh-my-zsh.sh
+ZSH="$HOME/.oh-my-zsh"
+source "$ZSH/oh-my-zsh.sh"
 
 export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
 
-# Aliases
-alias find="fd"
-alias keycodes="xmodmap -pke"
-alias c='cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
-alias p='cd "$(ls ~/code/*/project/* -d | fzf)"'
-alias e="fd --type f --hidden --follow --exclude .git | fzf | xargs -r nvim"
-
-# Adding to PATH
-function add_to_path() {
-    [[ ! -d "$1" ]] && return
-    [[ ":$PATH:" == *":$1:"* ]] && return
-    PATH="$PATH:$1"
+function include() {
+    [[ -f "$1" ]] && source "$1" || echo "Could not include: \"$1\""
 }
 
-add_to_path ~/.yarn/bin
-add_to_path ~/.cargo/bin
-add_to_path ~/.bin
-add_to_path ~/.scripts/cli-commands
+BASE_DIR="$HOME/.myrice/scripts/include/shell"
 
-# Exports
-export PATH
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export TERMINAL=termite
-export TERM=termite
+include "$BASE_DIR/path_exports.sh"
+include "$BASE_DIR/aliases.sh"
+include "$BASE_DIR/functions.sh"
+
+unset BASE_DIR
+unset -f include
