@@ -61,6 +61,7 @@ let g:deoplete#enable_at_startup = 1
 
 " fzf
 nmap <leader>o :Files<CR>
+nmap <leader>t :tabe<CR>:Files<CR>
 
 " Latex config
 augroup latexconf
