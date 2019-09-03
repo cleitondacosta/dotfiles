@@ -3,8 +3,9 @@
 # Tip: Run "xmodmax -pke" to see the key codes.
 
 # No title bar on window (necessary for i3-gaps):
-for_window [class="^.*"] border pixel 1
+
 for_window [class="floating-window"] floating enable
+for_window [class="^.*"] border pixel 2
 
 # i3-gaps:
 gaps inner 4
@@ -45,7 +46,7 @@ set_from_resource $white color15 #000000
 set $transparent #00000000
 
 # Window colors
-client.focused #ff9a00 $darkblack #ff9a00 #ff9a00 #ff9a00
+client.focused #ff9a00 $darkblack #ff9a00 #ff6200 #ff9a00
 
 # Font:
 font pango:monospace 8
@@ -73,8 +74,14 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# Resizing
+bindsym $mod+Ctrl+k resize grow height 15 px or 5 ppt
+bindsym $mod+Ctrl+j resize shrink height 15 px or 5 ppt
+bindsym $mod+Ctrl+l resize grow width 15 px or 5 ppt
+bindsym $mod+Ctrl+h resize shrink width 15 px or 5 ppt
+
 # Changes current container's layout
-bindsym $mod+Up split h
+bindsym $mod+Up split v
 bindsym $mod+Down split v
 bindsym $mod+Left split h
 bindsym $mod+Right split h
@@ -158,7 +165,7 @@ bar {
     position top
     mode dock
     modifier None
-    font pango:Awesome Font 9
+    font pango:FontAwesome 9
 
     colors {
         background #282828
@@ -170,17 +177,6 @@ bar {
         inactive_workspace $darkblack $darkblack $white
         urgent_workspace   $darkblack $darkblack $white
     }
-}
-
-mode "resize" {
-    bindsym h resize shrink width 1 px
-    bindsym k resize grow height 1 px
-    bindsym j resize shrink height 1 px
-    bindsym l resize grow width 1 px
-
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
 }
 
 bindsym $mod+x exec --no-startup-id\
