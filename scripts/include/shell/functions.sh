@@ -112,12 +112,63 @@ function t() {
         [[ $N -gt 10 ]] && echo "t: Number too high (10 max)." && return 1
 
         for i in {1..$N}; do
-            "$TERMINAL" . &!
+            "$TERMINAL" --title "terminal" . &!
         done
     else
-        "$TERMINAL" . &!
+        "$TERMINAL" --title "terminal" . &!
     fi
 }
+
+# Usage: bgimg IMAGE
+#
+# Uses feh to change background image. Also, it copies IMAGE to ~/.bg-image.
+# If it already exists, it moves the current ~/.bg-image to 
+# ~/image/old-bg-image.
+#
+# Example: bgimg ~/download/wallpaper.jpg
+function bgimg() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: bgimg IMAGE"
+        echo "Description: Copies IMAGE to ~/.bg-image"
+        return 1
+    fi
+
+    IMAGE="$1"
+    DESTINATION="$HOME/.bg-image"
+
+    if [ ! -f "$IMAGE" ]; then
+        echo "No such regular file: $IMAGE."
+        return 1
+    fi
+
+    if [ -e "$DESTINATION" ]; then
+        echo "$DESTINATION: already exists."
+
+        if [ ! -f "$DESTINATION" ]; then
+            echo "$DESTINATION: Is not a regular file. Aborted."
+            return 1
+        fi
+
+        OLD_BG_DIR="$HOME/image/old-bg-image"
+
+        if [ ! -e "$OLD_BG_DIR" ]; then
+            mkdir -p "$OLD_BG_DIR"
+        else
+            if [ ! -d "$OLD_BG_DIR" ]; then 
+                echo "$OLD_BG_DIR: Is not a directory. Aborted."
+                return 1
+            fi
+        fi
+
+        mv --backup=numbered "$DESTINATION" "$OLD_BG_DIR/old"
+        echo "$DESTINATION: moved into $OLD_BG_DIR."
+    fi
+
+    cp "$IMAGE" "$DESTINATION"
+    echo "$IMAGE: copied to $DESTINATION."
+
+    feh --bg-fill "$DESTINATION"
+} 
 
 # Translate text from english to portuguese.
 function enpt() { 
