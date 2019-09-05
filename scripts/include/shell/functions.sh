@@ -23,7 +23,7 @@ function newp() {
         return 0
     fi
 
-    mkdir -p "$DIR_TO_CREATE" && cd "$DIR_TO_CREATE" && echo "Moved there."
+    mkdir -p "$DIR_TO_CREATE" && cd "$DIR_TO_CREATE" && echo "$DIR_TO_CREATE"
 }
 
 # Usage: rmp PROJECT_NAME PROJECT_LANGUAGE
