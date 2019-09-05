@@ -44,8 +44,7 @@
     call plug#begin('~/.config/nvim/bundle')
         Plug 'scrooloose/nerdcommenter'
         Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript']}
-        Plug 'dense-analysis/ale'
-        Plug 'shougo/deoplete.nvim'
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
         Plug 'Raimondi/delimitMate'
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'tpope/vim-surround'
