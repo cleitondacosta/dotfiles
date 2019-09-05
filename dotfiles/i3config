@@ -1,21 +1,127 @@
 # ~/.config/i3/config
 # To load default config: delete this file and then run i3-config-wizard(1).
 # Tip: Run "xmodmax -pke" to see the key codes.
-
-# No title bar on window (necessary for i3-gaps):
-
-for_window [class="floating-window"] floating enable
-for_window [class="^.*"] border pixel 2
-
-# i3-gaps:
-gaps inner 4
-gaps outer 4
-
-# $mod = super
 set $mod Mod4
 
-# i3block signals to update the blocks in status bar
-# (I must remember to use signal 10 in ~/.i3blocks.conf)
+# Colors
+set $predominantColor #403b5c
+set $secondaryColor #eeeeee
+set $accentColor #c8d3f7
+
+# Windows conf
+for_window [class="floating-window"] floating enable
+for_window [class="^.*"] border normal 3
+floating_minimum_size 75 x 50
+floating_maximum_size 1200 x 700
+gaps inner 10
+gaps outer 10
+# title-border title-bg title-text indicator border
+client.focused $accentColor\
+               $predominantColor\
+               $secondaryColor\
+               $secondaryColor\
+               $accentColor
+
+# Font:
+font pango: verdana 10
+
+# Status bar
+bar {
+    status_command i3blocks
+    position top
+    mode dock
+    modifier None
+    font pango: verdana 10
+    height 20
+
+    colors {
+        background $predominantColor
+        # text color
+        statusline $secondaryColor
+        separator $secondaryColor
+
+        # border background text
+        focused_workspace  $accentColor $predominantColor $secondaryColor
+        urgent_workspace $accentColor $predominantColor $accentColor
+        inactive_workspace $predominantColor $predominantColor $secondaryColor
+    }
+}
+
+
+# Launcher shortcuts
+bindsym $mod+Return exec termite --title "terminal"
+bindsym $mod+c exec --no-startup-id ~/.scripts/i3/color_picker.sh
+bindsym $mod+d exec rofi -show drun -theme ~/.config/rofi/dmenu-theme.rasi
+bindsym Print --release exec --no-startup-id "~/.scripts/i3/screenshot.sh"
+bindsym $mod+Print exec --no-startup-id "~/.scripts/i3/ffmpeg.sh"
+bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
+
+bindsym $mod+x exec --no-startup-id\
+    ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
+bindsym $mod+z exec --no-startup-id\
+    ~/.scripts/rofi/prompt.sh "lock" "i3lock --color=282828"
+
+
+# Navigation
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Ctrl+k resize grow height 15 px or 5 ppt
+bindsym $mod+Ctrl+j resize shrink height 15 px or 5 ppt
+bindsym $mod+Ctrl+l resize grow width 15 px or 5 ppt
+bindsym $mod+Ctrl+h resize shrink width 15 px or 5 ppt
+
+bindsym $mod+Up split v
+bindsym $mod+Down split v
+bindsym $mod+Left split h
+bindsym $mod+Right split h
+
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
+
+bindsym $mod+Shift+space floating toggle
+
+bindsym $mod+1 workspace "1"
+bindsym $mod+2 workspace "2"
+bindsym $mod+3 workspace "3"
+bindsym $mod+4 workspace "4"
+bindsym $mod+5 workspace "5"
+bindsym $mod+6 workspace "6"
+bindsym $mod+7 workspace "7"
+bindsym $mod+8 workspace "8"
+bindsym $mod+9 workspace "9"
+bindsym $mod+0 workspace "10"
+bindsym $mod+space workspace "10"
+bindsym $mod+Shift+1 move container to workspace "1"
+bindsym $mod+Shift+2 move container to workspace "2"
+bindsym $mod+Shift+3 move container to workspace "3"
+bindsym $mod+Shift+4 move container to workspace "4"
+bindsym $mod+Shift+5 move container to workspace "5"
+bindsym $mod+Shift+6 move container to workspace "6"
+bindsym $mod+Shift+7 move container to workspace "7"
+bindsym $mod+Shift+8 move container to workspace "8"
+bindsym $mod+Shift+9 move container to workspace "9"
+bindsym $mod+Shift+0 move container to workspace "10"
+
+bindsym $mod+q kill
+
+# $mod+mouse moves a floating window
+floating_modifier $mod
+
+# Restart/exit session
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exit
+
+# Sound/Music (Remember to use signal 10 in ~/.i3blocks.conf)
 set $toggleSoundMute "pactl set-sink-mute 0 toggle; pkill -RTMIN+10 i3blocks"
 set $downSoundVol "pactl set-sink-volume 0 -5%; pkill -RTMIN+10 i3blocks"
 set $upSoundVol "pactl set-sink-volume 0 +5%; pkill -RTMIN+10 i3blocks"
@@ -25,124 +131,9 @@ set $toggleMusic "mpc toggle; pkill -RTMIN+10 i3blocks"
 set $nextMusic "mpc next && pkill -RTMIN+10 i3blocks"
 set $prevMusic "mpc prev && pkill -RTMIN+10 i3blocks"
 
-# Loading colors from Xresources (the # doesn't means a commentary, but the
-# fallback color, in case of not finding the color in Xresources.
-set_from_resource $darkblack color0 #000000
-set_from_resource $black color8 #000000
-set_from_resource $darkred color1 #000000
-set_from_resource $red color9 #000000
-set_from_resource $darkgreen color2 #000000
-set_from_resource $green color10 #000000
-set_from_resource $darkyellow color3 #000000
-set_from_resource $yellow color11 #000000
-set_from_resource $darkblue color4 #000000
-set_from_resource $blue color12 #000000
-set_from_resource $darkmagenta color5 #000000
-set_from_resource $magenta color13 #000000
-set_from_resource $darkcyan color6 #000000
-set_from_resource $cyan color14 #000000
-set_from_resource $darkwhite color7 #000000
-set_from_resource $white color15 #000000
-set $transparent #00000000
-
-# Window colors
-client.focused #ff9a00 $darkblack #ff9a00 #ff6200 #ff9a00
-
-# Font:
-font pango:monospace 8
-
-# Launch programs:
-bindsym $mod+Return exec termite
-bindsym $mod+c exec --no-startup-id ~/.scripts/i3/color_picker.sh
-
-# Kill focused window:
-bindsym $mod+q kill
-
-# rofi:
-bindsym $mod+d exec rofi -show drun -theme ~/.config/rofi/dmenu-theme.rasi
-
-# Vim like keys to change window focus:
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-bindsym Mod1+tab focus next
-
-# Swap container with neighbor:
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# Resizing
-bindsym $mod+Ctrl+k resize grow height 15 px or 5 ppt
-bindsym $mod+Ctrl+j resize shrink height 15 px or 5 ppt
-bindsym $mod+Ctrl+l resize grow width 15 px or 5 ppt
-bindsym $mod+Ctrl+h resize shrink width 15 px or 5 ppt
-
-# Changes current container's layout
-bindsym $mod+Up split v
-bindsym $mod+Down split v
-bindsym $mod+Left split h
-bindsym $mod+Right split h
-
-# Fullscreen mode
-bindsym $mod+f fullscreen toggle
-
-# Change a container's layout
-bindsym $mod+t layout tabbed
-bindsym $mod+s layout toggle split
-
-# Toggle float window mode
-bindsym $mod+Shift+space floating toggle
-
-# Mouse+$mod moves a floating window
-floating_modifier $mod
-
-# Workspaces:
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
-bindsym $mod+space workspace $ws10
-
-# Moves focused window to a workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
-
-# Restart i3 (usefull to reload this file)
-bindsym $mod+Shift+r restart
-
-# Sound
 bindsym XF86AudioMute exec $toggleSoundMute
 bindsym XF86AudioLowerVolume exec $downSoundVol
 bindsym XF86AudioRaiseVolume exec $upSoundVol
-
 bindsym $mod+m exec "~/.scripts/i3/music.sh"
 bindsym $mod+p exec $toggleMusic
 bindsym $mod+n exec $nextMusic
@@ -152,53 +143,11 @@ bindsym $mod+Shift+n exec $prevMusic
 bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 4"
 bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 4"
 
-# Screenshot
-bindsym Print --release exec --no-startup-id "~/.scripts/i3/screenshot.sh"
-
-# ffmpeg
-bindsym $mod+Print exec --no-startup-id "~/.scripts/i3/ffmpeg.sh"
-bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
-
-# Status bar (i3blocks)
-bar {
-    status_command i3blocks
-    position top
-    mode dock
-    modifier None
-    font pango:FontAwesome 9
-
-    colors {
-        background #282828
-        statusline #ff9a00
-        separator $white
-
-        focused_workspace  #ffc66f #ff9a00 $darkblack
-
-        inactive_workspace $darkblack $darkblack $white
-        urgent_workspace   $darkblack $darkblack $white
-    }
-}
-
-bindsym $mod+x exec --no-startup-id\
-    ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
-
-bindsym $mod+z exec --no-startup-id\
-    ~/.scripts/rofi/prompt.sh "lock" "i3lock --color=282828"
-
-# Going into modes
-bindsym $mod+r mode "resize"
-
-# Dunst
+# Software startup
 exec --no-startup-id dunst
-
-# Keyboard layout
-exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
-
-# Enables tap to click in laptop
-exec --no-startup-id "xinput set-prop 11 278 1"
-
-# Loads background image
-exec --no-startup-id "~/.fehbg &"
-
-# Execute redshift
 exec --no-startup-id redshift
+
+# I/O config
+exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
+exec --no-startup-id "xinput set-prop 11 278 1" 
+exec --no-startup-id "~/.fehbg &"
