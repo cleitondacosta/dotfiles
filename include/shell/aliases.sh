@@ -7,6 +7,7 @@ alias e="fd --type f --hidden --follow --exclude .git | fzf | xargs -r nvim"
 alias cdc="cd ~/code"
 alias cdd="cd ~/download"
 alias cdi="cd ~/image"
+alias cdv="cd ~/video"
 alias cdr="cd ~/.myrice"
 alias cdm="cd ~/music"
 

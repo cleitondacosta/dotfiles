@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Description: Use rofi to show the ascii table
+
+ROFI_THEME="$HOME/.config/rofi/dmenu-dropdown-theme.rasi"
+cat "$HOME/.myrice/lists/ascii.txt" | rofi -theme "$ROFI_THEME" -dmenu

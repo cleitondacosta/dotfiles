@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Description: Uses rofi to ask the user to select a music album to play it
+#              through mpc.
+
+ROFI_THEME="$HOME/.config/rofi/dmenu-dropdown-theme.rasi"
+
+ARTIST_DIR="$(ls "$HOME/music" | rofi -dmenu -i -theme "$ROFI_THEME")"
+[[ -z "$ARTIST_DIR" ]] && exit
+
+ALBUM="$(ls "$HOME/music/$ARTIST_DIR" | rofi -dmenu -i -theme "$ROFI_THEME")"
+[[ -z "$ALBUM" ]] && exit
+
+mpc clear 
+mpc add "$ARTIST_DIR/$ALBUM" 
+mpc play 
+
+pkill -RTMIN+10 i3blocks

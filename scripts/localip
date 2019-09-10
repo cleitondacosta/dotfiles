@@ -1,4 +1,5 @@
 #!/bin/bash
+# Description: Print all local ip address
 
 IP_ADDRESS_OUTPUT=$(ip address)
 INTERFACE_BLOCKS=($(echo "$IP_ADDRESS_OUTPUT" | awk '/^[0-9]+:/ {print NR}'))

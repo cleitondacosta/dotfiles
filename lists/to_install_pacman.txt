@@ -1,7 +1,5 @@
 acpi
-calcurse
 cmake
-dash
 dunst
 fd
 feh
@@ -20,8 +18,6 @@ pdfgrep
 perl-image-exiftool
 pulseaudio
 python3
-qutebrowser
-ranger
 redshift
 ripgrep
 rofi

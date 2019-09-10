@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Description: Uses ffmpeg to make a video sendable through whatsapp.
 
 convert_video_to_mp4_whatsapp_compliant() {
     VIDEO_TO_CONVERT_PATH="$1"

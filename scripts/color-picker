@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Description: Open a color selection dialog and copies the selected color
+#              to system's clipboard.
 # requires: zenity, xclip
 
 RGB="$(zenity --color-selection --title="Color Picker" 2>/dev/null)"

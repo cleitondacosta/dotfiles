@@ -9,8 +9,10 @@ set $secondaryColor #eeeeee
 set $accentColor #c8d3f7
 
 # Windows conf
-for_window [class="floating-window"] floating enable
 for_window [class="^.*"] border normal 3
+for_window [class="floating-window"] floating enable
+for_window [class="Yad"] floating enable
+for_window [class="Yad"] border pixel
 floating_minimum_size 75 x 50
 floating_maximum_size 1200 x 700
 gaps inner 10
@@ -47,20 +49,22 @@ bar {
     }
 }
 
-
 # Launcher shortcuts
 bindsym $mod+Return exec termite --title "terminal"
-bindsym $mod+c exec --no-startup-id ~/.scripts/i3/color_picker.sh
-bindsym $mod+d exec rofi -show drun -theme ~/.config/rofi/dmenu-theme.rasi
-bindsym Print --release exec --no-startup-id "~/.scripts/i3/screenshot.sh"
-bindsym $mod+Print exec --no-startup-id "~/.scripts/i3/ffmpeg.sh"
+bindsym $mod+c exec --no-startup-id "~/.scripts/color-picker"
+bindsym $mod+d exec rofi -show drun -theme "~/.config/rofi/dmenu-theme.rasi"
+bindsym Print --release exec --no-startup-id "~/.scripts/screenshot"
+bindsym $mod+Print exec --no-startup-id "~/.scripts/screen-record"
 bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
+bindsym $mod+a exec --no-startup-id "~/.scripts/rofi-ascii"
+bindsym $mod+Shift+r restart
 
 bindsym $mod+x exec --no-startup-id\
-    ~/.scripts/rofi/prompt.sh "shutdown" "shutdown -h now"
+    ~/.scripts/rofi-prompt "shutdown" "shutdown -h now"
 bindsym $mod+z exec --no-startup-id\
-    ~/.scripts/rofi/prompt.sh "lock" "i3lock --color=282828"
-
+    ~/.scripts/rofi-prompt "lock" "i3lock --color=282828"
+bindsym $mod+e exec --no-startup-id\
+    ~/.scripts/rofi-prompt "exit" "i3-msg -q exit"
 
 # Navigation
 bindsym $mod+h focus left
@@ -118,8 +122,6 @@ bindsym $mod+q kill
 floating_modifier $mod
 
 # Restart/exit session
-bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exit
 
 # Sound/Music (Remember to use signal 10 in ~/.i3blocks.conf)
 set $toggleSoundMute "pactl set-sink-mute 0 toggle; pkill -RTMIN+10 i3blocks"
@@ -134,7 +136,7 @@ set $prevMusic "mpc prev && pkill -RTMIN+10 i3blocks"
 bindsym XF86AudioMute exec $toggleSoundMute
 bindsym XF86AudioLowerVolume exec $downSoundVol
 bindsym XF86AudioRaiseVolume exec $upSoundVol
-bindsym $mod+m exec "~/.scripts/i3/music.sh"
+bindsym $mod+m exec "~/.scripts/rofi-music"
 bindsym $mod+p exec $toggleMusic
 bindsym $mod+n exec $nextMusic
 bindsym $mod+Shift+n exec $prevMusic

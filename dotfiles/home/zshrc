@@ -12,7 +12,7 @@ function include() {
     [[ -f "$1" ]] && source "$1" || echo "Could not include: \"$1\""
 }
 
-BASE_DIR="$HOME/.myrice/scripts/include/shell"
+BASE_DIR="$HOME/.include/shell"
 
 include "$BASE_DIR/path_exports.sh"
 include "$BASE_DIR/aliases.sh"

@@ -96,21 +96,19 @@ fi
 
 install_packages "$(tr '\n' ' ' < $PACKAGE_LIST_FILE)"
 
-smart_link "$DOTFILES_DIR/Xdefaults" ~/.Xdefaults
-smart_link "$DOTFILES_DIR/i3blocks.conf" ~/.i3blocks.conf
-smart_link "$DOTFILES_DIR/i3config" ~/.config/i3/config
-smart_link "$DOTFILES_DIR/nvimrc" ~/.config/nvim/init.vim
-smart_link "$DOTFILES_DIR/termite.conf" ~/.config/termite/config
-smart_link "$DOTFILES_DIR/ranger.conf" ~/.config/ranger/rc.conf
-smart_link "$DOTFILES_DIR/zshrc" ~/.zshrc
-smart_link "$DOTFILES_DIR/dunstrc" ~/.config/dunst/dunstrc
-smart_link "$DOTFILES_DIR/xinitrc" ~/.xinitrc
-smart_link "$DOTFILES_DIR/qutebrowser_config.py" \
-                  ~/.config/qutebrowser/config.py
+smart_link "$DOTFILES_DIR/home/zshrc" ~/.zshrc
+smart_link "$DOTFILES_DIR/home/Xdefaults" ~/.Xdefaults
+smart_link "$DOTFILES_DIR/home/xinitrc" ~/.xinitrc
+
+smart_link "$DOTFILES_DIR/config/i3/config" ~/.config/i3/config
+smart_link "$DOTFILES_DIR/config/nvim/init.vim" ~/.config/nvim/init.vim
+smart_link "$DOTFILES_DIR/config/termite/config" ~/.config/termite/config
+smart_link "$DOTFILES_DIR/config/dunst/dunstrc" ~/.config/dunst/dunstrc
+smart_link "$DOTFILES_DIR/config/i3blocks/config" ~/.config/i3blocks/config
 
 smart_link "./scripts" ~/.scripts
-smart_link "./rofi-themes" ~/.config/rofi
-smart_link "./scripts/zsh-plugins/myutils" ~/.oh-my-zsh/custom/plugins/myutils
+smart_link "./include" ~/.include
+smart_link "./include/rofi-themes" ~/.config/rofi
 
 ask_to_install_oh_my_zsh
 

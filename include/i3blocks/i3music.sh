@@ -1,19 +1,12 @@
-#!/usr/bin/env dash
+#!/usr/bin/env bash
 
 GREY_COLOR="#606060"
 
-i3_print_color()
-{
-    if [ $# -ne 2 ]
-    then
-        return 1
-    fi
-
+i3_print_color() {
     TEXT="$1"
     COLOR="$2"
 
     echo "<span foreground=\"$COLOR\">$TEXT</span>"
-    return 0
 }
 
 CURRENT_MUSIC="$(mpc current --format "%artist%: %title%")"

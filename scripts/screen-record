@@ -1,7 +1,10 @@
-mp4_record() {
+#!/usr/bin/env bash
+# Description: Uses rofi to ask the user for an screencast option, and then
+#              record it with ffmpeg.
+
+rec_with_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-
     SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
 
     ffmpeg \
@@ -16,13 +19,12 @@ mp4_record() {
         -c:v libx264rgb \
         -crf 0 \
         -preset ultrafast \
-        "$CAPTURE_FILE.mp4"
+        "$CAPTURE_FILE"
 }
 
-mp4_record_without_sound() {
+rec_without_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-
     SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
 
     ffmpeg \
@@ -36,13 +38,12 @@ mp4_record_without_sound() {
         -c:v libx264rgb \
         -crf 0 \
         -preset ultrafast \
-        "$CAPTURE_FILE.mp4"
+        "$CAPTURE_FILE"
 }
 
-mp4_record_whatsapp_compliant() {
+rec_whats_compliant() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-
     SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
 
     ffmpeg \
@@ -59,13 +60,12 @@ mp4_record_whatsapp_compliant() {
         -profile:v baseline \
         -level 3.0 \
         -pix_fmt yuv420p \
-        "$CAPTURE_FILE.mp4"
+        "$CAPTURE_FILE"
 }
 
-mp4_record_whatsapp_compliant_without_sound() {
+rec_whats_compliant_without_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-
     SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
 
     ffmpeg \
@@ -81,5 +81,58 @@ mp4_record_whatsapp_compliant_without_sound() {
         -profile:v baseline \
         -level 3.0 \
         -pix_fmt yuv420p \
-        "$CAPTURE_FILE.mp4"
+        "$CAPTURE_FILE"
 }
+
+ask_option() {
+    OPTIONS="$(echo "$@" | tr ' ' '\n')"
+    ROFI_THEME="$HOME/.config/rofi/option-list-theme.rasi"
+    echo "$(echo "$OPTIONS" | rofi -theme "$ROFI_THEME" -dmenu)"
+}
+
+ask_filename() {
+    ROFI_THEME=~/.config/rofi/type-theme.rasi
+    echo "$(rofi -theme $ROFI_THEME -dmenu -p "File name: ")"
+}
+
+format_filename() {
+    FILE_NAME="$1"
+    DIR="$HOME/video/capture"
+    FORMATTED_FILE_NAME="$DIR/$FILE_NAME.mp4"
+    N=2
+
+    [[ ! -e "$DIR" ]] && mkdir -p "$DIR"
+
+    while [ -e "$FORMATTED_FILE_NAME" ]; do
+        FORMATTED_FILE_NAME="$DIR/$FILE_NAME($N).mp4"
+        N=$((N+1))
+    done
+
+    echo "$FORMATTED_FILE_NAME"
+}
+
+OPTION="$(ask_option\
+    "rec"\
+    "rec-without-sound"\
+    "rec-whats"\
+    "rec-whats-without-sound"\
+)"
+[[ -z $OPTION ]] && exit
+
+FILE_NAME="$(ask_filename)"
+[[ -z $FILE_NAME ]] && exit
+
+FILE_NAME="$(format_filename "$FILE_NAME")"
+
+case "$OPTION" in
+    rec) rec_with_sound "$FILE_NAME" 60 ;;
+    rec-without-sound) rec_without_sound "$FILE_NAME" 60 ;;
+    rec-whats) rec_whats_compliant "$FILE_NAME" 60 ;;
+    rec-whats-without-sound) rec_without_sound "$FILE_NAME" 60 ;;
+esac
+
+if [ -f "$FILE_NAME" ]; then
+    notify-send "Capture" "$FILE_NAME"
+else
+    notify-send -u critical "Capture error" "Couldn't capture"
+fi
