@@ -22,6 +22,7 @@ label=🎹
 command=~/.include/i3blocks/i3music.sh
 interval=5
 signal=10
+MAX_CHARS=30
 
 [volume]
 command=~/.include/i3blocks/i3volume.sh

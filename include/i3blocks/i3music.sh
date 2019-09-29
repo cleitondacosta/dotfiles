@@ -9,13 +9,18 @@ i3_print_color() {
     echo "<span foreground=\"$COLOR\">$TEXT</span>"
 }
 
+limit_string() {
+    echo "${1:0:$MAX_CHARS}"
+}
+
 CURRENT_MUSIC="$(mpc current --format "%artist%: %title%")"
+CURRENT_MUSIC_LIMITED="$(limit_string "$CURRENT_MUSIC")"
 MUSIC_STATE="$(mpc | grep -Eo "\[.+\]")"
 
 case "$MUSIC_STATE" in
     "[paused]")
-        i3_print_color "$CURRENT_MUSIC" "$GREY_COLOR" ;;
+        i3_print_color "$CURRENT_MUSIC_LIMITED" "$GREY_COLOR" ;;
 
     "[playing]")
-        echo "$CURRENT_MUSIC" ;;
+        echo "$CURRENT_MUSIC_LIMITED" ;;
 esac
