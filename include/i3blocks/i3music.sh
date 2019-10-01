@@ -10,7 +10,11 @@ i3_print_color() {
 }
 
 limit_string() {
-    echo "${1:0:$MAX_CHARS}"
+    string="$1"
+
+    [[ ${#string} -gt $MAX_CHARS ]]\
+        && echo "${string:0:$MAX_CHARS}..."\
+        || echo "${string:0:$MAX_CHARS}"
 }
 
 CURRENT_MUSIC="$(mpc current --format "%artist%: %title%")"
