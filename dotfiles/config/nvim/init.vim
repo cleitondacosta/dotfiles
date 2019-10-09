@@ -14,7 +14,7 @@
     set autoindent
     set smartindent
     filetype on
-    autocmd FileType ruby,tex,html,javascript,css,json
+    autocmd FileType ruby,tex,html,javascript,css,json,typescript,tsx
         \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Search
