@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-# Based in: https://github.com/manojmj92/subtitle-downloader
+# Based on: https://github.com/manojmj92/subtitle-downloader
 
 require 'digest'
 require 'open-uri'
@@ -52,13 +52,14 @@ class SubtitleDownloader
 
     File.open(@subtitle_path, "wb") do |subtitle|
       begin
-        IO.copy_stream(open(url, headers), subtitle)
+        IO.copy_stream(URI.open(url, headers), subtitle)
         puts "Subtitle downloaded."
       rescue OpenURI::HTTPError => error
         http_error_message = error.message
         puts "Subtitle not found for #{@movie_path} in #{@language} language."
         puts "#{url}: #{http_error_message}"
         File.delete(subtitle) if File.exist?(subtitle)
+      # Workaround
       rescue StandardError => error
         $stderr.puts "Error: #{error.message}"
       end
@@ -128,6 +129,7 @@ class SubtitleDownloader
   end
 end
 
+# Main file
 if ARGV.size != 2
   $stderr.puts "Usage: subdownload.rb MOVIE_FILE LANGUAGE"
   exit 1

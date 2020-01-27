@@ -14,7 +14,7 @@
     set autoindent
     set smartindent
     filetype on
-    autocmd FileType ruby,tex,html,javascript,css,scss,json,typescript,tsx
+    autocmd FileType ruby,tex,html,javascript,css,scss,json,typescript,tsx,typescriptreact
         \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Search
@@ -43,7 +43,7 @@
 " Plugins (Requires vim-plug)
     call plug#begin('~/.config/nvim/bundle')
         Plug 'scrooloose/nerdcommenter'
-        Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript']}
+        Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'javascript', 'typescriptreact']}
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         Plug 'Raimondi/delimitMate'
         Plug 'michaeljsmith/vim-indent-object'
@@ -54,9 +54,6 @@
         Plug 'morhetz/gruvbox'
         Plug 'junegunn/fzf.vim'
     call plug#end()
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
 
 " fzf
 nmap <leader>o :Files<CR>
