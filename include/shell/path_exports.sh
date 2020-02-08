@@ -15,6 +15,7 @@ add_to_path /opt/android-sdk/tools/bin
 add_to_path /opt/android-sdk/tools/emulator
 
 [[ -d "/opt/android-sdk" ]] && export ANDROID_HOME="/opt/android-sdk"
+
 export PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
