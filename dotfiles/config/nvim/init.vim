@@ -56,8 +56,23 @@
     call plug#end()
 
 " fzf
-nmap <leader>o :Files<CR>
-nmap <leader>t :tabe<CR>:Files<CR>
+"
+" This function uses a git command to get the root
+" directory of a git project and pass it to fzf if it was
+" found
+function! RunFZFOnProjectRootDir()
+    let rootdir = system('git rev-parse --show-toplevel')
+
+    if v:shell_error == 0
+        let rootdir_without_newline = rootdir[:-2]
+        call fzf#vim#files(rootdir_without_newline)
+    else
+        Files
+    endif
+endfunction
+
+nmap <leader>o :call RunFZFOnProjectRootDir()<CR>
+nmap <leader>t :tabe<CR>:call RunFZFOnProjectRootDir()<CR>
 
 " Latex config
 augroup latexconf
