@@ -38,6 +38,8 @@ FILE_NAME="$(ask_filename)"
 
 FILE_NAME="$(format_filename "$FILE_NAME")"
 
+sleep 1
+
 case "$OPTION" in
     Fullscreen) scrot -q 100 "$FILE_NAME" ;;
     Selection) scrot -s -q 100 "$FILE_NAME" ;;
