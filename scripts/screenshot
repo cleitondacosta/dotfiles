@@ -47,7 +47,7 @@ case "$OPTION" in
     Window) scrot -u -q 100 "$FILE_NAME" ;;
 esac
 
-if [ $? -eq 0 ]; then
+if [ $? -eq 0 ] && [ "$OPTION" != "Selection" ]; then
     notify-send "Screenshot" "$FILE_NAME" 
 else
     notify-send -u urgent "Screenshot error" "Couldn't screenshot."
