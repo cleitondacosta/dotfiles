@@ -73,6 +73,7 @@ endfunction
 
 nmap <leader>o :call RunFZFOnProjectRootDir()<CR>
 nmap <leader>t :tabe<CR>:call RunFZFOnProjectRootDir()<CR>
+nmap <leader>vs :vsplit<CR>:call RunFZFOnProjectRootDir()<CR>
 
 " Latex config
 augroup latexconf
