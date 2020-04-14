@@ -34,7 +34,7 @@ OPTION="$(ask_option "Fullscreen Selection Window")"
 [[ -z $OPTION ]] && exit
 
 case "$OPTION" in
-    "Selection") ;;
+    "Selection") sleep 0.5 ;;
     *)
       FILE_NAME="$(ask_filename)"
       [[ -z $FILE_NAME ]] && exit
