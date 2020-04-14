@@ -33,16 +33,17 @@ format_filename() {
 OPTION="$(ask_option "Fullscreen Selection Window")"
 [[ -z $OPTION ]] && exit
 
-FILE_NAME="$(ask_filename)"
-[[ -z $FILE_NAME ]] && exit
-
-FILE_NAME="$(format_filename "$FILE_NAME")"
-
-sleep 1
+case "$OPTION" in
+    "Selection") ;;
+    *)
+      FILE_NAME="$(ask_filename)"
+      [[ -z $FILE_NAME ]] && exit
+      FILE_NAME="$(format_filename "$FILE_NAME")"
+esac
 
 case "$OPTION" in
     Fullscreen) scrot -q 100 "$FILE_NAME" ;;
-    Selection) scrot -s -q 100 "$FILE_NAME" ;;
+    Selection) flameshot gui -p "$SCREENSHOT_DIR" ;;
     Window) scrot -u -q 100 "$FILE_NAME" ;;
 esac
 

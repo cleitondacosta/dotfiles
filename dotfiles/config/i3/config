@@ -149,6 +149,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 4"
 # Software startup
 exec --no-startup-id dunst
 exec --no-startup-id redshift
+exec --no-startup-id flameshot
 
 # I/O config
 exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
