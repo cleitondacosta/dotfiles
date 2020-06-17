@@ -5,12 +5,12 @@ markup=pango
 [cputemp]
 label=💻 
 command=sensors | awk '/^Core/ {print $3}' | sort -n | tail -1 | sed 's/\+//'
-interval=5
+interval=10
 
 [diskusage]
 label=🗄️ 
 command=echo $(df -h | grep -E "/\$" | awk '{ printf "%s/%s", $3, $2 }')
-interval=10
+interval=15
 
 [memory]
 label=🧠 
@@ -38,12 +38,12 @@ signal=10
 [wifi]
 label=📶 
 command=nmcli -t -f active,ssid dev wifi | grep -E "^(sim|yes)" | cut -d':' -f2
-interval=7
+interval=15
 
 [battery]
 label=🔋 
 command=acpi | grep -Eo "[0-9]{1,3}%"
-interval=5
+interval=10
 
 [time]
 label=🕒 
