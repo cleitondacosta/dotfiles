@@ -27,8 +27,6 @@ scrot
 sxiv
 task
 termite
-texlive-lang
-texlive-most
 tree
 xorg-server
 xorg-xinit

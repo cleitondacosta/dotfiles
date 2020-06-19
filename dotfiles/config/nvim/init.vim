@@ -14,7 +14,7 @@
     set autoindent
     set smartindent
     filetype on
-    autocmd FileType ruby,tex,html,javascript,css,scss,json,typescript,tsx,typescriptreact
+    autocmd FileType ruby,html,javascript,css,scss,json,typescript,tsx,typescriptreact
         \ setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 " Search
@@ -49,7 +49,6 @@
         Plug 'michaeljsmith/vim-indent-object'
         Plug 'tpope/vim-surround'
         Plug 'wellle/targets.vim'
-        Plug 'donRaphaco/neotex', { 'for': 'tex' }
         Plug 'sheerun/vim-polyglot'
         Plug 'morhetz/gruvbox'
         Plug 'junegunn/fzf.vim'
@@ -74,16 +73,6 @@ endfunction
 nmap <leader>o :call RunFZFOnProjectRootDir()<CR>
 nmap <leader>t :tabe<CR>:call RunFZFOnProjectRootDir()<CR>
 nmap <leader>vs :vsplit<CR>:call RunFZFOnProjectRootDir()<CR>
-
-" Latex config
-augroup latexconf
-    autocmd!
-    autocmd FileType tex let g:tex_flavor = 'latex'
-    autocmd FileType tex nnoremap <leader>le :NeoTexOn<CR>
-    autocmd FileType tex nnoremap <leader>ld :NeoTexOff<CR>
-    autocmd FileType tex nnoremap <F9>
-        \ <esc>:!FILENAME=%; zathura ${FILENAME\%.*}.pdf &<CR><CR>
-augroup end
 
 " Emmet
     autocmd FileType html,css,javascript.jsx EmmetInstall
