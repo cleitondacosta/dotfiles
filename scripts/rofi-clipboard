@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+FILE="$HOME/.quick-clipboard.txt"
+ROFI_THEME="$HOME/.config/rofi/dmenu-center-search.rasi"
+
+notify_success() {
+    notify-send "$1"
+}
+
+notify_error() {
+    notify-send --urgency="critical" "$1"
+}
+
+ask_user_to_select_option() {
+    cat "$FILE" | rofi -theme "$ROFI_THEME" -dmenu  -i -no-custom
+}
+
+exit_if_file_does_not_exists() {
+    FILE_PATH="$1"
+
+    if [ ! -f "$FILE_PATH" ]; then
+        notify_error "File \"$FILE_PATH\" does not exists."
+        exit 1
+    fi
+}
+
+remove_comment_and_trim() {
+    STRING="$1"
+    STRING_REVERSED="$(echo "$STRING" | rev)"
+    STRING_UNCOMMENTED="$(echo "$STRING_REVERSED" | cut -d\# -f 2- | rev)"
+    FORMATTED_STRING="$(echo "$STRING_UNCOMMENTED" | sed 's/\s*$//g')"
+
+    echo "$FORMATTED_STRING"
+}
+
+copy_to_clipboard() {
+    STRING="$1"
+
+    echo -n "$STRING" | xclip -sel clip
+}
+
+notify_result() {
+    RETURN_VALUE=$1
+
+    if [ $RETURN_VALUE -eq 0 ]; then
+        notify_success "\"$TO_COPY\" copied to clipboard."
+    else
+        notify_error "xclip: Failed to copy to clipboard"
+    fi
+}
+
+exit_if_file_does_not_exists "$FILE"
+
+SELECTED_OPTION="$(ask_user_to_select_option)"
+[[ -z "$SELECTED_OPTION" ]] && exit
+
+TO_COPY="$(remove_comment_and_trim "$SELECTED_OPTION")"
+
+copy_to_clipboard "$TO_COPY"
+notify_result $?
