@@ -1,16 +1,15 @@
+@import "themes/gruvbox/gruvbox-dark-hard.rasi"
+
 * {
-    background-color:     Black;
-    text-color:           #eeeeee;
-    font:                 "Monospace 14";
     scrollbar: true;
 }
 
 #prompt { enabled: false; }
 
 #window {
-    width: 600px;
-    height: 350px;
-    padding: 24px;
+    width: 40%;
+    height: 35%;
+    padding: 8px;
     children: [ verticalbox ];
 }
 
@@ -20,14 +19,12 @@
 
 #listview {
     border: 1px solid 0px 0px ;
-    border-color: #a6c9ff;
     scrollbar: @scrollbar;
 }
 
 scrollbar {
     width: 5px;
     height: 10px;
-    handle-color: #ffffff;
 }
 
 #entry {
@@ -37,9 +34,4 @@ scrollbar {
 
 #element {
     padding: 5px 5px;
-}
-
-#element selected {
-    color: black;
-    background-color: #ff9a00;
 }

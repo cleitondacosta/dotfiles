@@ -87,7 +87,8 @@ rec_whats_compliant_without_sound() {
 ask_option() {
     OPTIONS="$(echo "$@" | tr ' ' '\n')"
     ROFI_THEME="$HOME/.config/rofi/option-list-theme.rasi"
-    echo "$(echo "$OPTIONS" | rofi -theme "$ROFI_THEME" -dmenu)"
+    echo "$(echo "$OPTIONS" | rofi -theme "$ROFI_THEME" -dmenu\
+           -p "Select an option to record your screen")"
 }
 
 ask_filename() {

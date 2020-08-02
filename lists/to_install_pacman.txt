@@ -17,6 +17,7 @@ mpd
 neovim
 pdfgrep
 perl-image-exiftool
+picom
 pulseaudio
 python3
 redshift

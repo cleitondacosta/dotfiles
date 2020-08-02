@@ -4,19 +4,18 @@
 set $mod Mod4
 
 # Colors
-set $predominantColor #403b5c
-set $secondaryColor #eeeeee
-set $accentColor #c8d3f7
+set $predominantColor #282828
+set $secondaryColor #fbf1c7
+set $accentColor #fff500
 
 # Windows conf
-for_window [class="^.*"] border normal 3
+for_window [class="^.*"] border pixel 1
 for_window [class="floating-window"] floating enable
 for_window [class="Yad"] floating enable
 for_window [class="Yad"] border pixel
 floating_minimum_size 75 x 50
 floating_maximum_size 1200 x 700
-smart_gaps on
-gaps inner 10
+gaps inner 15
 gaps outer 10
 # title-border title-bg title-text indicator border
 client.focused $accentColor\
@@ -51,9 +50,11 @@ bar {
 }
 
 # Launcher shortcuts
-bindsym $mod+Return exec alacritty --title "terminal"
+bindsym $mod+Return exec --no-startup-id alacritty --title "terminal"
 bindsym $mod+c exec --no-startup-id "~/.scripts/color-picker"
-bindsym $mod+d exec rofi -show drun -theme "~/.config/rofi/dmenu-theme.rasi"
+bindsym $mod+d exec \
+  rofi -show drun -theme "~/.config/rofi/dmenu-theme.rasi"\
+  -display-drun "run: "
 bindsym Print --release exec --no-startup-id "~/.scripts/screenshot"
 bindsym $mod+Print exec --no-startup-id "~/.scripts/screen-record"
 bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
@@ -123,8 +124,6 @@ bindsym $mod+q kill
 # $mod+mouse moves a floating window
 floating_modifier $mod
 
-# Restart/exit session
-
 # Sound/Music (Remember to use signal 10 in ~/.i3blocks.conf)
 set $toggleSoundMute "pactl set-sink-mute 0 toggle; pkill -RTMIN+10 i3blocks"
 set $downSoundVol "pactl set-sink-volume 0 -5%; pkill -RTMIN+10 i3blocks"
@@ -149,8 +148,9 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 4"
 
 # Software startup
 exec --no-startup-id dunst
-exec --no-startup-id redshift
 exec --no-startup-id flameshot
+exec --no-startup-id redshift
+exec --no-startup-id picom 
 
 # I/O config
 exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"

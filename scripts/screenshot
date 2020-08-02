@@ -39,6 +39,7 @@ case "$OPTION" in
       FILE_NAME="$(ask_filename)"
       [[ -z $FILE_NAME ]] && exit
       FILE_NAME="$(format_filename "$FILE_NAME")"
+      sleep 0.5
 esac
 
 case "$OPTION" in

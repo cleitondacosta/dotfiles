@@ -86,5 +86,7 @@ nmap <leader>vs :vsplit<CR>:call RunFZFOnProjectRootDir()<CR>
 
 " Color
     colorscheme gruvbox
+    let g:gruvbox_transparent_bg=1
+    highlight Normal ctermbg=NONE
     set cursorline
     highlight ColorColumn ctermbg=darkgray

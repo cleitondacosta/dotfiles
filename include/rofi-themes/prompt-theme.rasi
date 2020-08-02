@@ -1,22 +1,16 @@
-* {
-    background-color: #151515;
-    text-color: #ffffff;
-    border-color: #5547df;
-    font: "Monospace 11";
-}
+@import "themes/gruvbox/gruvbox-dark-hard.rasi"
 
 window {
     width: 40%;
-    height: 28%;
-    padding: 50;
+    padding: 16px;
     border: 1px;
-    border-color: #ff9a00;
 }
 
 listview {
     lines: 2;
     padding: 20px;
     spacing: 5px;
+    layout: vertical;
 }
 
 inputbar {
@@ -25,7 +19,3 @@ inputbar {
     children: [ prompt ];
 }
 
-#element selected {
-    color: black;
-    background-color: #ff9a00;
-}

@@ -106,6 +106,7 @@ smart_link "$DOTFILES_DIR/config/i3/config" ~/.config/i3/config
 smart_link "$DOTFILES_DIR/config/nvim/init.vim" ~/.config/nvim/init.vim
 smart_link "$DOTFILES_DIR/config/dunst/dunstrc" ~/.config/dunst/dunstrc
 smart_link "$DOTFILES_DIR/config/i3blocks/config" ~/.config/i3blocks/config
+smart_link "$DOTFILES_DIR/config/picom/picom.conf" ~/.config/picom/picom.conf
 
 smart_link "./scripts" ~/.scripts
 smart_link "./include" ~/.include
