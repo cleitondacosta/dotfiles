@@ -51,7 +51,7 @@ bar {
 }
 
 # Launcher shortcuts
-bindsym $mod+Return exec termite --title "terminal"
+bindsym $mod+Return exec alacritty --title "terminal"
 bindsym $mod+c exec --no-startup-id "~/.scripts/color-picker"
 bindsym $mod+d exec rofi -show drun -theme "~/.config/rofi/dmenu-theme.rasi"
 bindsym Print --release exec --no-startup-id "~/.scripts/screenshot"

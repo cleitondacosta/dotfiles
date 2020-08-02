@@ -1,4 +1,5 @@
 acpi
+alacritty
 cmake
 dunst
 fd
@@ -26,7 +27,6 @@ ruby
 scrot
 sxiv
 task
-termite
 tree
 xorg-server
 xorg-xinit

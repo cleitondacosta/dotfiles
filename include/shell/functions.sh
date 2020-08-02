@@ -112,10 +112,10 @@ function t() {
         [[ $N -gt 10 ]] && echo "t: Number too high (10 max)." && return 1
 
         for i in {1..$N}; do
-            "$TERMINAL" --title "terminal" . &!
+            "$TERMINAL" --title "terminal" &!
         done
     else
-        "$TERMINAL" --title "terminal" . &!
+        "$TERMINAL" --title "terminal" &!
     fi
 }
 

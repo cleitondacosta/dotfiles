@@ -100,9 +100,10 @@ smart_link "$DOTFILES_DIR/home/zshrc" ~/.zshrc
 smart_link "$DOTFILES_DIR/home/Xdefaults" ~/.Xdefaults
 smart_link "$DOTFILES_DIR/home/xinitrc" ~/.xinitrc
 
+smart_link "$DOTFILES_DIR/config/alacritty/alacritty.yml"\
+            ~/.config/alacritty/alacritty.yml
 smart_link "$DOTFILES_DIR/config/i3/config" ~/.config/i3/config
 smart_link "$DOTFILES_DIR/config/nvim/init.vim" ~/.config/nvim/init.vim
-smart_link "$DOTFILES_DIR/config/termite/config" ~/.config/termite/config
 smart_link "$DOTFILES_DIR/config/dunst/dunstrc" ~/.config/dunst/dunstrc
 smart_link "$DOTFILES_DIR/config/i3blocks/config" ~/.config/i3blocks/config
 

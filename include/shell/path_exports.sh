@@ -19,7 +19,7 @@ add_to_path /opt/android-sdk/tools/emulator
 export PATH
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export TERMINAL=termite
-export TERM=termite
+export TERMINAL=alacritty
+export TERM=alacritty
 
 unset -f add_to_path
