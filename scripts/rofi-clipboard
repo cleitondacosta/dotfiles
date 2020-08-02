@@ -1,9 +1,38 @@
 #!/usr/bin/env bash
 
-FILE="$HOME/.quick-clipboard.txt"
+# This script reads the regular file $FILE_PATH, which must contain, line by line,
+# your frequently used texts. It can be a phone number, or an email that 
+# you always forget (or a crazy password that you know that it's safe there 
+# IN PLAIN TEXT). After reading the file, a menu will popup showing the texts
+# that you can select to copy to the system's clipboard. 
+# You can make inline comments in this file by using # at the end of line. 
+#
+# Example:
+#
+# $FILE_PATH content:
+# 9999-9999 # boss phone
+# 192.168.1.1 # my office pc static ip
+# Logitech G502 # moush that i always forget the name
+
+FILE_PATH="$HOME/.quick-clipboard.txt"
 ROFI_THEME="$HOME/.config/rofi/dmenu-center-search.rasi"
 
-notify_success() {
+run() {
+    if [ ! -f "$FILE_PATH" ]; then
+        notify_error "File \"$FILE_PATH\" does not exists."
+        exit 1
+    fi
+
+    SELECTED_OPTION="$(ask_user_to_select_option)"
+    [[ -z "$SELECTED_OPTION" ]] && exit
+
+    TO_COPY="$(remove_comment_and_trim "$SELECTED_OPTION")"
+
+    copy_to_clipboard "$TO_COPY"
+    notify_result $?
+}
+
+notify() {
     notify-send "$1"
 }
 
@@ -12,23 +41,13 @@ notify_error() {
 }
 
 ask_user_to_select_option() {
-    cat "$FILE" | rofi -theme "$ROFI_THEME" -dmenu  -i -no-custom
-}
-
-exit_if_file_does_not_exists() {
-    FILE_PATH="$1"
-
-    if [ ! -f "$FILE_PATH" ]; then
-        notify_error "File \"$FILE_PATH\" does not exists."
-        exit 1
-    fi
+    cat "$FILE_PATH" | rofi -theme "$ROFI_THEME" -dmenu  -i -no-custom
 }
 
 remove_comment_and_trim() {
     STRING="$1"
-    STRING_REVERSED="$(echo "$STRING" | rev)"
-    STRING_UNCOMMENTED="$(echo "$STRING_REVERSED" | cut -d\# -f 2- | rev)"
-    FORMATTED_STRING="$(echo "$STRING_UNCOMMENTED" | sed 's/\s*$//g')"
+    UNCOMMENTED_STRING="${STRING%#*}"
+    FORMATTED_STRING="$(echo "$UNCOMMENTED_STRING" | sed 's/\s*$//g')"
 
     echo "$FORMATTED_STRING"
 }
@@ -43,18 +62,10 @@ notify_result() {
     RETURN_VALUE=$1
 
     if [ $RETURN_VALUE -eq 0 ]; then
-        notify_success "\"$TO_COPY\" copied to clipboard."
+        notify "\"$TO_COPY\" copied to clipboard."
     else
         notify_error "xclip: Failed to copy to clipboard"
     fi
 }
 
-exit_if_file_does_not_exists "$FILE"
-
-SELECTED_OPTION="$(ask_user_to_select_option)"
-[[ -z "$SELECTED_OPTION" ]] && exit
-
-TO_COPY="$(remove_comment_and_trim "$SELECTED_OPTION")"
-
-copy_to_clipboard "$TO_COPY"
-notify_result $?
+run
