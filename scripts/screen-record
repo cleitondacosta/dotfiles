@@ -126,10 +126,21 @@ FILE_NAME="$(ask_filename)"
 FILE_NAME="$(format_filename "$FILE_NAME")"
 
 case "$OPTION" in
-    rec) rec_with_sound "$FILE_NAME" 60 ;;
-    rec-without-sound) rec_without_sound "$FILE_NAME" 60 ;;
-    rec-whats) rec_whats_compliant "$FILE_NAME" 60 ;;
-    rec-whats-without-sound) rec_without_sound "$FILE_NAME" 60 ;;
+    rec) 
+        rec_with_sound "$FILE_NAME" 60
+        ;;
+
+    rec-without-sound) 
+        rec_without_sound "$FILE_NAME" 60
+        ;;
+
+    rec-whats) 
+        rec_whats_compliant "$FILE_NAME" 60
+        ;;
+
+    rec-whats-without-sound) 
+        rec_whats_compliant_without_sound "$FILE_NAME" 60
+        ;;
 esac
 
 if [ -f "$FILE_NAME" ]; then
