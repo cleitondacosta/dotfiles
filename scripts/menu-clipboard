@@ -31,7 +31,7 @@ text_to_copy="$(echo "$text_to_copy" | sed 's/\s*$//g')"
 
 [[ -z "$selected_text" ]] && exit
 
-clipboard_set "text_to_copy"
+clipboard_set "$text_to_copy"
 
 if [ $? -eq 0 ]; then
     notification_send_success "\"$text_to_copy\" copied to the clipboard."
