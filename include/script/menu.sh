@@ -2,12 +2,12 @@ source "$HOME/.include/script/rice_file.sh"
 
 menu_show_list() {
     printf '%s\n' "$@"\
-    | _rofi "dmenu-dropdown-theme.rasi"
+    | _rofi "option-list-theme.rasi"
 }
 
 menu_select_item() {
     printf '%s\n' "$@"\
-    | _rofi "dmenu-dropdown-theme.rasi"
+    | _rofi "option-list-theme.rasi"
 }
 
 menu_input() {
