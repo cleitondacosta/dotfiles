@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# This script reads the regular file $QUICK_CLIPBOARD_REGULAR,
+# which must contain, line by line, your frequently used texts. 
+# It can be a phone number, or an email that you always forget 
+# (or a crazy password that you know that it's safe there IN PLAIN TEXT). 
+# After reading the file, a menu will popup showing the texts
+# that you can copy to the system's clipboard.
+# You must make inline comments in this file by using # at the end of line.
+#
+# Example of $QUICK_CLIPBOARD_REGULAR file content:
+#
+# 9999-9999 # boss phone
+# 192.168.1.1 # my office pc static ip
+# Logitech G502 # moush that i always forget the name
+
+source "$HOME/.include/script/notification.sh"
+source "$HOME/.include/script/menu.sh"
+source "$HOME/.include/script/clipboard.sh"
+source "$HOME/.include/script/rice_file.sh"
+
+if [ ! -f "$QUICK_CLIPBOARD_REGULAR" ]; then
+    notification_send_error "File "$QUICK_CLIPBOARD_REGULAR" doesn't exists."
+    exit 1
+fi
+
+options="$(cat "$QUICK_CLIPBOARD_REGULAR")"
+selected_text="$(menu_select_item "$options")"
+text_to_copy="${selected_text%#*}"
+text_to_copy="$(echo "$text_to_copy" | sed 's/\s*$//g')"
+
+[[ -z "$selected_text" ]] && exit
+
+clipboard_set "text_to_copy"
+
+if [ $? -eq 0 ]; then
+    notification_send_success "\"$text_to_copy\" copied to the clipboard."
+else
+    notification_send_error "Could not copy to clipboard."
+fi

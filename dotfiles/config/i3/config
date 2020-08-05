@@ -59,7 +59,7 @@ bindsym Print --release exec --no-startup-id "~/.scripts/screenshot"
 bindsym $mod+Print exec --no-startup-id "~/.scripts/screen-record"
 bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
 bindsym $mod+a exec --no-startup-id "~/.scripts/rofi-ascii"
-bindsym $mod+y exec --no-startup-id "~/.scripts/rofi-clipboard"
+bindsym $mod+y exec --no-startup-id "~/.scripts/menu-clipboard"
 bindsym $mod+Shift+r restart
 
 bindsym $mod+x exec --no-startup-id\
