@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
-# Description: Uses rofi to ask the user for an screencast option, and then
-#              record it with ffmpeg.
+#
+# Description: 
+# Uses rofi to ask the user for an screencast option, and then
+# record it with ffmpeg.
+#
 
 rec_with_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-    SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
+    SCREEN_RESOLUTION="$3"
+    OFFSET="$4"
 
     ffmpeg \
         -probesize 10M \
@@ -14,7 +18,7 @@ rec_with_sound() {
         -thread_queue_size 512 \
         -s "$SCREEN_RESOLUTION" \
         -r $FRAME_RATE \
-        -i :0.0 \
+        -i :0.0+$OFFSET \
         -f pulse -ac 2 -i default \
         -c:v libx264rgb \
         -crf 0 \
@@ -25,7 +29,8 @@ rec_with_sound() {
 rec_without_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-    SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
+    SCREEN_RESOLUTION="$3"
+    OFFSET="$4"
 
     ffmpeg \
         -probesize 10M \
@@ -34,7 +39,7 @@ rec_without_sound() {
         -thread_queue_size 512 \
         -s "$SCREEN_RESOLUTION" \
         -r $FRAME_RATE \
-        -i :0.0 \
+        -i :0.0+$OFFSET \
         -c:v libx264rgb \
         -crf 0 \
         -preset ultrafast \
@@ -44,7 +49,8 @@ rec_without_sound() {
 rec_whats_compliant() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-    SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
+    SCREEN_RESOLUTION="$3"
+    OFFSET="$4"
 
     ffmpeg \
         -probesize 10M \
@@ -53,7 +59,7 @@ rec_whats_compliant() {
         -thread_queue_size 512 \
         -s "$SCREEN_RESOLUTION" \
         -r $FRAME_RATE \
-        -i :0.0 \
+        -i :0.0+$OFFSET \
         -f pulse -ac 2 -i default \
         -c:v libx264 \
         -preset fast \
@@ -66,7 +72,8 @@ rec_whats_compliant() {
 rec_whats_compliant_without_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
-    SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
+    SCREEN_RESOLUTION="$3"
+    OFFSET="$4"
 
     ffmpeg \
         -probesize 10M \
@@ -75,7 +82,7 @@ rec_whats_compliant_without_sound() {
         -thread_queue_size 512 \
         -s "$SCREEN_RESOLUTION" \
         -r $FRAME_RATE \
-        -i :0.0 \
+        -i :0.0+$OFFSET \
         -c:v libx264 \
         -preset fast \
         -profile:v baseline \
@@ -87,13 +94,13 @@ rec_whats_compliant_without_sound() {
 ask_option() {
     OPTIONS="$(echo "$@" | tr ' ' '\n')"
     ROFI_THEME="$HOME/.config/rofi/option-list-theme.rasi"
-    echo "$(echo "$OPTIONS" | rofi -theme "$ROFI_THEME" -dmenu\
+    echo "$(echo "$OPTIONS" | rofi -dmenu\
            -p "Select an option to record your screen")"
 }
 
 ask_filename() {
     ROFI_THEME=~/.config/rofi/type-theme.rasi
-    echo "$(rofi -theme $ROFI_THEME -dmenu -p "File name: ")"
+    echo "$(rofi -dmenu -p "File name: ")"
 }
 
 format_filename() {
@@ -112,12 +119,46 @@ format_filename() {
     echo "$FORMATTED_FILE_NAME"
 }
 
+NUMBER_OF_CONNECTED_MONITORS=$(xrandr | grep ' connected' | wc -l)
+
+if [ $NUMBER_OF_CONNECTED_MONITORS -gt 1 ]; then
+    declare -a MONITORS
+
+    i=0
+    while [ $i -lt $NUMBER_OF_CONNECTED_MONITORS ]; do
+        MONITORS[$i]=$((i+1))
+        i=$((i+1))
+    done
+
+    CHOOSEN_MONITOR_TO_RECORD="$(ask_option ${MONITORS[*]})"
+    [[ -z $CHOOSEN_MONITOR_TO_RECORD ]] && exit
+
+    MONITOR_RESOLUTION="$(\
+        xrandr \
+        | grep -E '\sconnected' \
+        | sed -n ${CHOOSEN_MONITOR_TO_RECORD}p \
+        | grep -Eo '[0-9]+x[0-9]+' \
+    )"
+
+    MONITOR_OFFSET="$(\
+        xrandr \
+        | grep -E '\sconnected' \
+        | sed -n ${CHOOSEN_MONITOR_TO_RECORD}p \
+        | grep -Eo '[0-9]+\+[0-9]+\s' \
+        | tr '+' ','
+    )"
+else
+    MONITOR_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
+    MONITOR_OFFSET="0,0"
+fi
+
 OPTION="$(ask_option\
     "rec"\
     "rec-without-sound"\
     "rec-whats"\
     "rec-whats-without-sound"\
 )"
+
 [[ -z $OPTION ]] && exit
 
 FILE_NAME="$(ask_filename)"
@@ -127,19 +168,19 @@ FILE_NAME="$(format_filename "$FILE_NAME")"
 
 case "$OPTION" in
     rec) 
-        rec_with_sound "$FILE_NAME" 60
+        rec_with_sound "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
         ;;
 
     rec-without-sound) 
-        rec_without_sound "$FILE_NAME" 60
+        rec_without_sound "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
         ;;
 
     rec-whats) 
-        rec_whats_compliant "$FILE_NAME" 60
+        rec_whats_compliant "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
         ;;
 
     rec-whats-without-sound) 
-        rec_whats_compliant_without_sound "$FILE_NAME" 60
+        rec_whats_compliant_without_sound "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
         ;;
 esac
 
