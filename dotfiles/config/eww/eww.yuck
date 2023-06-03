@@ -1,0 +1,279 @@
+(defvar circular_progress_size 35)
+
+(defpoll sound_volume :interval "5s"
+   `pactl get-sink-volume @DEFAULT_SINK@ | head -1 | awk 'gsub("%", ""); {print $5}'`
+)
+
+(defwindow main
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore true
+  :geometry (
+    geometry
+      :width "1%"
+      :height "100%"
+      :anchor "center right"
+    )
+
+  (_root_widget)
+)
+
+(defwidget _root_widget []
+  (box
+    :class "root"
+    :space-evenly false
+    :orientation "v"
+    :spacing 16
+    :halign true
+
+    (_config)
+    (_sound)
+    (_network)
+    (_hardware_stat)
+    (_time)
+  )
+)
+
+(defwidget _config []
+  (box
+    :vexpand true
+    :orientation "v"
+  )
+)
+
+(defwidget _sound []
+  (box
+    :orientation "v"
+
+    (overlay
+      (scale 
+        :value sound_volume
+        :flipped true
+        :min 0
+        :max 101
+        :orientation "v"
+        :onchange `pactl set-sink-volume @DEFAULT_SINK@ {}%`
+      )
+    )
+
+    (transform
+      :translate-x -3
+      "󰗅"
+    )
+  )
+)
+    
+(defwidget _hardware_stat []
+  (box
+    :class "hardware-stat"
+    :space-evenly false
+    :spacing 8
+    :orientation "v"
+    :valign "end"
+
+    (box
+      :class "cpu-info"
+      :orientation "v"
+      :space-evenly false
+      :spacing 6
+
+      (sysprogress
+        :tip "CPU ${round(EWW_CPU.avg,0)}%"
+        :data {EWW_CPU.avg}
+        :icon "﬙"
+        :size circular_progress_size
+      )
+
+      (sysprogress
+        :css "temp"
+        :tip "Temperature: ${EWW_TEMPS["K10TEMP_TCTL"]}°"
+        :data {EWW_TEMPS["K10TEMP_TCTL"]}
+        :icon ""
+        :size circular_progress_size
+      )
+    )
+
+    (box
+      :class "gpu"
+      :orientation "v"
+      :spacing 4
+      :halign true
+
+      (sysprogress
+        :css "temp"
+        :tip "Temperature: ${gputemp}"
+        :data gputemp
+        :icon ""
+        :size circular_progress_size
+      )
+
+      (sysprogress
+        :css "gpu-usage"
+        :tip "Usage: ${gpu_usage}%"
+        :data gpu_usage
+        :icon "﬙"
+        :size circular_progress_size
+      )
+
+      (sysprogress
+        :css "gpu-power-draw"
+        :tip "Power draw: ${gpu_power_draw}"
+        :data gpu_power_draw
+        :icon "󱐋"
+        :size circular_progress_size
+      )
+    )
+
+    (box
+      :class "ram"
+      
+      (sysprogress
+        :css "ram"
+        :tip "RAM ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 0)}%"
+        :data {EWW_RAM.used_mem / EWW_RAM.total_mem * 100}
+        :icon "󰧑"
+        :size circular_progress_size
+      )
+    )
+
+    (box
+      :class "disk"
+
+      (sysprogress
+        :css "disk"
+        :tip "DISK ${round(EWW_DISK["/"].used / EWW_DISK["/"].total* 100, 0)}%"
+        :data {EWW_DISK["/"].used / EWW_DISK["/"].total* 100}
+        :icon "󰋊"
+        :size circular_progress_size
+      )
+    )
+  )
+)
+
+(defwidget _time []
+  (box
+    :orientation "v"
+
+    (_date)
+    (_clock)
+  )
+)
+
+(defwidget _clock []
+  (box
+    :class "time"
+    :space-evenly false
+    :orientation "v"
+    :halign true
+
+    (transform
+      :translate-x -3
+      ""
+    )
+
+    (label :text "${time.hour}")
+    (label :text "${time.min}")
+    (label :text "${time.sec}")
+  )
+)
+
+(defwidget _date []
+  (box
+    :class "date"
+    :space-evenly false
+    :orientation "v"
+    :halign true
+    :spacing 2
+
+    (transform
+      :translate-x -3
+      ""
+    )
+
+    (label :text "${date.day}")
+    (label :text "${date.month}")
+    (label :text "${date.year}")
+  )
+)
+
+(defwidget _network []
+  (box
+    :space-evenly false
+    (button
+      :halign "end"
+      :onclick {
+        vpn == "󰱟"
+        ? `nmcli connection up VPN_AD_marlinvpn2 \
+           || notify-send "Could not connect to VPN." \
+                          "Check your internet connection."`
+        : `nmcli connection down VPN_AD_marlinvpn2 \
+           && notify-send "Open VPN" \
+                          "Disconnected from VPN_AD_marlinvpn2"`
+      }
+      (image
+        :path {
+          vpn == "󰱟"
+          ? "/home/cleiton/liberdade/images/eww/openvpn-off.png"
+          : "/home/cleiton/liberdade/images/eww/openvpn-on.png"
+        }
+        :image-width 20
+        :image-height 20
+      )
+    )
+  )
+)
+
+(defpoll gputemp :interval "5s"
+  `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits`
+)
+
+(defpoll gpu_usage :interval "5s"
+  `nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`
+)
+
+(defpoll gpu_power_draw :interval "5s"
+  `nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits`
+)
+
+(defpoll time :interval "1s"
+  `date +'{"hour":"%H", "min": "%M", "sec": "%S"}'`
+)
+
+(defpoll date :interval "1s"
+  `date +'{"day":"%d", "month": "%m", "year": "%y"}'`
+)
+
+(defpoll vpn :interval "1s"
+  `bash ~/.scripts/eww/vpn.sh`
+)
+
+(defwidget sysprogress [data icon tip size]
+  (box 
+    :height size
+    :width size
+    :spalce-evenly false
+
+    (circular-progress
+      :value data
+      :start-at 25
+      :clockwise true
+      :thickness 4
+      :tooltip tip
+      :spalce-evenly false
+
+      (overlay
+        :valign "center"
+        :halign "center"
+        :spalce-evenly false
+
+        (box
+          :orientation "v"
+          :valign "center"
+ 
+          (label :class "icon" :text icon)
+          ;(label :text "${round(data, 0)}%")
+        )
+      )
+    )
+  )
+)

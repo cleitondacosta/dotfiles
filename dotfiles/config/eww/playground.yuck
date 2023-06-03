@@ -1,0 +1,277 @@
+(defwindow playground
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore true
+  :geometry (
+    geometry
+      :width "100%"
+      :height "6%"
+      :anchor "center bottom"
+  )
+
+  (_playground)
+)
+
+(defwidget _playground []
+  (box
+    :orientation "h"
+    :space-evenly false
+    :spacing 50
+    :valign "center"
+
+    (label :text "teste")
+    (label :text "teste 2")
+    (_combobox)
+    (_expander)
+    (_revealer)
+    (_checkbox)
+    (_color_button)
+    ;(_color_chooser)
+    (_scale)
+    (_progress)
+    (_input)
+    (_image)
+    (_overlay)
+    (_centerbox)
+    (_scroll)
+    (_eventbox)
+    ;(_literal)
+    (_calendar)
+    (_transform)
+    (_circular-progress)
+    (_graph)
+  )
+)
+
+(defwidget _combobox []
+  (box
+    :orientation "v"
+
+    (combo-box-text
+      :active true
+      :items ["1" "2" "3" "4" "5"]
+      :onchange `notify-send {}`
+    )
+  )
+)
+
+
+(defwidget _expander []
+  (expander
+    :name "Eitaaa"
+    :expanded true
+
+    (box
+      "Dentro"
+      "Dentro"
+      "Dentro"
+      "Dentro"
+      "Dentro"
+      "Dentro"
+    )
+  )
+)
+
+(defvar reveal "false")
+
+(defwidget _revealer []
+  (box
+    :space-evenly false
+
+    (button
+      :onclick {
+        reveal
+          ? `eww update reveal="false"`
+          : `eww update reveal="true"`
+      }
+
+      {reveal ? "close" : "open"}
+    )
+    (revealer
+      :transition "slideright"
+      :reveal reveal
+      :duration "500ms"
+
+      (box
+        "Dentro"
+        "Dentro"
+        "Dentro"
+        "Dentro"
+        "Dentro"
+        "Dentro"
+      )
+    )
+  )
+)
+
+(defwidget _checkbox []
+  (checkbox
+    :onchecked `notify-send checked`
+    :onunchecked `notify-send unchecked`
+  )
+)
+
+(defwidget _color_button []
+  (color-button :onchange `notify-send {}`)
+)
+
+;(defwidget _color_chooser []
+;  (color-chooser :onchange `notify-send {}`)
+;)
+
+(defvar scale_value "0")
+(defwidget _scale []
+  (box
+    :hexpand true
+    (scale 
+      :flipped false
+      :marks "|"
+      :draw-value true
+      :round-digits 2
+      :value scale_value
+      :min 0
+      :max 100
+      :timeout "200ms"
+      :onchange `notify-send {}`
+      :orientation "h"
+    )
+  )
+)
+
+(defwidget _progress []
+  (progress
+    :flipped false
+    :value 50
+    :orientation "h"
+  )
+)
+
+; Needs to be in a :focusable true window!
+(defwidget _input []
+  (input
+    :value "teste"
+    :onchange `notify-send {}`
+    :timeout "200ms"
+    :onaccept `notify-send "Enter was pressed!"`
+    :password false
+  )
+)
+
+; If omit width/height, the image will have its original size
+(defwidget _image []
+  (image
+    :path "/home/cleiton/image/bg/0.png"
+    :image-width 100
+    :image-height 100
+  )
+)
+
+(defwidget _overlay []
+  (overlay
+    (_image)
+    "Overlay!"
+  )
+)
+
+(defwidget _centerbox []
+  (box
+    :hexpand true
+
+    (centerbox
+      :orientation "h"
+      "1"
+      "2"
+      "3"
+    )
+  )
+)
+
+(defwidget _scroll []
+  (box
+    :width 100
+
+    (scroll
+      :hscroll true
+      :vscroll true
+
+      "Huge texttttttttttttttttttttttttttttttttttttt"
+    )
+  )
+)
+
+(defwidget _eventbox []
+    (overlay
+      (box :width 80 :class "eventbox"
+        (eventbox
+          :timeout "200ms"
+          :onscroll `notify-send "scrolled: {}!"`
+          :onhover `notify-send "hovered: {}!"`
+          :onhoverlost `notify-send "unhovered: {}!"`
+          :cursor `notify-send "cursor!"`
+          :ondropped `notify-send "somethind dropped: {}!"`
+          :dragvalue `notify-send "dragged: {}!"`
+          :dragtype "text"
+          :onclick `notify-send "clicked!"`
+          :onmiddleclick `notify-send "middle click!"`
+          :onrightclick `notify-send "right click!"`
+        )
+      )
+
+      "eventbox"
+  )
+)
+
+;(defwidget _literal []
+;  (literal
+;    Any yuck goes here...
+;    It allows to render any yuck.
+;  )
+;)
+
+(defwidget _calendar []
+  (calendar
+    :day 1
+    :month 6
+    :year 2023
+    :show-details true
+    :show-heading true
+    :show-day-names true
+    :show-week-numbers true
+    :onclick `notify-send "clicked: {0}/{1}/{2}"`
+    :timeout "200ms"
+  )
+)
+
+(defwidget _transform []
+  (transform
+    :rotate 5
+    :translate-x "40px"
+    :translate-y "-10px"
+    :scale_x "10%"
+    :scale_y "10%"
+
+    (_image)
+  )
+)
+
+(defwidget _circular-progress []
+  (circular-progress
+    :value 75
+    :start-at 0
+    :thickness 10
+    :clockwise true
+  )
+)
+
+(defwidget _graph []
+  (graph
+    :value 50
+    :thickness 30
+    :time-range "5s"
+    :min 0
+    :max 100
+    :dynamic false
+    :line-style "miter"
+  )
+)
