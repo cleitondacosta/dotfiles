@@ -180,12 +180,10 @@ function pten() {
     trans -b pt: "$@" :en 
 }
 
-# Speak text in english.
 function speak() { 
     trans -speak -s en "$@" 1>/dev/null 
 }
 
-# Meaning of english word.
 function meaning() { 
     trans -d -s en "$1" | less -R 
 }
@@ -247,4 +245,10 @@ function download_first_video_from_youtube_search() {
         "ytsearch1: $SEARCH"\
         -o "$VIDEO_PATH/%(title)s.%(ext)s"\
         --max-downloads 1
+}
+
+function list_availables_vpns() {
+    nmcli -f name,type connection show \
+        | awk '{if($NF == "vpn") print $0;}' \
+        | sed 's/\s*\w*\s*$//'
 }

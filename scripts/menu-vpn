@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+source "$HOME/.include/scripts/menu.sh"
+
+list_availables_vpns() {
+    nmcli -f name,type connection show \
+        | awk '{if($NF == "vpn") print $0;}' \
+        | sed 's/\s*\w*\s*$//'
+}
+
+ask_to_select_vpn() {
+    menu_select_item "$(list_availables_vpns)"
+}
+
+connect_to_selected_vpn() {
+    selected_vpn="$(ask_to_select_vpn)"
+    nmcli connection up "$selected_vpn"
+
+    if [ $? -ne 0 ]; then
+        notify-send "VPN" "Could not connect to VPN \"$selected_vpn\"."
+    else
+        notify-send "VPN" "Connected to VPN."
+    fi
+}
+
+connect_to_selected_vpn
