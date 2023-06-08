@@ -1,0 +1,15 @@
+@import "themes/cityoftears/cityoftears.rasi"
+
+window {
+  width: 25%;
+  border: 0.25em;
+  border-color: @background0;
+}
+
+listview {
+  enabled: false;
+}
+
+inputbar {
+  children: [ prompt, entry ];
+}

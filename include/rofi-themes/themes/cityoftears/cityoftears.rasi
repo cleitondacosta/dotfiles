@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  font: "FiraMonoNerdFont 14";
+  background0: #243D5E;
+  background1: #3D5A7E;
+  foreground0: #D6E6FC;
+  accent-color: #89ADE3;
+  urgent-color: #89ADE3;
+
+  background-color: transparent;
+  text-color: @foreground0;
+  scrollbar: true;
+}
+
+element-text {
+  text-color: inherit;
+}
+
+window {
+  location: center;
+  background-color: @background0;
+  border-radius: 1em;
+}
+
+inputbar {
+  spacing: 8px;
+  padding: 8px;
+
+  background-color: @background1;
+}
+
+prompt, entry, element-icon, element-text {
+  vertical-align: 0.5;
+}
+
+prompt {
+  text-color: @accent-color;
+}
+
+textbox {
+  padding: 8px;
+  background-color: @background1;
+}
+
+listview {
+  padding: 0 0.5em;
+  fixed-height: false;
+}
+
+element {
+  padding: 8px;
+  spacing: 8px;
+}
+
+element normal normal {
+  text-color: @foreground0;
+}
+
+element normal urgent {
+  text-color: @urgent-color;
+}
+
+element normal active {
+  text-color: @accent-color;
+}
+
+element selected {
+  text-color: @background0;
+}
+
+element selected normal, element selected active {
+  background-color: @accent-color;
+}
+
+element selected urgent {
+  background-color: @urgent-color;
+}
+
+element-icon {
+  size: 1em;
+}
+
+entry {
+  background-color: @background1;
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+scrollbar {
+  width: 0.1em;
+  border: 0;
+  border-radius: 0.1em;
+  handle-color: @background1;
+  handle-width: 0.25em;
+  padding: 0;
+}

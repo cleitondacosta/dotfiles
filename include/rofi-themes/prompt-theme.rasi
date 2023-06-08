@@ -1,21 +1,23 @@
-@import "themes/gruvbox/gruvbox-dark-hard.rasi"
+@import "themes/cityoftears/cityoftears.rasi"
 
 window {
-    width: 40%;
-    padding: 16px;
-    border: 1px;
+  width: 40%;
+  padding: 1em;
 }
 
 listview {
-    lines: 2;
-    padding: 20px;
-    spacing: 5px;
-    layout: vertical;
+  lines: 2;
+  padding: 1.5em;
+  spacing: 0.5em;
+  layout: horizontal;
+  expand: true;
 }
 
 inputbar {
-    spacing: 7px;
-    padding: 2px;
-    children: [ prompt ];
+  padding: 0.25em;
+  children: [ prompt ];
 }
 
+scrollbar {
+  enabled: false;
+}

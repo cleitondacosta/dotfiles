@@ -5,6 +5,9 @@
 # record it with ffmpeg.
 #
 
+ROFI_SELECT_OPTION_THEME="$HOME/.include/rofi-themes/option-list-theme.rasi"
+ROFI_INPUT_THEME="$HOME/.include/rofi-themes/input-theme.rasi"
+
 rec_with_sound() {
     CAPTURE_FILE="$1"
     FRAME_RATE=$2
@@ -91,16 +94,21 @@ rec_whats_compliant_without_sound() {
         "$CAPTURE_FILE"
 }
 
-ask_option() {
-    OPTIONS="$(echo "$@" | tr ' ' '\n')"
-    ROFI_THEME="$HOME/.config/rofi/option-list-theme.rasi"
-    echo "$(echo "$OPTIONS" | rofi -dmenu\
-           -p "Select an option to record your screen")"
+ask_record_mode() {
+    OPTIONS="$(echo "${@}" | tr ' ' '\n')"
+    echo "$(echo "$OPTIONS" | rofi -dmenu -theme "$ROFI_SELECT_OPTION_THEME"\
+            -p "Select an option to record your screen")"
+}
+
+ask_monitor() {
+    OPTIONS="$(echo "${@}" | tr ' ' '\n')"
+
+    echo "$(echo "$OPTIONS" | rofi -dmenu -theme "$ROFI_SELECT_OPTION_THEME"\
+            -p "Select which monitor to record")"
 }
 
 ask_filename() {
-    ROFI_THEME=~/.config/rofi/type-theme.rasi
-    echo "$(rofi -dmenu -p "File name: ")"
+    echo "$(rofi -theme "$ROFI_INPUT_THEME" -dmenu -p "File name: ")"
 }
 
 format_filename() {
@@ -130,7 +138,7 @@ if [ $NUMBER_OF_CONNECTED_MONITORS -gt 1 ]; then
         i=$((i+1))
     done
 
-    CHOOSEN_MONITOR_TO_RECORD="$(ask_option ${MONITORS[*]})"
+    CHOOSEN_MONITOR_TO_RECORD="$(ask_monitor ${MONITORS[*]})"
     [[ -z $CHOOSEN_MONITOR_TO_RECORD ]] && exit
 
     MONITOR_RESOLUTION="$(\
@@ -152,7 +160,7 @@ else
     MONITOR_OFFSET="0,0"
 fi
 
-OPTION="$(ask_option\
+OPTION="$(ask_record_mode\
     "rec"\
     "rec-without-sound"\
     "rec-whats"\

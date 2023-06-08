@@ -1,37 +1,38 @@
-@import "themes/gruvbox/gruvbox-dark-hard.rasi"
+@import "themes/cityoftears/cityoftears.rasi"
 
 * {
-    scrollbar: true;
+  scrollbar: true;
 }
 
 #prompt { enabled: false; }
 
 #window {
-    width: 40%;
-    height: 35%;
-    padding: 8px;
-    children: [ verticalbox ];
+  width: 40%;
+  height: 35%;
+  padding: 8px;
+  children: [ verticalbox ];
 }
 
 #verticalbox {
-    children:   [ entry, listview ];
+  children:   [ entry, listview ];
 }
 
 #listview {
-    border: 1px solid 0px 0px ;
-    scrollbar: @scrollbar;
+  border: 1px solid 0px 0px ;
+  scrollbar: @scrollbar;
 }
 
 scrollbar {
-    width: 5px;
-    height: 10px;
+  width: 5px;
+  height: 10px;
 }
 
 #entry {
-    expand:     false;
-    width:      100%;
+  margin: 0.5em;
+  expand: false;
+  width: 100%;
 }
 
 #element {
-    padding: 5px 5px;
+  padding: 5px 5px;
 }

@@ -1,38 +1,37 @@
-@import "themes/gruvbox/gruvbox-dark-hard.rasi"
+@import "themes/cityoftears/cityoftears.rasi"
 
 * {
     scrollbar: true;
 }
 
-#prompt { 
-    enabled: false;
-}
-
-window {
-    width: 35%;
-    height: 35%;
-    padding: 10px;
-    border: 1px;
-}
-
-listview {
-    spacing: 5px;
-    lines: 10;
-    scrollbar: @scrollbar;
+entry { 
+  enabled: false;
 }
 
 inputbar {
-    spacing: 7px;
-    padding: 2px;
-    children: [ prompt ];
+  margin: 0.5em;
+  background-color: @background0;
+  children: [prompt];
+}
+
+window {
+  width: 35%;
+  height: 35%;
+  padding: 0.5em;
+}
+
+listview {
+  spacing: 0.25em;
+  lines: 10;
+  scrollbar: @scrollbar;
 }
 
 scrollbar {
-    width: 5px;
-    height: 10px;
-    padding: 2px;
+  width: 0.25em;
+  height: 1em;
+  padding: 0.1em;
 }
 
 #element {
-    padding: 5px 5px;
+  padding: 5px 5px;
 }
