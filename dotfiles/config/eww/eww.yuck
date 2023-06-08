@@ -1,7 +1,11 @@
 (defvar circular_progress_size 35)
 
-(defpoll sound_volume :interval "5s"
-   `pactl get-sink-volume @DEFAULT_SINK@ | head -1 | awk 'gsub("%", ""); {print $5}'`
+(defpoll sound_volume :interval "1s"
+   `pactl get-sink-volume @DEFAULT_SINK@ | head -1 | awk 'NR==1 gsub("%", ""); {print $5}'`
+)
+
+(defpoll mic_volume :interval "1s"
+  `bash ~/.scripts/eww/get-microphone-level.sh`
 )
 
 (defwindow main
@@ -10,9 +14,9 @@
   :wm-ignore true
   :geometry (
     geometry
-      :width "1%"
-      :height "100%"
-      :anchor "center right"
+      :width "100%"
+      :height "4%"
+      :anchor "center bottom"
     )
 
   (_root_widget)
@@ -22,58 +26,76 @@
   (box
     :class "root"
     :space-evenly false
-    :orientation "v"
-    :spacing 16
+    :orientation "h"
     :halign true
 
-    (_config)
-    (_sound)
-    (_network)
     (_hardware_stat)
+    (_spacer)
+    (_network)
+    (_audio_controls)
     (_time)
   )
 )
 
 (defwidget _config []
   (box
-    :vexpand true
-    :orientation "v"
+    :orientation "h"
   )
 )
 
-(defwidget _sound []
+(defwidget _audio_controls []
   (box
-    :orientation "v"
+    :space-evenly false
+    
+    (_audio_sound)
+    (_audio_mic)
+  )
+)
 
-    (overlay
-      (scale 
-        :value sound_volume
-        :flipped true
-        :min 0
-        :max 101
-        :orientation "v"
-        :onchange `pactl set-sink-volume @DEFAULT_SINK@ {}%`
-      )
-    )
+(defwidget _audio_sound []
+  (box
+    :space-evenly false
+    :class "slider"
 
-    (transform
-      :translate-x -3
-      "󰗅"
+    (label :class "icon" :text "")
+
+    (scale 
+      :value sound_volume
+      :min 0
+      :max 100
+      :orientation "h"
+      :onchange `pactl set-sink-volume @DEFAULT_SINK@ {}%`
     )
   )
 )
-    
+
+(defwidget _audio_mic []
+  (box
+    :space-evenly false
+    :class "slider"
+
+    (label :class "icon" :text "󰍬")
+
+    (scale 
+      :value mic_volume
+      :min 0
+      :max 100
+      :orientation "h"
+      :onchange `bash ~/.scripts/eww/set-microphone-level.sh {}%`
+    )
+  )
+)
+
 (defwidget _hardware_stat []
   (box
     :class "hardware-stat"
     :space-evenly false
+    :valign "center"
     :spacing 8
-    :orientation "v"
-    :valign "end"
 
     (box
       :class "cpu-info"
-      :orientation "v"
+      :orientation "h"
       :space-evenly false
       :spacing 6
 
@@ -95,7 +117,7 @@
 
     (box
       :class "gpu"
-      :orientation "v"
+      :orientation "h"
       :spacing 4
       :halign true
 
@@ -152,55 +174,25 @@
 
 (defwidget _time []
   (box
-    :orientation "v"
-
-    (_date)
-    (_clock)
-  )
-)
-
-(defwidget _clock []
-  (box
     :class "time"
     :space-evenly false
     :orientation "v"
     :halign true
+    :valign true
 
-    (transform
-      :translate-x -3
-      ""
-    )
-
-    (label :text "${time.hour}")
-    (label :text "${time.min}")
-    (label :text "${time.sec}")
-  )
-)
-
-(defwidget _date []
-  (box
-    :class "date"
-    :space-evenly false
-    :orientation "v"
-    :halign true
-    :spacing 2
-
-    (transform
-      :translate-x -3
-      ""
-    )
-
-    (label :text "${date.day}")
-    (label :text "${date.month}")
-    (label :text "${date.year}")
+    (label :text "${time.hour}:${time.min}:${time.sec}")
+    (label :text "${date.day}/${date.month}/${date.year}")
   )
 )
 
 (defwidget _network []
   (box
-    :space-evenly false
+    :class 'network'
+    :hcenter true
+    :vcenter true
     (button
-      :halign "end"
+      :vexpand false
+      :vexpand false
       :onclick {
         vpn == "󰱟"
         ? `nmcli connection up VPN_AD_marlinvpn2 \
@@ -210,6 +202,7 @@
            && notify-send "Open VPN" \
                           "Disconnected from VPN_AD_marlinvpn2"`
       }
+
       (image
         :path {
           vpn == "󰱟"
@@ -267,7 +260,7 @@
         :spalce-evenly false
 
         (box
-          :orientation "v"
+          :orientation "h"
           :valign "center"
  
           (label :class "icon" :text icon)
@@ -276,4 +269,8 @@
       )
     )
   )
+)
+
+(defwidget _spacer []
+  (box :hexpand true) 
 )
