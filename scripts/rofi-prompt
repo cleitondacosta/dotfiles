@@ -8,7 +8,7 @@
 #   "~/my scripts/script to do something.sh" abc
 
 STRING_SIZE_LIMIT=25
-THEME=~/.config/rofi/prompt-theme.rasi
+THEME="$HOME/.include/rofi-themes/prompt-theme.rasi"
 
 rofi_error() {
     rofi -e "rofi-prompt: Error: $1"

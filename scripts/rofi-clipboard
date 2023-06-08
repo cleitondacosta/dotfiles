@@ -15,7 +15,7 @@
 # Logitech G502 # moush that i always forget the name
 
 FILE_PATH="$HOME/.quick-clipboard.txt"
-ROFI_THEME="$HOME/.config/rofi/dmenu-center-search.rasi"
+ROFI_THEME="$HOME/.include/rofi-themes/dmenu-center-search.rasi"
 
 run() {
     if [ ! -f "$FILE_PATH" ]; then
