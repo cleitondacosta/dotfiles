@@ -1,11 +1,39 @@
 (defvar circular_progress_size 35)
 
 (defpoll sound_volume :interval "1s"
-   `pactl get-sink-volume @DEFAULT_SINK@ | head -1 | awk 'NR==1 gsub("%", ""); {print $5}'`
+   `
+     pactl get-sink-volume @DEFAULT_SINK@\
+     | head -1\
+     | awk 'NR==1 gsub("%", ""); {print $5}'
+   `
 )
 
 (defpoll mic_volume :interval "1s"
   `bash ~/.scripts/eww/get-microphone-level.sh`
+)
+
+(defpoll gputemp :interval "5s"
+  `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits`
+)
+
+(defpoll gpu_usage :interval "5s"
+  `nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`
+)
+
+(defpoll gpu_power_draw :interval "5s"
+  `nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits`
+)
+
+(defpoll time :interval "1s"
+  `date +'{"hour":"%H", "min": "%M", "sec": "%S"}'`
+)
+
+(defpoll date :interval "1s"
+  `date +'{"day":"%d", "month": "%m", "year": "%y"}'`
+)
+
+(defpoll vpn :interval "1s"
+  `bash ~/.scripts/eww/vpn.sh`
 )
 
 (defwindow main
@@ -57,7 +85,11 @@
     :space-evenly false
     :class "slider"
 
-    (label :class "icon" :text "")
+    (label :class "icon" :text {
+      sound_volume == 0 ? "" :
+        sound_volume < 33 ? "" :
+          ""
+    })
 
     (scale 
       :value sound_volume
@@ -74,7 +106,8 @@
     :space-evenly false
     :class "slider"
 
-    (label :class "icon" :text "󰍬")
+    (label :class "icon" :text {mic_volume == 0 ? "󰍭" : "󰍬"})
+
 
     (scale 
       :value mic_volume
@@ -214,30 +247,6 @@
       )
     )
   )
-)
-
-(defpoll gputemp :interval "5s"
-  `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits`
-)
-
-(defpoll gpu_usage :interval "5s"
-  `nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`
-)
-
-(defpoll gpu_power_draw :interval "5s"
-  `nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits`
-)
-
-(defpoll time :interval "1s"
-  `date +'{"hour":"%H", "min": "%M", "sec": "%S"}'`
-)
-
-(defpoll date :interval "1s"
-  `date +'{"day":"%d", "month": "%m", "year": "%y"}'`
-)
-
-(defpoll vpn :interval "1s"
-  `bash ~/.scripts/eww/vpn.sh`
 )
 
 (defwidget sysprogress [data icon tip size]
