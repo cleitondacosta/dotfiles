@@ -1,4 +1,4 @@
-@import "themes/cityoftears/cityoftears.rasi"
+@import ".active-theme-symlink.rasi"
 
 #prompt { enabled: false; }
 
