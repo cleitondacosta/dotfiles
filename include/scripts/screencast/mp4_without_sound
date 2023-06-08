@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+CAPTURE_FILE="$1"
+FRAME_RATE=$2
+SCREEN_RESOLUTION="$3"
+OFFSET="$4"
+
+ffmpeg \
+    -probesize 10M \
+    -y \
+    -f x11grab \
+    -thread_queue_size 512 \
+    -s "$SCREEN_RESOLUTION" \
+    -r $FRAME_RATE \
+    -i :0.0+$OFFSET \
+    -c:v libx264rgb \
+    -crf 0 \
+    -preset ultrafast \
+    "$CAPTURE_FILE"

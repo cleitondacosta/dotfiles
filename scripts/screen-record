@@ -1,102 +1,23 @@
 #!/usr/bin/env bash
-#
-# Description: 
-# Uses rofi to ask the user for an screencast option, and then
-# record it with ffmpeg.
-#
 
 ROFI_SELECT_OPTION_THEME="$HOME/.include/rofi-themes/option-list-theme.rasi"
 ROFI_INPUT_THEME="$HOME/.include/rofi-themes/input-theme.rasi"
+LOCK_FILE="/tmp/.screencasting-lock.pid"
 
-rec_with_sound() {
-    CAPTURE_FILE="$1"
-    FRAME_RATE=$2
-    SCREEN_RESOLUTION="$3"
-    OFFSET="$4"
+SCREENCASTING_SCRIPTS_DIRECTORY="$HOME/.include/scripts/screencast"
 
-    ffmpeg \
-        -probesize 10M \
-        -y \
-        -f x11grab \
-        -thread_queue_size 512 \
-        -s "$SCREEN_RESOLUTION" \
-        -r $FRAME_RATE \
-        -i :0.0+$OFFSET \
-        -f pulse -ac 2 -i default \
-        -c:v libx264rgb \
-        -crf 0 \
-        -preset ultrafast \
-        "$CAPTURE_FILE"
+stop_already_running_recording() {
+    if [ -e "$LOCK_FILE" ]; then
+        PROCESS_PID=$(cat "$LOCK_FILE") 
+        pkill -P $PROCESS_PID
+        rm "$LOCK_FILE"
+        exit 0
+    fi
 }
 
-rec_without_sound() {
-    CAPTURE_FILE="$1"
-    FRAME_RATE=$2
-    SCREEN_RESOLUTION="$3"
-    OFFSET="$4"
-
-    ffmpeg \
-        -probesize 10M \
-        -y \
-        -f x11grab \
-        -thread_queue_size 512 \
-        -s "$SCREEN_RESOLUTION" \
-        -r $FRAME_RATE \
-        -i :0.0+$OFFSET \
-        -c:v libx264rgb \
-        -crf 0 \
-        -preset ultrafast \
-        "$CAPTURE_FILE"
-}
-
-rec_whats_compliant() {
-    CAPTURE_FILE="$1"
-    FRAME_RATE=$2
-    SCREEN_RESOLUTION="$3"
-    OFFSET="$4"
-
-    ffmpeg \
-        -probesize 10M \
-        -y \
-        -f x11grab \
-        -thread_queue_size 512 \
-        -s "$SCREEN_RESOLUTION" \
-        -r $FRAME_RATE \
-        -i :0.0+$OFFSET \
-        -f pulse -ac 2 -i default \
-        -c:v libx264 \
-        -preset fast \
-        -profile:v baseline \
-        -level 3.0 \
-        -pix_fmt yuv420p \
-        "$CAPTURE_FILE"
-}
-
-rec_whats_compliant_without_sound() {
-    CAPTURE_FILE="$1"
-    FRAME_RATE=$2
-    SCREEN_RESOLUTION="$3"
-    OFFSET="$4"
-
-    ffmpeg \
-        -probesize 10M \
-        -y \
-        -f x11grab \
-        -thread_queue_size 512 \
-        -s "$SCREEN_RESOLUTION" \
-        -r $FRAME_RATE \
-        -i :0.0+$OFFSET \
-        -c:v libx264 \
-        -preset fast \
-        -profile:v baseline \
-        -level 3.0 \
-        -pix_fmt yuv420p \
-        "$CAPTURE_FILE"
-}
-
-ask_record_mode() {
-    OPTIONS="$(echo "${@}" | tr ' ' '\n')"
-    echo "$(echo "$OPTIONS" | rofi -dmenu -theme "$ROFI_SELECT_OPTION_THEME"\
+ask_user_to_select_screencast_method() {
+    echo "$(ls "$SCREENCASTING_SCRIPTS_DIRECTORY"\
+            | rofi -dmenu -theme "$ROFI_SELECT_OPTION_THEME"\
             -p "Select an option to record your screen")"
 }
 
@@ -126,6 +47,8 @@ format_filename() {
 
     echo "$FORMATTED_FILE_NAME"
 }
+
+stop_already_running_recording
 
 NUMBER_OF_CONNECTED_MONITORS=$(xrandr | grep ' connected' | wc -l)
 
@@ -160,37 +83,26 @@ else
     MONITOR_OFFSET="0,0"
 fi
 
-OPTION="$(ask_record_mode\
-    "rec"\
-    "rec-without-sound"\
-    "rec-whats"\
-    "rec-whats-without-sound"\
-)"
+SELECTED_SCRIPT="$(ask_user_to_select_screencast_method)"
 
-[[ -z $OPTION ]] && exit
+[[ -z $SELECTED_SCRIPT ]] && exit
+
+SELECTED_SCRIPT="$SCREENCASTING_SCRIPTS_DIRECTORY/$SELECTED_SCRIPT"
 
 FILE_NAME="$(ask_filename)"
 [[ -z $FILE_NAME ]] && exit
 
 FILE_NAME="$(format_filename "$FILE_NAME")"
 
-case "$OPTION" in
-    rec) 
-        rec_with_sound "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
-        ;;
+$SELECTED_SCRIPT "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET" &
 
-    rec-without-sound) 
-        rec_without_sound "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
-        ;;
+RECORDING_APP_PID=$!
 
-    rec-whats) 
-        rec_whats_compliant "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
-        ;;
+echo $RECORDING_APP_PID > "$LOCK_FILE"
 
-    rec-whats-without-sound) 
-        rec_whats_compliant_without_sound "$FILE_NAME" 60 "$MONITOR_RESOLUTION" "$MONITOR_OFFSET"
-        ;;
-esac
+wait $RECORDING_APP_PID
+
+rm "$LOCK_FILE"
 
 if [ -f "$FILE_NAME" ]; then
     notify-send "Capture" "$FILE_NAME"

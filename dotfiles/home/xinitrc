@@ -1,1 +1,2 @@
+[[ -f "/tmp/.screencasting-lock.pid" ]] && rm "/tmp/.screencasting-lock.pid"
 exec i3
