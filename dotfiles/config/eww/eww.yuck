@@ -1,5 +1,9 @@
 (defvar circular_progress_size 35)
 
+(defpoll is_screencasting :interval "1s"
+  `[[ -f "/tmp/.screencasting-lock.pid" ]] && echo "true" || echo ""`
+)
+
 (defpoll sound_volume :interval "1s"
    `
      pactl get-sink-volume @DEFAULT_SINK@\
@@ -62,6 +66,7 @@
     (_network)
     (_audio_controls)
     (_time)
+    (_is_screencasting)
   )
 )
 
@@ -215,6 +220,13 @@
 
     (label :text "${time.hour}:${time.min}:${time.sec}")
     (label :text "${date.day}/${date.month}/${date.year}")
+  )
+)
+
+(defwidget _is_screencasting []
+  (label
+    :class {is_screencasting == "true" ? "rec-icon" : ""}
+    :text {is_screencasting == "true" ? "󰑋" : ""}
   )
 )
 
