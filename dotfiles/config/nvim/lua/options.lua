@@ -7,7 +7,7 @@ vim.opt.softtabstop = 4
 vim.api.nvim_create_autocmd('Filetype', {
   pattern = {
       'text', 'markdown', 'html', 'xhtml', 'javascript', 'typescript', 'json',
-      'ruby', 'css', 'scss', 'tsx', 'typescriptreact'
+      'ruby', 'css', 'scss', 'tsx', 'typescriptreact', 'yuck'
   },
   command = 'setlocal shiftwidth=2 tabstop=2 softtabstop=2'
 })
