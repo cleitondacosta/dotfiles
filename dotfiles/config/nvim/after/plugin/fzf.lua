@@ -1,0 +1,16 @@
+-- vim.g.fzf_preview_window = { 'right,50%', 'ctrl-/' }
+-- 
+-- function run_fzf_on_project_root_dir()
+--     local rootdir = vim.fn.system {'git', 'rev-parse', '--show-toplevel'}
+-- 
+--     if vim.v.shell_error == 0 then
+--         local rootdir_without_newline = rootdir:sub(1, -2)
+--         vim.cmd('Files ' .. rootdir_without_newline)
+--     else
+--         vim.cmd 'Files'
+--     end
+-- end
+-- 
+-- vim.keymap.set('n', '<leader>ffc', run_fzf_on_project_root_dir)
+-- vim.keymap.set('n', '<leader>fft', '<cmd>tabe<CR><cmd>lua run_fzf_on_project_root_dir()<CR>')
+-- vim.keymap.set('n', '<leader>ffs', '<cmd>tabe<CR><cmd>lua run_fzf_on_project_root_dir()<CR>')
