@@ -6,6 +6,10 @@ return require('packer').startup(function(use)
     use 'wellle/targets.vim'
     use 'mattn/emmet-vim'
     use 'numToStr/Comment.nvim'
+    use 'folke/tokyonight.nvim'
+    use 'vim-airline/vim-airline'
+    use 'ryanoasis/vim-devicons'
+    use 'tpope/vim-fugitive'
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
