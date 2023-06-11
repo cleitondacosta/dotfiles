@@ -5,6 +5,7 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'wellle/targets.vim'
     use 'mattn/emmet-vim'
+    use 'numToStr/Comment.nvim'
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
