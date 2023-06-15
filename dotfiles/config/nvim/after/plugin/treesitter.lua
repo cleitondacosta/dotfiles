@@ -7,6 +7,8 @@ require 'nvim-treesitter.configs'.setup {
         "javascript",
         "typescript",
         "rust",
+        "c",
+        "tsx",
     },
     sync_install = false,
     auto_install = true,

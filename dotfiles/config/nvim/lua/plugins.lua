@@ -7,22 +7,28 @@ return require('packer').startup(function(use)
     use 'mattn/emmet-vim'
     use 'numToStr/Comment.nvim'
     use 'folke/tokyonight.nvim'
-    use 'vim-airline/vim-airline'
-    use 'ryanoasis/vim-devicons'
+    use 'nvim-tree/nvim-web-devicons'
+    use 'nvim-lualine/lualine.nvim'
     use 'tpope/vim-fugitive'
+    use 'airblade/vim-gitgutter'
+    use 'L3MON4D3/LuaSnip'
+
     use {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        'hrsh7th/nvim-cmp',
         requires = {
-            {'neovim/nvim-lspconfig'},
-            {
-                'williamboman/mason.nvim',
-                run = function() pcall(vim.cmd, 'MasonUpdate') end,
-            },
-            {'williamboman/mason-lspconfig.nvim'},
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'L3MON4D3/LuaSnip'},
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip',
+            'hrsh7th/cmp-nvim-lsp',
+        }
+    }
+
+    use {
+        'neovim/nvim-lspconfig',
+        requires = {
+            { 'williamboman/mason.nvim', run = ':MasonUpdate' },
+            'williamboman/mason-lspconfig.nvim',
+            { 'j-hui/fidget.nvim', opts = {} },
+            'folke/neodev.nvim',
         }
     }
 
@@ -30,13 +36,19 @@ return require('packer').startup(function(use)
         'nvim-telescope/telescope.nvim',
         tag = '0.1.1',
         requires = {
-            {'nvim-lua/plenary.nvim'},
-            { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+            }
         }
     }
 
     use {
         'nvim-treesitter/nvim-treesitter',
+        requires = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
         run = function()
             local ts_update = require('nvim-treesitter.install')
             .update({ with_sync = true })

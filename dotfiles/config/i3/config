@@ -29,11 +29,8 @@ font pango: verdana 12
 
 # Status bar
 bar {
-    status_command i3blocks
     position top
     mode dock
-    modifier None
-    font pango: verdana 10
     height 20
 
     colors {
@@ -95,49 +92,28 @@ bindsym $mod+s layout toggle split
 
 bindsym $mod+Shift+space floating toggle
 
-workspace "1a" output HDMI-0
-workspace "1b" output DP-1
-workspace "2a" output HDMI-0
-workspace "2b" output DP-1
-workspace "3a" output HDMI-0
-workspace "3b" output DP-1
-workspace "4a" output HDMI-0
-workspace "4b" output DP-1
-workspace "5a" output HDMI-0
-workspace "5b" output DP-1
-workspace "6a" output HDMI-0
-workspace "6b" output DP-1
-workspace "7a" output HDMI-0
-workspace "7b" output DP-1
-workspace "8a" output HDMI-0
-workspace "8b" output DP-1
-workspace "9a" output HDMI-0
-workspace "9b" output DP-1
-workspace "10a" output DP-1
-workspace "10b" output DP-1
+bindsym $mod+1 workspace "1"
+bindsym $mod+2 workspace "2"
+bindsym $mod+3 workspace "3"
+bindsym $mod+4 workspace "4"
+bindsym $mod+5 workspace "5"
+bindsym $mod+6 workspace "6"
+bindsym $mod+7 workspace "7"
+bindsym $mod+8 workspace "8"
+bindsym $mod+9 workspace "9"
+bindsym $mod+0 workspace "10"
+bindsym $mod+space workspace "10"
 
-bindsym $mod+1 workspace "1a"; workspace "1b"
-bindsym $mod+2 workspace "2a"; workspace "2b"
-bindsym $mod+3 workspace "3a"; workspace "3b"
-bindsym $mod+4 workspace "4a"; workspace "4b"
-bindsym $mod+5 workspace "5a"; workspace "5b"
-bindsym $mod+6 workspace "6a"; workspace "6b"
-bindsym $mod+7 workspace "7a"; workspace "7b"
-bindsym $mod+8 workspace "8a"; workspace "8b"
-bindsym $mod+9 workspace "9a"; workspace "9b"
-bindsym $mod+0 workspace "10a"; workspace "10b"
-bindsym $mod+space workspace "10a"; workspace "10b"
-
-bindsym $mod+Shift+1 move container to workspace "1a"
-bindsym $mod+Shift+2 move container to workspace "2a"
-bindsym $mod+Shift+3 move container to workspace "3a"
-bindsym $mod+Shift+4 move container to workspace "4a"
-bindsym $mod+Shift+5 move container to workspace "5a"
-bindsym $mod+Shift+6 move container to workspace "6a"
-bindsym $mod+Shift+7 move container to workspace "7a"
-bindsym $mod+Shift+8 move container to workspace "8a"
-bindsym $mod+Shift+9 move container to workspace "9a"
-bindsym $mod+Shift+0 move container to workspace "10a"
+bindsym $mod+Shift+1 move container to workspace "1"
+bindsym $mod+Shift+2 move container to workspace "2"
+bindsym $mod+Shift+3 move container to workspace "3"
+bindsym $mod+Shift+4 move container to workspace "4"
+bindsym $mod+Shift+5 move container to workspace "5"
+bindsym $mod+Shift+6 move container to workspace "6"
+bindsym $mod+Shift+7 move container to workspace "7"
+bindsym $mod+Shift+8 move container to workspace "8"
+bindsym $mod+Shift+9 move container to workspace "9"
+bindsym $mod+Shift+0 move container to workspace "10"
 
 bindsym $mod+q kill
 
@@ -173,12 +149,9 @@ exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
 exec --no-startup-id "xinput set-prop 11 278 1"
 exec --no-startup-id "~/.fehbg &"
 
-
 # Software startup
-exec --no-startup-id "eww open main"
+exec_always --no-startup-id "eww open main"
 exec --no-startup-id dunst
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
 exec_always --no-startup-id picom
-exec_always --no-startup-id i3-msg workspace "1a"
-exec_always --no-startup-id i3-msg workspace "1b"

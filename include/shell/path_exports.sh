@@ -8,11 +8,13 @@ add_to_path ~/.bin
 add_to_path ~/.local/bin
 add_to_path ~/.scripts
 add_to_path ~/.sass
+add_to_path ~/.flutter/bin
 
 add_to_path /opt/android-sdk/platform-tools
 add_to_path /opt/android-sdk/tools
 add_to_path /opt/android-sdk/tools/bin
 add_to_path /opt/android-sdk/tools/emulator
+add_to_path ~/.pub-cache/bin
 
 [[ -d "/opt/android-sdk" ]] && export ANDROID_HOME="/opt/android-sdk"
 
