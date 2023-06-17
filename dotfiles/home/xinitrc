@@ -1,2 +1,3 @@
 [[ -f "/tmp/.screencasting-lock.pid" ]] && rm "/tmp/.screencasting-lock.pid"
+setxkbmap br
 exec i3
