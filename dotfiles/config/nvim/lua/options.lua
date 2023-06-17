@@ -56,3 +56,7 @@ require('tokyonight').setup({  style = "night" })
 vim.cmd [[ colorscheme tokyonight ]]
 vim.g.airline_powerline_fonts = 1
 vim.g.airline_section_z = ''
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true

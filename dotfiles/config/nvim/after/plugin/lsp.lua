@@ -12,7 +12,7 @@ local on_lsp_attach = function(_, bufnr)
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-    nmap('<keader>fr', fzfFunctions.lsp_references, '[G]oto [R]eferences')
+    nmap('<leader>fr', fzfFunctions.lsp_references, '[G]oto [R]eferences')
     nmap('<leader>fs', fzfFunctions.lsp_document_symbols, '[D]ocument [S]ymbols')
     nmap('<leader>fa', fzfFunctions.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 

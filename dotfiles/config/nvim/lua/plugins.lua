@@ -12,6 +12,15 @@ return require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
     use 'airblade/vim-gitgutter'
     use 'L3MON4D3/LuaSnip'
+    use 'windwp/nvim-autopairs'
+    use 'windwp/nvim-ts-autotag'
+
+    use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+        'nvim-tree/nvim-web-devicons', -- optional
+      },
+    }
 
     use {
         'hrsh7th/nvim-cmp',
