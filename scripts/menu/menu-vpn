@@ -2,6 +2,8 @@
 
 source "$HOME/.include/scripts/menu.sh"
 
+TMP_FILE="/tmp/menu-vpn-provided-password"
+
 list_availables_vpns() {
     nmcli -f name,type connection show \
         | awk '{if($NF == "vpn") print $0;}' \
@@ -14,7 +16,6 @@ ask_to_select_vpn() {
 
 connect_to_selected_vpn() {
     selected_vpn="$(ask_to_select_vpn)"
-    nmcli connection up "$selected_vpn"
 
     if [ $? -ne 0 ]; then
         notify-send "VPN" "Could not connect to VPN \"$selected_vpn\"."
@@ -23,4 +24,13 @@ connect_to_selected_vpn() {
     fi
 }
 
-connect_to_selected_vpn
+ask_password() {
+    menu_input "VPN Password: "
+}
+
+VPN_TO_CONNECT="$(connect_to_selected_vpn)"
+VPN_PASSWORD="$(ask_password)"
+
+echo -n "$VPN_PASSWORD" > "$TMP_FILE"
+nmcli connection up "$selected_vpn" passwd-file "$TMP_FILE"
+rm "$TMP_FILE"
