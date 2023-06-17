@@ -43,7 +43,7 @@
 (defwindow main
   :stacking "fg"
   :windowtype "dock"
-  :wm-ignore true
+  :wm-ignore false
   :geometry (
     geometry
       :width "100%"
@@ -248,14 +248,10 @@
                           "Disconnected from VPN_AD_marlinvpn2"`
       }
 
-      (image
-        :path {
-          vpn == "󰱟"
-          ? "/home/cleiton/liberdade/images/eww/openvpn-off.png"
-          : "/home/cleiton/liberdade/images/eww/openvpn-on.png"
-        }
-        :image-width 20
-        :image-height 20
+      (transform
+        :translate-x "-1px"
+
+        (label :text vpn)
       )
     )
   )
