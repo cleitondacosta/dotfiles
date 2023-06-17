@@ -16,10 +16,10 @@ return require('packer').startup(function(use)
     use 'windwp/nvim-ts-autotag'
 
     use {
-      'nvim-tree/nvim-tree.lua',
-      requires = {
-        'nvim-tree/nvim-web-devicons', -- optional
-      },
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons',
+        },
     }
 
     use {

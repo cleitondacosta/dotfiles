@@ -10,6 +10,9 @@ require 'nvim-treesitter.configs'.setup {
         "c",
         "tsx",
     },
+    indent = {
+      enable = true
+    },
     sync_install = false,
     auto_install = true,
     highlight = {
