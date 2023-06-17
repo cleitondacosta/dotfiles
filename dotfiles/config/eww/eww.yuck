@@ -1,4 +1,4 @@
-(defvar circular_progress_size 35)
+(include "./widgets/widgets.yuck")
 
 (defpoll is_screencasting :interval "1s"
   `[[ -f "/tmp/.screencasting-lock.pid" ]] && echo "true" || echo ""`
@@ -16,7 +16,7 @@
   `bash ~/.scripts/eww/get-microphone-level.sh`
 )
 
-(defpoll gputemp :interval "5s"
+(defpoll gpu_temp :interval "5s"
   `nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits`
 )
 
@@ -47,9 +47,9 @@
   :geometry (
     geometry
       :width "100%"
-      :height "4%"
+      :height "10"
       :anchor "center bottom"
-    )
+  )
 
   (_root_widget)
 )
@@ -70,55 +70,19 @@
   )
 )
 
-(defwidget _config []
-  (box
-    :orientation "h"
-  )
-)
-
 (defwidget _audio_controls []
   (box
     :space-evenly false
     
-    (_audio_sound)
-    (_audio_mic)
-  )
-)
-
-(defwidget _audio_sound []
-  (box
-    :space-evenly false
-    :class "slider"
-
-    (label :class "icon" :text {
-      sound_volume == 0 ? "" :
-        sound_volume < 33 ? "" :
-          ""
-    })
-
-    (scale 
+    (bar
+      :text {sound_volume == 0 ? "" : sound_volume < 33 ? "" : ""}
       :value sound_volume
-      :min 0
-      :max 100
-      :orientation "h"
       :onchange `pactl set-sink-volume @DEFAULT_SINK@ {}%`
     )
-  )
-)
 
-(defwidget _audio_mic []
-  (box
-    :space-evenly false
-    :class "slider"
-
-    (label :class "icon" :text {mic_volume == 0 ? "󰍭" : "󰍬"})
-
-
-    (scale 
+    (bar
+      :text {mic_volume == 0 ? "󰍭" : "󰍬"}
       :value mic_volume
-      :min 0
-      :max 100
-      :orientation "h"
       :onchange `bash ~/.scripts/eww/set-microphone-level.sh {}%`
     )
   )
@@ -126,85 +90,33 @@
 
 (defwidget _hardware_stat []
   (box
-    :class "hardware-stat"
     :space-evenly false
-    :valign "center"
-    :spacing 8
+    :valign "end"
 
-    (box
-      :class "cpu-info"
-      :orientation "h"
-      :space-evenly false
-      :spacing 6
+    (group :text "CPU" :class "cpu"
+      (sysinfo :text "CPU" :value {round(EWW_CPU.avg, 1)} :unitType "%")
+      (sysinfo :text "TEMP" :value {round(EWW_TEMPS["K10TEMP_TCTL"], 0)} :unitType "°")
+    )
 
-      (sysprogress
-        :tip "CPU ${round(EWW_CPU.avg,0)}%"
-        :data {EWW_CPU.avg}
-        :icon "﬙"
-        :size circular_progress_size
-      )
+    (group :text "GPU" :class "gpu"
+      (sysinfo :text "GPU" :value {gpu_usage} :unitType "%")
+      (sysinfo :text "TEMP" :value {gpu_temp} :unitType "°")
+      (sysinfo :text "VOLT" :value {round(gpu_power_draw, 0)} :unitType "w")
+    )
 
-      (sysprogress
-        :css "temp"
-        :tip "Temperature: ${EWW_TEMPS["K10TEMP_TCTL"]}°"
-        :data {EWW_TEMPS["K10TEMP_TCTL"]}
-        :icon ""
-        :size circular_progress_size
+    (group :text "RAM" :class "ram"
+      (sysinfo
+        :text "RAM"
+        :value {round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 0)}
+        :unitType "%"
       )
     )
 
-    (box
-      :class "gpu"
-      :orientation "h"
-      :spacing 4
-      :halign true
-
-      (sysprogress
-        :css "temp"
-        :tip "Temperature: ${gputemp}"
-        :data gputemp
-        :icon ""
-        :size circular_progress_size
-      )
-
-      (sysprogress
-        :css "gpu-usage"
-        :tip "Usage: ${gpu_usage}%"
-        :data gpu_usage
-        :icon "﬙"
-        :size circular_progress_size
-      )
-
-      (sysprogress
-        :css "gpu-power-draw"
-        :tip "Power draw: ${gpu_power_draw}"
-        :data gpu_power_draw
-        :icon "󱐋"
-        :size circular_progress_size
-      )
-    )
-
-    (box
-      :class "ram"
-      
-      (sysprogress
-        :css "ram"
-        :tip "RAM ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 0)}%"
-        :data {EWW_RAM.used_mem / EWW_RAM.total_mem * 100}
-        :icon "󰧑"
-        :size circular_progress_size
-      )
-    )
-
-    (box
-      :class "disk"
-
-      (sysprogress
-        :css "disk"
-        :tip "DISK ${round(EWW_DISK["/"].used / EWW_DISK["/"].total* 100, 0)}%"
-        :data {EWW_DISK["/"].used / EWW_DISK["/"].total* 100}
-        :icon "󰋊"
-        :size circular_progress_size
+    (group :text "DISK" :class "disk"
+      (sysinfo
+        :text "DISK"
+        :value {round(EWW_DISK["/"].used / EWW_DISK["/"].total* 100, 0)}
+        :unitType "%"
       )
     )
   )
@@ -214,9 +126,10 @@
   (box
     :class "time"
     :space-evenly false
-    :orientation "v"
+    :orientation "h"
     :halign true
     :valign true
+    :spacing 16
 
     (label :text "${time.hour}:${time.min}:${time.sec}")
     (label :text "${date.day}/${date.month}/${date.year}")
@@ -224,65 +137,33 @@
 )
 
 (defwidget _is_screencasting []
-  (label
-    :class {is_screencasting == "true" ? "rec-icon" : ""}
-    :text {is_screencasting == "true" ? "󰑋" : ""}
-  )
-)
+  (overlay
 
-(defwidget _network []
-  (box
-    :class 'network'
-    :hcenter true
-    :vcenter true
-    (button
-      :vexpand false
-      :vexpand false
-      :onclick {
-        vpn == "󰱟"
-        ? `nmcli connection up VPN_AD_marlinvpn2 \
-           || notify-send "Could not connect to VPN." \
-                          "Check your internet connection."`
-        : `nmcli connection down VPN_AD_marlinvpn2 \
-           && notify-send "Open VPN" \
-                          "Disconnected from VPN_AD_marlinvpn2"`
-      }
+    (label :class "dummy" :text {is_screencasting == true ? "	" : ""})
 
-      (transform
-        :translate-x "-1px"
+    (transform
+      :translate-y "-8px"
+      :translate-x "-12px"
 
-        (label :text vpn)
+      (label
+        :class {is_screencasting == "true" ? "rec-icon" : ""}
+        :text {is_screencasting == "true" ? "󰑋" : ""}
       )
     )
   )
 )
 
-(defwidget sysprogress [data icon tip size]
-  (box 
-    :height size
-    :width size
-    :spalce-evenly false
+(defwidget _network []
+  (box
+    :class "network"
 
-    (circular-progress
-      :value data
-      :start-at 25
-      :clockwise true
-      :thickness 4
-      :tooltip tip
-      :spalce-evenly false
+    (overlay
+      (label :class "dummy" :text "	")
 
-      (overlay
-        :valign "center"
-        :halign "center"
-        :spalce-evenly false
+      (transform
+        :translate-y "-3px"
 
-        (box
-          :orientation "h"
-          :valign "center"
- 
-          (label :class "icon" :text icon)
-          ;(label :text "${round(data, 0)}%")
-        )
+        (label :class "vpn" :text vpn)
       )
     )
   )

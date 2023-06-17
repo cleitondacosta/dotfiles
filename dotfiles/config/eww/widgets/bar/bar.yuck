@@ -1,0 +1,34 @@
+(defwidget bar [text value ?onchange ?class]
+  (box
+    :class class
+    :class "bar"
+    :orientation "h"
+    :space-evenly false
+
+    (overlay
+      (label :text "	")
+
+      (transform
+        :translate-y "-4px"
+        :translate-x "24px"
+
+        (label :class "text" :text "${text} ")
+      )
+    )
+
+    (overlay
+      (label :text "		")
+
+      (transform
+        :translate-y "-8px"
+        (scale 
+          :value value
+          :min 0
+          :max 100
+          :orientation "h"
+          :onchange onchange
+        )
+      )
+    )
+  )
+)

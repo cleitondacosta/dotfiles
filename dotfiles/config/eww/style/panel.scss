@@ -1,55 +1,53 @@
-$default-border-radius: 0.25rem;
-
 .root {
   background: $background;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   font-family: FiraMonoNerdFont;
-  padding: 0.25rem 0.5rem;
+  padding: 0;
+  margin: 0;
 }
 
-.cpu-info {
+label {
+  font-weight: bolder;
+}
+
+.cpu, .gpu, .ram, .disk {
+  padding: 0 0.5em;
+}
+
+.cpu {
   background: $cpu;
-  padding: 0.2rem;
-  border-radius: 1.5rem;
+  color: #fff;
 }
 
 .gpu {
   background: $gpu;
-  padding: 0.2rem;
-  border-radius: 1.5rem;
+  color: #fff;
 }
 
 .ram {
   background: $ram;
-  padding: 0.2rem;
-  border-radius: 50%;
+  color: #fff;
 }
 
 .disk {
   background: $disk;
-  padding: 0.2rem;
-  border-radius: 50%;
+  color: #fff;
 }
 
 .time {
-  background: $gray;
-  padding: 0.1rem 1rem;
-  border-radius: $default-border-radius;
-  margin-left: 0.5rem;
-}
-
-.network {
-  margin: 0.1rem;
+  padding: 0 1em;
+  margin-left: 1em;
+  font-size: 1em;
 }
 
 circular-progress {
   background-color: black;
   color: white;
-  padding: 0 0.25rem;
+  padding: 0 0.25em;
 
   .icon {
-    font-size: 1.10rem;
+    font-size: 1.10em;
   }
 }
 
@@ -63,20 +61,40 @@ button {
 }
 
 scale {
-  min-height: 0.25rem;
-  min-width: 8rem;
+  min-width: 8em;
+
+  slider {
+    min-height: 10px;
+    min-width: 10px;
+    margin: -5px;
+  }
 }
 
 .slider {
-  background: $gray;
-  border-radius: $default-border-radius;
-  margin: 0 0.5rem;
-  padding: 0 0.5rem;
+  margin: 0 0.5em;
+  padding: 0 0.5em;
 }
 
 .slider .icon {
-  margin-right: 0.5rem;
-  font-size: 1.5rem;
+  margin-right: 0.5em;
+  font-size: 1.5em;
+}
+
+.network {
+  all: unset;
+
+  .dummy {
+    font-size: 5px;
+  }
+
+  label {
+    all: unset;
+    font-size: 1.4em;
+  }
+}
+
+.dummy {
+  font-size: 5px;
 }
 
 .rec-icon {

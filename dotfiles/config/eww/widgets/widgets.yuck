@@ -1,0 +1,3 @@
+(include "./widgets/sysinfo/sysinfo.yuck")
+(include "./widgets/group/group.yuck")
+(include "./widgets/bar/bar.yuck")

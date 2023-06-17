@@ -1,0 +1,10 @@
+(defwidget sysinfo [text value unitType ?class]
+  (box 
+    :spalce-evenly false
+    :orientation "h"
+    :class "sysinfo"
+    :class class
+    
+    (label :class "sysinfo-value" :text "${value}${unitType}")
+  )
+)

@@ -1,6 +1,6 @@
 # ~/.config/i3/config
 # To load default config: delete this file and then run i3-config-wizard(1).
-# Tip: Run "xmodmax -pke" to see the key codes.
+# Tip: Run "xmodmap -pke" to see the key codes.
 set $mod Mod4
 
 # Colors

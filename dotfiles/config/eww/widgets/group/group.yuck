@@ -1,0 +1,12 @@
+(defwidget group [text ?class]
+  (box
+    :orientation "h"
+    :space-evenly false
+    :class "group"
+    :spacing 16
+    :class class
+
+    (label :text text)
+    (children)
+  )
+)

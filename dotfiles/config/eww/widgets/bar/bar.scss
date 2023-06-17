@@ -1,0 +1,15 @@
+.bar {
+  .text {
+    font-size: 1.5em;
+  }
+
+  scale trough highlight {
+    background: white;
+    border: none;
+  }
+
+  scale trough {
+    background: black;
+    border: 0.25px solid white;
+  }
+}
