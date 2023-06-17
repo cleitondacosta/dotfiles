@@ -2,7 +2,10 @@ plugins=(fzf)
 ZSH_THEME="robbyrussell"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH="$HOME/.oh-my-zsh"
+NVM_PATH="/usr/share/nvm/init-nvm.sh"
+
 source "$ZSH/oh-my-zsh.sh"
+[[ -f "$NVM_PATH" ]] && source "$NVM_PATH"
 
 function include() {
     [[ -f "$1" ]] && source "$1" || echo "Could not include: \"$1\""

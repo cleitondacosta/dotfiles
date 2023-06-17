@@ -11,7 +11,7 @@ menu_yes_or_no() {
 }
 
 menu_input() {
-    _menu "type-theme.rasi" "$1"
+    _menu "input-theme.rasi" "$1"
 }
 
 _menu() {
