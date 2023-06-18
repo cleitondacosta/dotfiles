@@ -29,7 +29,7 @@ local on_lsp_attach = function(_, bufnr)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
 
-    vim.o.updatetime = 250
+    vim.o.updatetime = 2500
     vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 end
 
