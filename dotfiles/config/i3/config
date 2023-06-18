@@ -15,8 +15,7 @@ for_window [class="Yad"] floating enable
 for_window [class="Yad"] border pixel
 floating_minimum_size 75 x 50
 floating_maximum_size 1200 x 700
-gaps inner 15
-gaps outer 10
+
 # title-border title-bg title-text indicator border
 client.focused $accentColor\
                $predominantColor\
