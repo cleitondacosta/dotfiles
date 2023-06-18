@@ -2,13 +2,13 @@
   background: $background;
   color: #fff;
   font-size: 14px;
-  font-family: FiraMonoNerdFont;
+  font-family: IosevkaNerdFont;
   padding: 0;
   margin: 0;
 }
 
 label {
-  font-weight: bolder;
+  font-weight: 700;
 }
 
 .cpu, .gpu, .ram, .disk {
