@@ -27,4 +27,8 @@ vim.keymap.set('n', '<leader>fd', fzfFunctions.diagnostics, {})
 vim.keymap.set('n', '<leader>fw', fzfFunctions.grep_string, {})
 vim.keymap.set('n', '<leader>et', '<cmd>NvimTreeToggle<CR>', {})
 
+vim.keymap.set('n', '<leader>ot', function()
+    vim.fn.jobstart({vim.env.TERM})
+end, {})
+
 -- More on after/plugin/lsp.lua

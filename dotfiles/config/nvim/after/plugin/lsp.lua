@@ -9,6 +9,14 @@ local on_lsp_attach = function(_, bufnr)
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
+    nmap('<leader>dt', function()
+        if vim.diagnostic.is_disabled() then
+            vim.diagnostic.enable()
+        else
+            vim.diagnostic.disable()
+        end
+
+    end, '[D]iagnostics [T]oggle')
 
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
@@ -66,6 +74,8 @@ mason_lspconfig.setup_handlers {
         }
     end,
 }
+
+vim.diagnostic.config({virtual_text = false})
 
 -- cmp (auto complete)
 local cmp = require 'cmp'
