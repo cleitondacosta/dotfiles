@@ -40,7 +40,30 @@
   `bash ~/.scripts/eww/vpn.sh`
 )
 
+(defwindow secondary
+  :monitor 1
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore false
+  :geometry (geometry :anchor "center bottom" :width "100%")
+
+  (box :class "root panel"
+    (_secondary_workspaces)
+  )
+)
+
+(defwindow main_workspaces
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore true
+  :geometry (geometry :anchor "center bottom")
+
+  (_main_workspaces)
+)
+
 (defwindow main
+  :monitor 0
   :stacking "fg"
   :windowtype "dock"
   :wm-ignore false
@@ -55,7 +78,7 @@
 
 (defwidget _root_widget []
   (box
-    :class "root"
+    :class "panel root"
     :space-evenly false
     :orientation "h"
     :halign true
@@ -170,4 +193,37 @@
 
 (defwidget _spacer []
   (box :hexpand true) 
+)
+
+(defvar mainWorkspaces "[1, 3, 5, 7, 9, \"🗿\"]")
+(defvar secondaryWorkspaces "[2, 4, 6, 8, 0, \"🗿\"]")
+(defvar activeWorkspace "1")
+
+(defwidget _main_workspaces []
+  (box
+    :class "workspaces"
+    :orientation "h"
+    :space-evenly false
+
+    (for ws in mainWorkspaces
+      (label
+        :class "workspace ${activeWorkspace == ws ? "active" : ""}"
+        :text ws
+      )
+    )
+  )
+)
+
+(defwidget _secondary_workspaces []
+  (box
+    :orientation "h"
+    :space-evenly false
+
+    (for ws in secondaryWorkspaces
+      (label
+        :class "workspace ${activeWorkspace == ws ? "active" : ""}"
+        :text ws
+      )
+    )
+  )
 )
