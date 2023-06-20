@@ -52,19 +52,9 @@
   )
 )
 
-(defwindow main_workspaces
-  :monitor 0
-  :stacking "fg"
-  :windowtype "dock"
-  :wm-ignore true
-  :geometry (geometry :anchor "center bottom")
-
-  (_main_workspaces)
-)
-
 (defwindow main
   :monitor 0
-  :stacking "fg"
+  :stacking "bg"
   :windowtype "dock"
   :wm-ignore false
   :geometry (
@@ -74,6 +64,17 @@
   )
 
   (_root_widget)
+)
+
+
+(defwindow main_workspaces
+  :monitor 0
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore true
+  :geometry (geometry :anchor "center bottom")
+
+  (_main_workspaces)
 )
 
 (defwidget _root_widget []

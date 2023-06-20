@@ -4,9 +4,12 @@
 set $mod Mod4
 
 # Colors
-set $predominantColor #282828
-set $secondaryColor #fbf1c7
-set $accentColor #fff500
+set $predominantColor #0C1828
+set $secondaryColor #4E6C91
+set $accentColor #ccdced
+
+set $innerGap 30
+set $outerGap 15
 
 # Windows conf
 for_window [class="^.*"] border pixel 1
@@ -22,6 +25,8 @@ client.focused $accentColor\
                $secondaryColor\
                $secondaryColor\
                $accentColor
+
+smart_borders on
 
 # Font:
 font pango: verdana 12
@@ -72,6 +77,11 @@ bindsym $mod+t layout tabbed
 bindsym $mod+s layout toggle split
 
 bindsym $mod+Shift+space floating toggle
+
+gaps inner $innerGap
+gaps outer $outerGap
+bindsym $mod+g gaps inner current set $innerGap; gaps outer current set $outerGap
+bindsym $mod+Shift+g gaps inner current set 0; gaps outer current set 0
 
 workspace "1" output HDMI-0
 workspace "2" output DP-1
@@ -149,9 +159,9 @@ exec --no-startup-id "xinput set-prop 11 278 1"
 exec --no-startup-id "~/.fehbg &"
 
 # Software startup
-exec_always --no-startup-id "eww open main"
-exec_always --no-startup-id "eww open main_workspaces"
-exec_always --no-startup-id "eww open secondary"
+exec --no-startup-id "eww open main"
+exec --no-startup-id "eww open main_workspaces"
+exec --no-startup-id "eww open secondary"
 exec --no-startup-id dunst
 exec --no-startup-id flameshot
 exec --no-startup-id redshift

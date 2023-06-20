@@ -52,8 +52,6 @@ vim.g.user_emmet_leader_key = {
     }
 }
 
-require('tokyonight').setup({  style = "night" })
-vim.cmd [[ colorscheme tokyonight ]]
 vim.g.airline_powerline_fonts = 1
 vim.g.airline_section_z = ''
 
