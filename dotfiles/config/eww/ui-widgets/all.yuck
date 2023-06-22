@@ -1,3 +1,4 @@
 (include "./ui-widgets/sysinfo/sysinfo.yuck")
 (include "./ui-widgets/group/group.yuck")
 (include "./ui-widgets/bar/bar.yuck")
+(include "./ui-widgets/Icon/Icon.yuck")

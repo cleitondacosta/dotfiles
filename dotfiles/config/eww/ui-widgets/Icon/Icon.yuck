@@ -1,0 +1,9 @@
+(defwidget Icon [icon]
+  (overlay
+    (label :class "dummy" :text "	")
+
+    (transform :translate-y "-2px"
+      (label :class "ui-icon" :text icon)
+    )
+  )
+)

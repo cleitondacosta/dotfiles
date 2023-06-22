@@ -87,6 +87,7 @@
     (_spacer)
     (I3Workspaces :workspaces mainWorkspaces :focusedWorkspace activeWorkspace)
     (_spacer)
+    (InternetConnectionChecker)
     (_network)
     (_audio_controls)
     (_time)
