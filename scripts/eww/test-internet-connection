@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+LOCK_FILE="/tmp/.test-internet-connection-script"
+
+servers=("8.8.8.8" "8.8.4.4" "1.1.1.1" "4.2.2.4" "4.2.2.2")
+
+function sping() {
+    ping -W 1 -c 1 "$1" > /dev/null
+
+    if [ $? -eq 0 ]; then
+        echo "󰞉"
+
+        if [ -e "$LOCK_FILE" ]; then 
+            notify-send "Nice" "Connected to the internet."
+            rm "$LOCK_FILE"
+        fi
+
+        exit 0;
+    fi
+}
+
+for server in "${servers[@]}"; do
+    sping "$server"
+done
+
+echo "󱞐"
+
+if [ ! -e "$LOCK_FILE" ]; then 
+    notify-send "Warning" "No internet connection."
+    touch "$LOCK_FILE"
+fi

@@ -1,12 +1,7 @@
 (include "./ui-widgets/all.yuck")
 
-(defpoll internetConnectionStatus :interval "3s" :initial "n"
-  `ping -c1 8.8.8.8 > /dev/null && echo "󰞉"\
-    || ping -c1 8.8.4.4 > /dev/null && echo "󰞉"\
-      || ping -c1 1.1.1.1 > /dev/null && echo "󰞉"\
-        || ping -c1 4.2.2.4 > /dev/null && echo "󰞉"\
-          || ping -c1 4.2.2.2 > /dev/null && echo "󰞉"\
-            || echo "󱞐"`
+(defpoll internetConnectionStatus :interval "2s" :initial ""
+  `~/.scripts/eww/test-internet-connection`
 )
 
 (defwidget InternetConnectionChecker []
