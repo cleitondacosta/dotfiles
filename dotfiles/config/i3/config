@@ -101,17 +101,17 @@ workspace "0" output DP-1
 workspace "🗿" output HDMI-0
 workspace "🗿🗿" output DP-1
 
-bindsym $mod+0 workspace "0"; exec --no-startup-id eww update activeWorkspace="0"
-bindsym $mod+1 workspace "1"; exec --no-startup-id eww update activeWorkspace="1"
-bindsym $mod+2 workspace "2"; exec --no-startup-id eww update activeWorkspace="2"
-bindsym $mod+3 workspace "3"; exec --no-startup-id eww update activeWorkspace="3"
-bindsym $mod+4 workspace "4"; exec --no-startup-id eww update activeWorkspace="4"
-bindsym $mod+5 workspace "5"; exec --no-startup-id eww update activeWorkspace="5"
-bindsym $mod+6 workspace "6"; exec --no-startup-id eww update activeWorkspace="6"
-bindsym $mod+7 workspace "7"; exec --no-startup-id eww update activeWorkspace="7"
-bindsym $mod+8 workspace "8"; exec --no-startup-id eww update activeWorkspace="8"
-bindsym $mod+9 workspace "9"; exec --no-startup-id eww update activeWorkspace="9"
-bindsym $mod+space workspace "🗿"; workspace "🗿🗿"; exec --no-startup-id eww update activeWorkspace="🗿"
+bindsym $mod+0 workspace "0"
+bindsym $mod+1 workspace "1"
+bindsym $mod+2 workspace "2"
+bindsym $mod+3 workspace "3"
+bindsym $mod+4 workspace "4"
+bindsym $mod+5 workspace "5"
+bindsym $mod+6 workspace "6"
+bindsym $mod+7 workspace "7"
+bindsym $mod+8 workspace "8"
+bindsym $mod+9 workspace "9"
+bindsym $mod+space workspace "🗿"; workspace "🗿🗿"
 
 bindsym $mod+Shift+1 move container to workspace "1"
 bindsym $mod+Shift+2 move container to workspace "2"
@@ -154,15 +154,14 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 4"
 # I/O config
 exec --no-startup-id "xrandr --output HDMI-0 --mode 2560x1080 --rate 60 --primary"
 exec --no-startup-id "xrandr --output DP-1 --mode 1920x1080 --rate 60 --right-of HDMI-0"
-exec --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
+exec_always --no-startup-id "setxkbmap br -layout abnt2 -variant abnt2"
 exec --no-startup-id "xinput set-prop 11 278 1"
 exec --no-startup-id "~/.fehbg &"
 
 # Software startup
-exec --no-startup-id "eww open main"
-exec --no-startup-id "eww open main_workspaces"
-exec --no-startup-id "eww open secondary"
+exec --no-startup-id "eww open-many main secondary"
 exec --no-startup-id dunst
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
+exec_always --no-startup-id "~/.scripts/i3wm/update-eww-i3-workspace"
 exec_always --no-startup-id picom

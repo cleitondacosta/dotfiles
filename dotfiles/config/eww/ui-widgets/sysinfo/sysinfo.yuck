@@ -1,6 +1,6 @@
 (defwidget sysinfo [text value unitType ?class]
   (box 
-    :spalce-evenly false
+    :space-evenly false
     :orientation "h"
     :class "sysinfo"
     :class class

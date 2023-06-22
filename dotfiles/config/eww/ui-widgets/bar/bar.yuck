@@ -10,7 +10,7 @@
 
       (transform
         :translate-y "-4px"
-        :translate-x "24px"
+        :translate-x "20px"
 
         (label :class "text" :text "${text} ")
       )

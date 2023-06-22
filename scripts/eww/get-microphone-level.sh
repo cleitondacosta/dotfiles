@@ -5,8 +5,7 @@ VOLUME=$(\
     pacmd list-sources\
     | grep "index: $DEFAULT_MIC_SOURCE" -A 7\
     | grep "volume"\
-    | awk -F "/" '{print $2}'\
-    | tr -d "%"\
+    | tr -d "% "\
 )
 
-echo $VOLUME
+echo $VOLUME | awk -F "/" '{print $2}'

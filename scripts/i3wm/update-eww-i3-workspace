@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+#
+# With this implementation:
+#
+# Without jq, each update_i3_active_workspace_in_eww call, took 16ms average.
+# With jq, took 45ms average.
+#
+# jq code is here for future reference, it's not being used.
+
+function get_event_type_with_jq {
+    echo "$1" | jq '.change' | tr -d '"'
+}
+
+function get_active_workspace_name_with_jq {
+    echo "$1" | jq ".current.name" | tr -d '"'
+}
+
+function get_event_type_without_jq {
+    echo "$1" | grep -Po '"change":".*?"' | cut -f 2 -d ':' |  tr -d '"'
+}
+
+function get_active_workspace_name_without_jq {
+    echo "$1" | grep -Po '"name":".*?"' | head -1 | cut -f 2 -d ':' | tr -d '"'
+}
+
+function update_i3_active_workspace_in_eww() {
+    eventType=$(get_event_type_without_jq "$1")
+
+    if [[ "$eventType" == "focus" ]]; then
+        active_workspace_name=$(get_active_workspace_name_without_jq "$1")
+        eww update activeWorkspace=$active_workspace_name
+    fi
+}
+
+function benchmark {
+    before=$(date +%s%3N)
+    update_i3_active_workspace_in_eww "$1"
+    after=$(date +%s%3N)
+
+    echo "Took $((after - before))ms"
+}
+
+i3-msg -t subscribe -m '[ "workspace" ]' | while read event; do
+    # benchmark "$event"
+    update_i3_active_workspace_in_eww "$event"
+done

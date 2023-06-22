@@ -1,10 +1,11 @@
-(include "./widgets/widgets.yuck")
+(include "./ui-widgets/all.yuck")
+(include "./widgets/all.yuck")
 
 (defpoll is_screencasting :interval "1s"
   `[[ -f "/tmp/.screencasting-lock.pid" ]] && echo "true" || echo ""`
 )
 
-(defpoll sound_volume :interval "1s"
+(defpoll sound_volume :interval "1s" :initial 0
    `
      pactl get-sink-volume @DEFAULT_SINK@\
      | head -1\
@@ -12,7 +13,7 @@
    `
 )
 
-(defpoll mic_volume :interval "1s"
+(defpoll mic_volume :interval "1s" :initial 0
   `bash ~/.scripts/eww/get-microphone-level.sh`
 )
 
@@ -24,21 +25,27 @@
   `nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`
 )
 
-(defpoll gpu_power_draw :interval "5s"
+(defpoll gpu_power_draw :interval "5s" :initial 0
   `nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits`
 )
 
 (defpoll time :interval "1s"
+  :initial '{"hour":"00", "min": "00", "sec": "00"}'
   `date +'{"hour":"%H", "min": "%M", "sec": "%S"}'`
 )
 
 (defpoll date :interval "1s"
+  :initial '{"day":"00", "month": "00", "year": "00"}'
   `date +'{"day":"%d", "month": "%m", "year": "%y"}'`
 )
 
 (defpoll vpn :interval "1s"
   `bash ~/.scripts/eww/vpn.sh`
 )
+
+(defvar activeWorkspace "1")
+(defvar mainWorkspaces "[1, 3, 5, 7, 9, \"🗿\"]")
+(defvar secondaryWorkspaces "[2, 4, 6, 8, 0, \"🗿\"]")
 
 (defwindow secondary
   :monitor 1
@@ -48,7 +55,10 @@
   :geometry (geometry :anchor "center bottom" :width "100%")
 
   (box :class "root panel"
-    (_secondary_workspaces)
+    (I3Workspaces
+      :workspaces secondaryWorkspaces
+      :focusedWorkspace activeWorkspace
+    )
   )
 )
 
@@ -67,24 +77,15 @@
 )
 
 
-(defwindow main_workspaces
-  :monitor 0
-  :stacking "fg"
-  :windowtype "dock"
-  :wm-ignore true
-  :geometry (geometry :anchor "center bottom")
-
-  (_main_workspaces)
-)
-
 (defwidget _root_widget []
   (box
     :class "panel root"
     :space-evenly false
     :orientation "h"
-    :halign true
 
     (_hardware_stat)
+    (_spacer)
+    (I3Workspaces :workspaces mainWorkspaces :focusedWorkspace activeWorkspace)
     (_spacer)
     (_network)
     (_audio_controls)
@@ -138,7 +139,7 @@
     (group :text "DISK" :class "disk"
       (sysinfo
         :text "DISK"
-        :value {round(EWW_DISK["/"].used / EWW_DISK["/"].total* 100, 0)}
+        :value {round(EWW_DISK["/"].used / EWW_DISK["/"].total * 100, 0)}
         :unitType "%"
       )
     )
@@ -150,8 +151,6 @@
     :class "time"
     :space-evenly false
     :orientation "h"
-    :halign true
-    :valign true
     :spacing 16
 
     (label :text "${time.hour}:${time.min}:${time.sec}")
@@ -196,25 +195,6 @@
   (box :hexpand true) 
 )
 
-(defvar mainWorkspaces "[1, 3, 5, 7, 9, \"🗿\"]")
-(defvar secondaryWorkspaces "[2, 4, 6, 8, 0, \"🗿\"]")
-(defvar activeWorkspace "1")
-
-(defwidget _main_workspaces []
-  (box
-    :class "workspaces"
-    :orientation "h"
-    :space-evenly false
-
-    (for ws in mainWorkspaces
-      (label
-        :class "workspace ${activeWorkspace == ws ? "active" : ""}"
-        :text ws
-      )
-    )
-  )
-)
-
 (defwidget _secondary_workspaces []
   (box
     :orientation "h"
@@ -228,3 +208,4 @@
     )
   )
 )
+
