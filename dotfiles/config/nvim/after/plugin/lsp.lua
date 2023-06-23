@@ -1,46 +1,4 @@
-local fzfFunctions = require('telescope/builtin')
-
-local on_lsp_attach = function(_, bufnr)
-    local nmap = function(keys, func, desc)
-        if desc then
-            desc = 'LSP: ' .. desc
-        end
-
-        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-    end
-
-    nmap('<leader>dt', function()
-        if vim.diagnostic.is_disabled() then
-            vim.diagnostic.enable()
-        else
-            vim.diagnostic.disable()
-        end
-
-    end, '[D]iagnostics [T]oggle')
-
-    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-    nmap('<leader>fr', fzfFunctions.lsp_references, '[G]oto [R]eferences')
-    nmap('<leader>fs', fzfFunctions.lsp_document_symbols, '[D]ocument [S]ymbols')
-    nmap('<leader>fa', fzfFunctions.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-
-    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format()
-    end, { desc = 'Format current buffer with LSP' })
-
-    vim.o.updatetime = 2500
-    vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
-end
-
+local keymaps = require 'keymaps'
 
 local servers = {
     rust_analyzer = {},
@@ -69,7 +27,7 @@ mason_lspconfig.setup_handlers {
     function(server_name)
         require('lspconfig')[server_name].setup {
             capabilities = capabilities,
-            on_attach = on_lsp_attach,
+            on_attach = keymaps.on_lsp_attach,
             settings = servers[server_name],
         }
     end,
