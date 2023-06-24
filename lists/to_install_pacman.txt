@@ -24,6 +24,7 @@ pulseaudio
 ripgrep
 rofi
 rsync
+starship
 sxiv
 thunar
 xorg-server
