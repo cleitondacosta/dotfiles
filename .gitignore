@@ -1,2 +1,7 @@
 .active-theme-symlink.rasi
 packer_compiled.lua
+
+**/fish/functions/
+**/fish/completions/
+**/fish/themes/
+**/fish/fish_variables
