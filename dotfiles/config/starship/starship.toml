@@ -1,0 +1,96 @@
+add_newline = false
+format = " $all"
+
+[character]
+success_symbol = ' [\$](bold green)'
+error_symbol = ' [\$](bold red)'
+
+[directory]
+truncation_length = 12
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+[c]
+format = '\[[$symbol($version(-$name))]($style)\]'
+
+[cmake]
+format = '\[[$symbol($version)]($style)\]'
+
+[cmd_duration]
+disabled = true
+format = '\[[⏱ $duration]($style)\]'
+
+[dart]
+format = '\[[$symbol($version)]($style)\]'
+
+[docker_context]
+format = '\[[$symbol$context]($style)\]'
+
+[dotnet]
+format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+
+[fennel]
+format = '\[[$symbol($version)]($style)\]'
+
+[git_branch]
+format = 'on [$symbol$branch]($style)'
+
+[git_status]
+format = ' ([\[$all_status$ahead_behind\]]($style))'
+up_to_date = ''
+conflicted = '='
+ahead = '⇡'
+behind = '⇣'
+diverged = '⇕'
+untracked = '?'
+stashed = '$'
+modified = '!'
+staged = '+'
+renamed = '»'
+deleted = '✘ '
+typechanged = ""
+style = 'bold red'
+ignore_submodules = false
+disabled = false
+
+[gradle]
+format = ' \[[$symbol($version)]($style)\]'
+
+[java]
+format = ' \[[$symbol($version)]($style)\]'
+
+[kotlin]
+format = ' \[[$symbol($version)]($style)\]'
+
+[lua]
+format = ' \[[$symbol($version)]($style)\]'
+
+[memory_usage]
+format = ' \[$symbol[$ram( | $swap)]($style)\]'
+
+[nodejs]
+format = ' \[[$symbol($version)]($style)\]'
+
+[package]
+format = ' \[[$symbol$version]($style)\]'
+
+[python]
+format = ' \[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+
+[ruby]
+format = ' \[[$symbol($version)]($style)\]'
+
+[rust]
+format = ' \[[$symbol($version)]($style)\]'
+
+[sudo]
+format = ' \[[as $symbol]($style)\]'
+
+[swift]
+format = ' \[[$symbol($version)]($style)\]'
+
+[time]
+format = ' \[[$time]($style)\]'
+
+[username]
+format = ' \[[$user]($style)\]'
