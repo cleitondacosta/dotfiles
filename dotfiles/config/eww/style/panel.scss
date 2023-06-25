@@ -119,9 +119,13 @@ scale {
 
 .workspace {
   margin: 0 0.5em;
-  color: #fff;
+  color: #c1c1c1;
+}
+
+.workspace.focused {
+  color: red;
 }
 
 .workspace.active {
-  color: red;
+  color: #fff;
 }

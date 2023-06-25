@@ -2,7 +2,7 @@
 ; See /scripts/update-eww-i3-workspace
 ; (it updates the "focusedWorkspaces", eww variable which is passed bellow)
 
-(defwidget I3Workspaces [workspaces focusedWorkspace]
+(defwidget I3Workspaces [workspaces focusedWorkspace activeWorkspaces]
   (box
     :class "workspaces"
     :orientation "h"
@@ -10,7 +10,7 @@
 
     (for workspace in workspaces
       (label
-        :class "workspace ${workspace == focusedWorkspace ? "active" : ""}"
+        :class "workspace ${workspace == focusedWorkspace ? "focused" : ""}"
         :text workspace
       )
     )

@@ -1,46 +1,58 @@
 #!/usr/bin/env bash
-#
-# With this implementation:
-#
-# Without jq, each update_i3_active_workspace_in_eww call, took 16ms average.
-# With jq, took 45ms average.
-#
-# jq code is here for future reference, it's not being used.
+# Avoid using jq to parse the JSON, it's "slow" (see older commit)
 
-function get_event_type_with_jq {
-    echo "$1" | jq '.change' | tr -d '"'
-}
-
-function get_active_workspace_name_with_jq {
-    echo "$1" | jq ".current.name" | tr -d '"'
-}
-
-function get_event_type_without_jq {
+function get_event_name {
     echo "$1" | grep -Po '"change":".*?"' | cut -f 2 -d ':' |  tr -d '"'
 }
 
-function get_active_workspace_name_without_jq {
+function get_active_workspace_name {
     echo "$1" | grep -Po '"name":".*?"' | head -1 | cut -f 2 -d ':' | tr -d '"'
 }
 
-function update_i3_active_workspace_in_eww() {
-    eventType=$(get_event_type_without_jq "$1")
+function add_active_workspace {
+    workspace_name="$1"
 
-    if [[ "$eventType" == "focus" ]]; then
-        active_workspace_name=$(get_active_workspace_name_without_jq "$1")
-        eww update activeWorkspace=$active_workspace_name
+    if [[ ! " ${ACTIVE_WORKSPACES[*]} " =~ " $workspace_name " ]]; then
+        ACTIVE_WORKSPACES+=("$workspace_name")
+        update_eww_active_workspaces
     fi
 }
 
-function benchmark {
-    before=$(date +%s%3N)
-    update_i3_active_workspace_in_eww "$1"
-    after=$(date +%s%3N)
-
-    echo "Took $((after - before))ms"
+function remove_active_workspace {
+    workspace_name="$1"
+    ACTIVE_WORKSPACES=($(echo "${ACTIVE_WORKSPACES[@]}" | sed "s/$1//g"))
+    update_eww_active_workspaces
 }
 
+function set_initial_values {
+    ACTIVE_WORKSPACES=($(i3-msg -t get_workspaces | jq ".[].name" | tr '\n' ' ' | tr -d '"'))
+    update_eww_active_workspaces
+
+    #TODO: set eww "focusedWorkspace" initial value
+}
+
+function update_eww_active_workspaces {
+    ewwActiveWorkspaces="$(echo "[${ACTIVE_WORKSPACES[@]}]" | sed 's/ /,/g')"
+    eww update activeWorkspaces="$ewwActiveWorkspaces"
+}
+
+declare -a ACTIVE_WORKSPACES
+set_initial_values
+
 i3-msg -t subscribe -m '[ "workspace" ]' | while read event; do
-    # benchmark "$event"
-    update_i3_active_workspace_in_eww "$event"
+    eventName="$(get_event_name "$event")"
+    workspaceName="$(get_active_workspace_name "$event")"
+
+    case "$eventName" in
+        "focus")
+            eww update focusedWorkspace=$workspaceName
+            add_active_workspace "$workspaceName"
+            ;;
+        "init") 
+            add_active_workspace "$workspaceName"
+            ;; 
+        "empty")
+            remove_active_workspace "$workspaceName"
+            ;;
+    esac
 done
