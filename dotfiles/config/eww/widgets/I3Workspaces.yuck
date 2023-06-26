@@ -10,10 +10,12 @@
 
     (for workspace in workspaces
       (label
-        :class "workspace ${workspace == focusedWorkspace ? "focused" : ""}"
+        :class "workspace ${workspace == focusedWorkspace ? "focused" : ""} ${matches(activeWorkspaces, workspace) ? "active" : ""}"
+        
         :text workspace
       )
     )
+
   )
 )
 
