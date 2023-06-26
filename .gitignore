@@ -5,3 +5,4 @@ packer_compiled.lua
 **/fish/completions/
 **/fish/themes/
 **/fish/fish_variables
+**/fish/conf.d/
