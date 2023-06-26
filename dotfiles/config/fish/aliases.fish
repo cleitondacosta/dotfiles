@@ -3,6 +3,7 @@ alias c 'cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
 alias p 'cd "$(ls ~/code/*/project/* -d | fzf)"'
 alias wp 'cd "$(ls ~/work/projects/* -d | fzf)"'
 alias e 'fd --type f --hidden --follow --exclude .git | fzf --preview \'bat --style=plain --color=always {}\' | xargs -r nvim'
+alias t '$TERM & disown'
 alias cdc 'cd ~/code'
 alias cdd 'cd ~/download'
 alias cdi 'cd ~/image'
@@ -19,3 +20,4 @@ alias increase_sound_volume 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
 alias decrease_sound_volume 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
 alias set_background_image 'feh --bg-fill ~/.bg'
 alias n "nvim /tmp/.quick-note-$USER"
+alias bot "btm"
