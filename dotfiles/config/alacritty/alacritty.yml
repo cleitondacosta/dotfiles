@@ -14,6 +14,7 @@ window:
 
 key_bindings:
   - { key: Escape,  mode: Vi, action: ToggleViMode }
+  - { key: 'Q',  mode: Vi, action: ToggleViMode }
 
 font:
   size: 14.0
