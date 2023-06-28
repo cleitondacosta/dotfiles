@@ -1,8 +1,10 @@
 ; The focused workspace is updated subscribing to i3 socket.
-; See /scripts/update-eww-i3-workspace
-; (it updates the "focusedWorkspaces", eww variable which is passed bellow)
+; See /scripts/eww/update-eww-i3-workspace which updates the variables bellow
 
-(defwidget I3Workspaces [workspaces focusedWorkspace activeWorkspaces]
+(defvar focusedWorkspace "1")
+(defvar activeWorkspaces "[]")
+
+(defwidget I3Workspaces [workspaces]
   (box
     :class "workspaces"
     :orientation "h"
@@ -11,11 +13,9 @@
     (for workspace in workspaces
       (label
         :class "workspace ${workspace == focusedWorkspace ? "focused" : ""} ${matches(activeWorkspaces, workspace) ? "active" : ""}"
-        
         :text workspace
       )
     )
-
   )
 )
 

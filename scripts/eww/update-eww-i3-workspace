@@ -1,11 +1,31 @@
 #!/usr/bin/env bash
-# Avoid using jq to parse the JSON, it's "slow" (see older commit)
+#
+# This script uses the i3-msg to subscribe to the events of i3wm.
+# 
+# By doing this, there's no need to check what is the state of i3 workspace
+# each N seconds, because it will be updated in real time, as soon as
+# the wm notifies it through the socket. This is done in the while loop in the
+# code below.
+# 
+# See more here: https://i3wm.org/docs/ipc.html
+# 
+# I'm using it to change two eww variables to highlight the focused workspace and
+# non-empty workspaces, so that I can apply different styles to them. For this to
+# work, you need to create those variables in your eww configuration
+# (focusedWorkspace and activeWorkspaces). And then this script needs to be 
+# running to update those variables, so it needs to be invoked in the i3 
+# config file.
+# 
+# For a better understanding, see: 
+#     - my "config/i3" file
+#     - my "eww/widgets/I3Workspaces.yuck" file
+# 
 
-function get_event_name {
+function get_i3_event_name {
     echo "$1" | grep -Po '"change":".*?"' | cut -f 2 -d ':' |  tr -d '"'
 }
 
-function get_active_workspace_name {
+function get_i3_active_workspace_name {
     echo "$1" | grep -Po '"name":".*?"' | head -1 | cut -f 2 -d ':' | tr -d '"'
 }
 
@@ -38,7 +58,7 @@ function update_eww_active_workspaces {
 
 function await_eww_startup {
     while true; do
-        sleep 2
+        sleep 1
         [[ "$(eww ping)" = "pong" ]] && break
     done
 }
@@ -50,8 +70,8 @@ function main {
     declare -a ACTIVE_WORKSPACES
 
     i3-msg -t subscribe -m '[ "workspace" ]' | while read event; do
-        eventName="$(get_event_name "$event")"
-        workspaceName="$(get_active_workspace_name "$event")"
+        eventName="$(get_i3_event_name "$event")"
+        workspaceName="$(get_i3_active_workspace_name "$event")"
 
         case "$eventName" in
             "focus")

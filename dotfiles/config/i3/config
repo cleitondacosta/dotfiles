@@ -163,6 +163,6 @@ exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
 exec_always --no-startup-id "eww kill; eww open-many main secondary"
-exec_always --no-startup-id "sleep 2; ~/.scripts/i3wm/update-eww-i3-workspace"
+exec_always --no-startup-id "~/.scripts/eww/update-eww-i3-workspace"
 exec_always --no-startup-id picom
 exec_always --no-startup-id dunst
