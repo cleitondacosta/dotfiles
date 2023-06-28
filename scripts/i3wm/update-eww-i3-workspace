@@ -36,23 +36,36 @@ function update_eww_active_workspaces {
     eww update activeWorkspaces="$ewwActiveWorkspaces"
 }
 
-declare -a ACTIVE_WORKSPACES
-set_initial_values
+function await_eww_startup {
+    while true; do
+        sleep 2
+        [[ "$(eww ping)" = "pong" ]] && break
+    done
+}
 
-i3-msg -t subscribe -m '[ "workspace" ]' | while read event; do
-    eventName="$(get_event_name "$event")"
-    workspaceName="$(get_active_workspace_name "$event")"
+function main {
+    await_eww_startup
+    set_initial_values
 
-    case "$eventName" in
-        "focus")
-            eww update focusedWorkspace=$workspaceName
-            add_active_workspace "$workspaceName"
-            ;;
-        "init") 
-            add_active_workspace "$workspaceName"
-            ;; 
-        "empty")
-            remove_active_workspace "$workspaceName"
-            ;;
-    esac
-done
+    declare -a ACTIVE_WORKSPACES
+
+    i3-msg -t subscribe -m '[ "workspace" ]' | while read event; do
+        eventName="$(get_event_name "$event")"
+        workspaceName="$(get_active_workspace_name "$event")"
+
+        case "$eventName" in
+            "focus")
+                eww update focusedWorkspace=$workspaceName
+                add_active_workspace "$workspaceName"
+                ;;
+            "init") 
+                add_active_workspace "$workspaceName"
+                ;; 
+            "empty")
+                remove_active_workspace "$workspaceName"
+                ;;
+        esac
+    done
+}
+
+main

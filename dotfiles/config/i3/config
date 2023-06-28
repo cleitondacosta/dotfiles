@@ -158,10 +158,11 @@ exec --no-startup-id "xinput set-prop 11 278 1"
 exec --no-startup-id "~/.fehbg &"
 
 # Software startup
-exec --no-startup-id "eww open-many main secondary"
 exec --no-startup-id dunst
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
-exec_always --no-startup-id "~/.scripts/i3wm/update-eww-i3-workspace"
+
+exec_always --no-startup-id "eww kill; eww open-many main secondary"
+exec_always --no-startup-id "sleep 2; ~/.scripts/i3wm/update-eww-i3-workspace"
 exec_always --no-startup-id picom
 exec_always --no-startup-id dunst
