@@ -130,8 +130,8 @@ floating_modifier $mod
 
 # Sound/Music (Remember to use signal 10 in ~/.i3blocks.conf)
 set $toggleSoundMute "pactl set-sink-mute 0 toggle; pkill -RTMIN+10 i3blocks"
-set $downSoundVol "pactl set-sink-volume 0 -5%; pkill -RTMIN+10 i3blocks"
-set $upSoundVol "pactl set-sink-volume 0 +5%; pkill -RTMIN+10 i3blocks"
+set $downSoundVol "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+set $upSoundVol "pactl set-sink-volume @DEFAULT_SINK@ +5%"
 set $upMicBoost "amixer set Mic\ Boost 1; pkill -RTMIN+10 i3blocks"
 set $downMicBoost "amixer set Mic\ Boost 0; pkill -RTMIN+10 i3blocks"
 set $toggleMusic "mpc toggle; pkill -RTMIN+10 i3blocks"
