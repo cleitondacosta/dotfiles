@@ -9,9 +9,9 @@
 # 
 # See more here: https://i3wm.org/docs/ipc.html
 # 
-# I'm using it to change two eww variables to highlight the focused workspace and
-# non-empty workspaces, so that I can apply different styles to them. For this to
-# work, you need to create those variables in your eww configuration
+# I'm using it to change two eww variables to highlight the focused workspace 
+# and non-empty workspaces, so that I can apply different styles to them. For 
+# this to work, you need to create those variables in your eww configuration
 # (focusedWorkspace and activeWorkspaces). And then this script needs to be 
 # running to update those variables, so it needs to be invoked in the i3 
 # config file.
@@ -25,7 +25,7 @@ function get_i3_event_name {
     echo "$1" | grep -Po '"change":".*?"' | cut -f 2 -d ':' |  tr -d '"'
 }
 
-function get_i3_active_workspace_name {
+function get_i3_workspace_name {
     echo "$1" | grep -Po '"name":".*?"' | head -1 | cut -f 2 -d ':' | tr -d '"'
 }
 
@@ -71,7 +71,7 @@ function main {
 
     i3-msg -t subscribe -m '[ "workspace" ]' | while read event; do
         eventName="$(get_i3_event_name "$event")"
-        workspaceName="$(get_i3_active_workspace_name "$event")"
+        workspaceName="$(get_i3_workspace_name "$event")"
 
         case "$eventName" in
             "focus")
