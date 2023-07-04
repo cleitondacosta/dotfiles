@@ -18,6 +18,7 @@ add_to_path ~/.scripts
 add_to_path ~/.sass
 add_to_path ~/.flutter/bin
 add_to_path ~/.pub-cache/bin
+add_to_path /usr/lib/jvm/java-17-openjdk/bin/
 
 if test -d /opt/android-sdk 
     set -x ANDROID_HOME /opt/android-sdk
