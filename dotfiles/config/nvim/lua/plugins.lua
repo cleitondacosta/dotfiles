@@ -12,9 +12,11 @@ return require('packer').startup(function(use)
     use 'nvim-lualine/lualine.nvim'
     use 'tpope/vim-fugitive'
     use 'lewis6991/gitsigns.nvim'
+    use 'rgroli/other.nvim'
     use 'L3MON4D3/LuaSnip'
     use 'windwp/nvim-autopairs'
     use 'windwp/nvim-ts-autotag'
+    use 'ThePrimeagen/harpoon'
 
     use {
         'nvim-tree/nvim-tree.lua',

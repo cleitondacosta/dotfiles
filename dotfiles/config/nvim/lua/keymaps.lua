@@ -1,4 +1,5 @@
 local fzfFunctions = require('telescope/builtin')
+local harpoon = require('harpoon.mark')
 
 local keymaps = {}
 
@@ -32,6 +33,12 @@ vim.keymap.set('n', '<leader>fb', fzfFunctions.buffers, {})
 vim.keymap.set('n', '<leader>ft', fzfFunctions.treesitter, {})
 vim.keymap.set('n', '<leader>fd', fzfFunctions.diagnostics, {})
 vim.keymap.set('n', '<leader>fw', fzfFunctions.grep_string, {})
+vim.keymap.set('n', '<leader>fd', fzfFunctions.diagnostics, {})
+
+vim.keymap.set('n', '<leader>m', harpoon.add_file, {})
+vim.keymap.set('n', '<leader><leader>m', harpoon.rm_file, {})
+vim.keymap.set('n', '<leader>fm', '<cmd>Telescope harpoon marks<CR>', {})
+
 vim.keymap.set('n', '<leader>et', '<cmd>NvimTreeToggle<CR>', {})
 
 vim.keymap.set('n', '<leader>d', '"_d');
