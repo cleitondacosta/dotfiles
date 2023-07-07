@@ -1,5 +1,6 @@
 local fzfFunctions = require('telescope/builtin')
-local harpoon = require('harpoon.mark')
+local harpoonMarks = require('harpoon.mark')
+local harpoonUI = require('harpoon.ui')
 
 local keymaps = {}
 
@@ -35,8 +36,17 @@ vim.keymap.set('n', '<leader>fd', fzfFunctions.diagnostics, {})
 vim.keymap.set('n', '<leader>fw', fzfFunctions.grep_string, {})
 vim.keymap.set('n', '<leader>fd', fzfFunctions.diagnostics, {})
 
-vim.keymap.set('n', '<leader>m', harpoon.add_file, {})
-vim.keymap.set('n', '<leader><leader>m', harpoon.rm_file, {})
+vim.keymap.set('n', '<leader>1', function() harpoonMarks.set_current_at(1) end, {})
+vim.keymap.set('n', '<leader>2', function() harpoonMarks.set_current_at(2) end, {})
+vim.keymap.set('n', '<leader>3', function() harpoonMarks.set_current_at(3) end, {})
+vim.keymap.set('n', '<leader>4', function() harpoonMarks.set_current_at(4) end, {})
+
+vim.keymap.set('n', '<F1>', function() harpoonUI.nav_file(1) end, {})
+vim.keymap.set('n', '<F2>', function() harpoonUI.nav_file(2) end, {})
+vim.keymap.set('n', '<F3>', function() harpoonUI.nav_file(3) end, {})
+vim.keymap.set('n', '<F4>', function() harpoonUI.nav_file(4) end, {})
+
+vim.keymap.set('n', '<leader><leader>m', harpoonMarks.rm_file, {})
 vim.keymap.set('n', '<leader>fm', '<cmd>Telescope harpoon marks<CR>', {})
 
 vim.keymap.set('n', '<leader>et', '<cmd>NvimTreeToggle<CR>', {})
