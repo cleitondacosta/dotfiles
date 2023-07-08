@@ -1,10 +1,6 @@
 (include "./ui-widgets/all.yuck")
 (include "./widgets/all.yuck")
 
-(defpoll is_screencasting :interval "1s"
-  `[[ -f "/tmp/.screencasting-lock.pid" ]] && echo "true" || echo ""`
-)
-
 (defpoll sound_volume :interval "1s" :initial 0
    `
      pactl get-sink-volume @DEFAULT_SINK@\
@@ -77,7 +73,7 @@
     (_network)
     (_audio_controls)
     (Time)
-    (_is_screencasting)
+    (Screencasting)
   )
 )
 
@@ -136,23 +132,6 @@
 (defwidget Time []
   (box :class "time"
     (label :text {formattime(EWW_TIME, "%H:%M:%S   %d/%m/%Y")})
-  )
-)
-
-(defwidget _is_screencasting []
-  (overlay
-
-    (label :class "dummy" :text {is_screencasting == true ? "	" : ""})
-
-    (transform
-      :translate-y "-8px"
-      :translate-x "-12px"
-
-      (label
-        :class {is_screencasting == "true" ? "rec-icon" : ""}
-        :text {is_screencasting == "true" ? "󰑋" : ""}
-      )
-    )
   )
 )
 

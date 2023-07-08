@@ -1,0 +1,20 @@
+(defpoll isScreencasting :interval "1s"
+  `[[ -f "/tmp/.screencasting-lock.pid" ]] && echo "true" || echo ""`
+)
+
+(defwidget Screencasting []
+  (overlay
+
+    (label :class "dummy" :text {isScreencasting == true ? "	" : ""})
+
+    (transform
+      :translate-y "-8px"
+      :translate-x "-12px"
+
+      (label
+        :class {isScreencasting == "true" ? "rec-icon" : ""}
+        :text {isScreencasting == "true" ? "󰑋" : ""}
+      )
+    )
+  )
+)
