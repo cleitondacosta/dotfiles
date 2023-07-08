@@ -70,7 +70,7 @@
     (I3Workspaces :workspaces mainWorkspaces)
     (_spacer)
     (InternetConnectionChecker)
-    (_network)
+    (Icon :icon vpn)
     (_audio_controls)
     (Time)
     (Screencasting)
@@ -132,22 +132,6 @@
 (defwidget Time []
   (box :class "time"
     (label :text {formattime(EWW_TIME, "%H:%M:%S   %d/%m/%Y")})
-  )
-)
-
-(defwidget _network []
-  (box
-    :class "network"
-
-    (overlay
-      (label :class "dummy" :text "	")
-
-      (transform
-        :translate-y "-3px"
-
-        (label :class "vpn" :text vpn)
-      )
-    )
   )
 )
 
