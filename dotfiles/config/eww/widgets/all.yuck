@@ -1,3 +1,3 @@
-(include "./widgets/I3Workspaces.yuck")
+(include './widgets/I3Workspaces.yuck')
 (include './widgets/InternetConnectionChecker.yuck')
 (include './widgets/Screencasting.yuck')

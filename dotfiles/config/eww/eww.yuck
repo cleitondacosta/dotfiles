@@ -66,18 +66,18 @@
     :orientation "h"
 
     (_hardware_stat)
-    (_spacer)
+    (Spacer)
     (I3Workspaces :workspaces mainWorkspaces)
-    (_spacer)
+    (Spacer)
     (InternetConnectionChecker)
     (Icon :icon vpn)
-    (_audio_controls)
+    (AudioControls)
     (Time)
     (Screencasting)
   )
 )
 
-(defwidget _audio_controls []
+(defwidget AudioControls []
   (box
     :space-evenly false
     
@@ -135,6 +135,3 @@
   )
 )
 
-(defwidget _spacer []
-  (box :hexpand true) 
-)
