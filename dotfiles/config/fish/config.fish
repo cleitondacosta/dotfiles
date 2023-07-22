@@ -18,6 +18,7 @@ add_to_path ~/.scripts
 add_to_path ~/.sass
 add_to_path ~/.flutter/bin
 add_to_path ~/.pub-cache/bin
+add_to_path ~/.dotnet
 add_to_path /usr/lib/jvm/java-17-openjdk/bin/
 
 if test -d /opt/android-sdk 
@@ -31,6 +32,7 @@ end
 if test -f /opt/android-studio/bin/studio.sh
     set -x CAPACITOR_ANDROID_STUDIO_PATH /opt/android-studio/bin/studio.sh
 end
+
 
 add_to_path "$ANDROID_HOME/platform-tools"
 add_to_path "$ANDROID_HOME/tools"
