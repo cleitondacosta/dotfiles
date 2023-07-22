@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+source ~/.include/scripts/menu.sh
+
+function as_minutes() {
+    echo $(($1*60))
+}
+
+function to_minutes() {
+    echo $(($1/60))
+}
+
+function suicide() {
+    rm "$LOCK_FILE"
+    eww update timer="0"
+    notify-send "Pomodoro" "interrupted"
+    kill -9 $$
+}
+
+LOCK_FILE=/tmp/pomodoro-script.lock
+LOG_FILE=~/.logs/pomodoro.log
+POMODORO_CYCLE_DURATION=$(as_minutes 25)
+POMODORO_PAUSE_DURATION=$(as_minutes 5)
+
+trap "suicide" SIGTERM SIGINT
+
+function tic() {
+    duration=$1
+    now=$(date '+%s')
+    timer=$(($startTime + $duration - $now))
+    eww update timer="$timer"
+}
+
+function resetTimer() {
+    startTime="$(date '+%s')"
+    timer=$1
+    eww update timer="$timer"
+}
+
+
+if [ -e "$LOCK_FILE" ]; then
+    ANSWER=$(menu_yes_or_no "Interrupt pomodoro?")
+
+    if [ $ANSWER = 1 ]; then
+        kill "$(cat "$LOCK_FILE")"
+    fi
+
+    exit 0
+else
+    echo -n $$ > "$LOCK_FILE"
+fi
+
+notify-send "Pomodoro" "Starting "$(to_minutes $POMODORO_CYCLE_DURATION)" minutes pomodoro"
+
+resetTimer $POMODORO_CYCLE_DURATION
+while [[ $timer -gt 0 ]]; do
+    tic $POMODORO_CYCLE_DURATION
+    echo $timer
+    sleep 1
+done
+
+notify-send "Pomodoro" "Starting $POMODORO_PAUSE_DURATION minutes pause"
+
+resetTimer $POMODORO_PAUSE_DURATION
+while [[ $timer -gt 0 ]]; do
+    tic $POMODORO_PAUSE_DURATION
+    echo $timer
+    sleep 1
+done
+
+notify-send "Pomodoro" "Pomodoro ended."
+
+today="$(date '+%d/%m/%Y')"
+
+if [ ! -e "$LOG_FILE" ]; then
+    echo -n "[$today] " >> $LOG_FILE
+fi
+
+hasTodayLog="$(tail -1 "$LOG_FILE" | grep -o "\[$today\]")"
+
+if [ -z $hasTodayLog ]; then
+    echo -en "\n[$today] " >> $LOG_FILE
+fi
+
+echo -n "" >> "$LOG_FILE"
+
+resetTimer 0
+
+rm $LOCK_FILE

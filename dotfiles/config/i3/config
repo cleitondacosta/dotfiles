@@ -41,6 +41,7 @@ bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
 bindsym $mod+a exec --no-startup-id "~/.scripts/rofi-ascii"
 bindsym $mod+y exec --no-startup-id "~/.scripts/rofi-clipboard"
 bindsym $mod+v exec --no-startup-id "~/.scripts/menu/menu-vpn"
+bindsym $mod+p exec --no-startup-id "~/.scripts/eww/pomodoro"
 bindsym $mod+Shift+r restart
 
 bindsym $mod+x exec --no-startup-id\
@@ -144,7 +145,7 @@ bindsym XF86AudioMute exec $toggleSoundMute
 bindsym XF86AudioLowerVolume exec $downSoundVol
 bindsym XF86AudioRaiseVolume exec $upSoundVol
 bindsym $mod+m exec "~/.scripts/rofi-music"
-bindsym $mod+p exec $toggleMusic
+# bindsym $mod+p exec $toggleMusic
 bindsym $mod+n exec $nextMusic
 bindsym $mod+Shift+n exec $prevMusic
 

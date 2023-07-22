@@ -1,0 +1,9 @@
+; Updated by /scripts/eww/pomodoro
+(defvar timer "0")
+
+(defwidget Pomodoro []
+  (box
+    (Icon :icon "")
+    {formattime(timer, "%M:%S ")}
+  )
+)

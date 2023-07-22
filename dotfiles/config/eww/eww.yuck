@@ -69,6 +69,7 @@
     (Spacer)
     (I3Workspaces :workspaces mainWorkspaces)
     (Spacer)
+    (Pomodoro)
     (InternetConnectionChecker)
     (Icon :icon vpn)
     (AudioControls)
