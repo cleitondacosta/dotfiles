@@ -1,0 +1,27 @@
+#!/bin/bash
+
+x_start_point="$1"
+x_max_point="$2"
+
+move_mouse_continuous() {
+    local screen_height=$(xdpyinfo | awk '/dimensions/{print $2}' | cut -d 'x' -f 2)
+    local current_x=$x_start_point
+    local direction=1
+
+    while true; do
+        xdotool mousemove "$current_x" "$((screen_height / 2))"
+        current_x=$((current_x + direction * 10))
+
+        if [ "$current_x" -le $x_start_point ]; then
+            direction=1
+        fi
+
+        if [ "$current_x" -ge "$x_max_point" ]; then
+            direction=-1
+        fi
+
+        sleep 1
+    done
+}
+
+move_mouse_continuous
