@@ -6,3 +6,5 @@ packer_compiled.lua
 **/fish/themes/
 **/fish/fish_variables
 **/fish/conf.d/
+
+lazy-lock.json
