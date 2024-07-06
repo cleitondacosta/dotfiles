@@ -1,7 +1,7 @@
 alias keycodes 'xmodmap -pke'
 alias c 'cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
 alias p 'cd "$(ls ~/code/*/project/* -d | fzf)"'
-alias wp 'cd "$(ls ~/work/projects/* -d | fzf)"'
+alias wp 'cd "$(fd -H --type d \'^.git$\' ~/work/projects -X dirname | fzf)"'
 alias e 'fd --type f --hidden --follow --exclude .git | fzf --preview \'bat --style=plain --color=always {}\' | xargs -r nvim'
 alias t '$TERM & disown'
 alias cdc 'cd ~/code'
