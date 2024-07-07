@@ -30,7 +30,7 @@ vim.keymap.set('n', '<leader>n', function()
 end, {})
 
 vim.keymap.set('n', '<leader>ff', function()
-    telescope_api.find_files({ hidden = true })
+    telescope_api.find_files({ hidden = true, path_display = { 'truncate' }})
 end, {})
 vim.keymap.set('n', '<leader>fg', telescope_api.live_grep, {})
 vim.keymap.set('n', '<leader>fh', telescope_api.help_tags, {})
