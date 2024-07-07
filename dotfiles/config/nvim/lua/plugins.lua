@@ -23,6 +23,7 @@ require "lazy".setup {
     { 'tpope/vim-repeat' },
     { 'wellle/targets.vim' },
     { 'mattn/emmet-vim' },
+    { 'ThePrimeagen/harpoon' },
     { 'numToStr/Comment.nvim' },
     { "rebelot/kanagawa.nvim" },
     { 'nvim-tree/nvim-web-devicons' },
