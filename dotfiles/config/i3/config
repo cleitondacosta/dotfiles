@@ -63,10 +63,10 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-bindsym $mod+Ctrl+k resize grow height 15 px or 5 ppt
-bindsym $mod+Ctrl+j resize shrink height 15 px or 5 ppt
-bindsym $mod+Ctrl+l resize grow width 15 px or 5 ppt
-bindsym $mod+Ctrl+h resize shrink width 15 px or 5 ppt
+bindsym $mod+Shift+equal resize grow height 15 px or 5 ppt
+bindsym $mod+Shift+minus resize shrink height 15 px or 5 ppt
+bindsym $mod+equal resize grow width 15 px or 5 ppt
+bindsym $mod+minus resize shrink width 15 px or 5 ppt
 
 bindsym $mod+Up split v
 bindsym $mod+Down split v
@@ -74,7 +74,6 @@ bindsym $mod+Left split h
 bindsym $mod+Right split h
 
 bindsym $mod+f fullscreen toggle
-
 bindsym $mod+t layout tabbed
 bindsym $mod+s layout toggle split
 
