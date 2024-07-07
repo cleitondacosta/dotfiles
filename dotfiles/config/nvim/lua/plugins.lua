@@ -159,6 +159,9 @@ cmp.setup {
 require('nvim-tree').setup({
     update_focused_file = { enable = true },
     git = { ignore = false },
+    view = {
+        adaptive_size = true,
+    }
 })
 
 -- Git signs
