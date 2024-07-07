@@ -81,8 +81,8 @@ bindsym $mod+Shift+space floating toggle
 
 gaps inner $innerGap
 gaps outer $outerGap
-bindsym $mod+g gaps inner current set $innerGap; gaps outer current set $outerGap
-bindsym $mod+Shift+g gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Shift+g gaps inner current set $innerGap; gaps outer current set $outerGap
+bindsym $mod+g gaps inner current set 0; gaps outer current set 0
 
 workspace "1" output HDMI-0
 workspace "2" output DP-1
