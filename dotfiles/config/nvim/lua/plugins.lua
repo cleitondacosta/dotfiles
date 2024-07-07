@@ -83,7 +83,6 @@ require "lazy".setup {
 require 'kanagawa'.load('dragon')
 
 --- Telescope
-
 local telescope = require 'telescope'
 
 telescope.setup {
@@ -103,11 +102,9 @@ telescope.setup {
 telescope.load_extension('fzf')
 
 --- Treesitter
-
 require('nvim-treesitter.configs').setup { auto_install = true, }
 
 --- Oil
-
 require("oil").setup()
 
 --- LSP config
@@ -155,3 +152,53 @@ require('nvim-tree').setup({
     git = { ignore = false },
 })
 
+-- Git signs
+require('gitsigns').setup {
+    on_attach = require('keymaps').on_gitsigngs_attach,
+    signs = {
+        add = { text = '┃' },
+        change = { text = '┃' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = '┆' },
+    },
+    signs_staged = {
+        add = { text = '┃' },
+        change = { text = '┃' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked = { text = '┆' },
+    },
+    signs_staged_enable = true,
+    signcolumn = true,
+    numhl = false,
+    linehl = false,
+    word_diff = false,
+    watch_gitdir = {
+        follow_files = true
+    },
+    auto_attach = true,
+    attach_to_untracked = false,
+    current_line_blame = false,
+    current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol',
+        delay = 500,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
+    },
+    current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
+    sign_priority = 6,
+    update_debounce = 100,
+    status_formatter = nil,
+    max_file_length = 40000,
+    preview_config = {
+        border = 'single',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1
+    },
+}

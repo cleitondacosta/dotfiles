@@ -37,7 +37,6 @@ vim.keymap.set('n', '<leader>fb', telescope_api.buffers, {})
 vim.keymap.set('n', '<leader>ft', telescope_api.treesitter, {})
 vim.keymap.set('n', '<leader>fw', telescope_api.grep_string, {})
 vim.keymap.set('n', '<leader>fd', telescope_api.diagnostics, {})
-vim.keymap.set('n', '<leader>fc', telescope_api.git_bcommits, {})
 vim.keymap.set('n', '<leader>fm', telescope_api.git_status, {})
 
 vim.keymap.set('n', "<leader>o", function() require('oil').open() end)
@@ -126,6 +125,28 @@ keymaps.cmp = {
         end
     end, { 'i', 's' }),
 }
+
+keymaps.on_gitsigngs_attach = function(bufnr)
+    local gitsigns = require('gitsigns')
+
+    local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+    end
+
+    map('n', ']h', function() gitsigns.nav_hunk('next') end)
+    map('n', '[h', function() gitsigns.nav_hunk('prev') end)
+    map('n', '<leader>hs', gitsigns.stage_hunk)
+    map('n', '<leader>hS', gitsigns.undo_stage_hunk)
+    map('n', '<leader>hu', gitsigns.reset_hunk)
+    map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hu', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('n', '<leader>hp', gitsigns.preview_hunk)
+    map('n', '<leader>gb', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>gd', gitsigns.diffthis)
+    map('n', '<leader>hc', gitsigns.toggle_deleted)
+end
 
 vim.keymap.set('n', '<leader>x', utils.toggle_auto_save)
 
