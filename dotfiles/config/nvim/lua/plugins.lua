@@ -19,6 +19,7 @@ require "lazy".setup {
         }
     },
     { 'michaeljsmith/vim-indent-object' },
+    { 'elkowar/yuck.vim' },
     { 'tpope/vim-surround' },
     { 'tpope/vim-repeat' },
     { 'wellle/targets.vim' },
