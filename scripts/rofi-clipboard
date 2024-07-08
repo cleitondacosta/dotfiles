@@ -62,7 +62,7 @@ notify_result() {
     RETURN_VALUE=$1
 
     if [ $RETURN_VALUE -eq 0 ]; then
-        notify "\"$TO_COPY\" copied to clipboard."
+        # notify "\"$TO_COPY\" copied to clipboard."
     else
         notify_error "xclip: Failed to copy to clipboard"
     fi
