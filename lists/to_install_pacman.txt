@@ -4,6 +4,7 @@ bat
 bottom
 cmake
 dunst
+dust
 eza
 fd
 feh
@@ -27,6 +28,7 @@ pulseaudio
 ripgrep
 rofi
 rsync
+sd
 starship
 sxiv
 thunar
