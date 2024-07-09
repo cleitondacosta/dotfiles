@@ -29,7 +29,7 @@ run() {
     TO_COPY="$(remove_comment_and_trim "$SELECTED_OPTION")"
 
     copy_to_clipboard "$TO_COPY"
-    notify_result $?
+    # notify_result $?
 }
 
 notify() {
@@ -62,7 +62,7 @@ notify_result() {
     RETURN_VALUE=$1
 
     if [ $RETURN_VALUE -eq 0 ]; then
-        # notify "\"$TO_COPY\" copied to clipboard."
+        notify "\"$TO_COPY\" copied to clipboard."
     else
         notify_error "xclip: Failed to copy to clipboard"
     fi
