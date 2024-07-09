@@ -51,7 +51,6 @@ bindsym $mod+e exec --no-startup-id "thunar ~"
 bindsym $mod+Shift+e exec --no-startup-id\
     ~/.scripts/rofi-prompt "exit" "i3-msg -q exit"
 
-# Navigation
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -159,7 +158,6 @@ exec --no-startup-id "xinput set-prop 11 278 1"
 exec --no-startup-id "~/.fehbg &"
 
 # Software startup
-exec --no-startup-id dunst
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
