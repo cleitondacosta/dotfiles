@@ -1,6 +1,41 @@
 (include "./ui-widgets/all.yuck")
 (include "./widgets/all.yuck")
 
+(defwindow main
+  :monitor 0
+  :stacking "bg"
+  :windowtype "dock"
+  :wm-ignore false
+  :geometry (
+    geometry
+      :width "100%"
+      :height: 30
+      :anchor "center top"
+  )
+
+  (_root_widget)
+)
+
+(defwindow secondary
+  :monitor 1
+  :stacking "fg"
+  :windowtype "dock"
+  :wm-ignore false
+  :geometry (geometry :anchor "center top" :width "100%")
+
+  (box :class "root panel"
+    (I3Workspaces :workspaces secondaryWorkspaces)
+  )
+)
+
+(defwindow vpn :monitor 0 :wm-ignore true :geometry (geometry :y "5px" :x "-5px" :width 35 :height 35 :anchor "right top")
+  (label :class "vpn-icon" :text "👁️")
+)
+
+(defwindow vpn2 :monitor 1 :wm-ignore true :geometry (geometry :y "5px" :x "-5px" :width 35 :height 35 :anchor "right top")
+  (label :class "vpn-icon" :text "👁️")
+)
+
 (defpoll sound_volume :interval "1s" :initial 0
    `
      pactl get-sink-volume @DEFAULT_SINK@\
@@ -33,39 +68,6 @@
 (defvar mainWorkspaces "[1, 3, 5, 7, 9, \"🗿\"]")
 (defvar secondaryWorkspaces "[2, 4, 6, 8, 0, \"🗿\"]")
 
-(defwindow secondary
-  :monitor 1
-  :stacking "fg"
-  :windowtype "dock"
-  :wm-ignore false
-  :geometry (geometry :anchor "center bottom" :width "100%")
-
-  (box :class "root panel"
-    (I3Workspaces :workspaces secondaryWorkspaces)
-  )
-)
-
-(defwindow vpn :monitor 0 :wm-ignore true :geometry (geometry :y "5px" :x "-5px" :width 35 :height 35 :anchor "right top")
-  (label :class "vpn-icon" :text "👁️")
-)
-
-(defwindow vpn2 :monitor 1 :wm-ignore true :geometry (geometry :y "5px" :x "-5px" :width 35 :height 35 :anchor "right top")
-  (label :class "vpn-icon" :text "👁️")
-)
-
-(defwindow main
-  :monitor 0
-  :stacking "bg"
-  :windowtype "dock"
-  :wm-ignore false
-  :geometry (
-    geometry
-      :width "100%"
-      :anchor "center bottom"
-  )
-
-  (_root_widget)
-)
 
 (defwidget _root_widget []
   (box
@@ -73,10 +75,9 @@
     :space-evenly false
     :orientation "h"
 
-    (_hardware_stat)
-    (Spacer)
     (I3Workspaces :workspaces mainWorkspaces)
     (Spacer)
+    (_hardware_stat)
     (Pomodoro)
     (InternetConnectionChecker)
     (Icon :icon vpn)
@@ -143,4 +144,3 @@
     (label :text {formattime(EWW_TIME, "%H:%M:%S   %d/%m/%Y")})
   )
 )
-
