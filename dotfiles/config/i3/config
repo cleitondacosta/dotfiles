@@ -40,7 +40,6 @@ bindsym $mod+Print exec --no-startup-id "~/.scripts/screen-record"
 bindsym $mod+Shift+Print exec --no-startup-id killall ffmpeg
 bindsym $mod+a exec --no-startup-id "~/.scripts/rofi-ascii"
 bindsym $mod+y exec --no-startup-id "~/.scripts/rofi-clipboard"
-bindsym $mod+v exec --no-startup-id "~/.scripts/menu/menu-vpn"
 bindsym $mod+p exec --no-startup-id "~/.scripts/eww/pomodoro"
 bindsym $mod+Shift+r restart
 
