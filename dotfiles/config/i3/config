@@ -163,5 +163,5 @@ exec --no-startup-id redshift
 
 exec_always --no-startup-id "eww kill; eww open-many main secondary"
 exec_always --no-startup-id "~/.scripts/eww/update-eww-i3-workspace"
-# exec_always --no-startup-id picom
+exec_always --no-startup-id picom --legacy-backends
 exec_always --no-startup-id dunst
