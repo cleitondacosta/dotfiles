@@ -28,11 +28,11 @@
   )
 )
 
-(defwindow vpn :monitor 0 :wm-ignore true :geometry (geometry :y "5px" :x "-5px" :width 35 :height 35 :anchor "right top")
+(defwindow vpn :monitor 0 :wm-ignore true :geometry (geometry :y "-3px" :x "-5px" :width 35 :height 35 :anchor "bottom right")
   (label :class "vpn-icon" :text "👁️")
 )
 
-(defwindow vpn2 :monitor 1 :wm-ignore true :geometry (geometry :y "5px" :x "-5px" :width 35 :height 35 :anchor "right top")
+(defwindow vpn2 :monitor 1 :wm-ignore true :geometry (geometry :y "-3px" :x "-5px" :width 35 :height 35 :anchor "bottom right")
   (label :class "vpn-icon" :text "👁️")
 )
 
