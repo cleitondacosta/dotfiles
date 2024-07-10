@@ -1,9 +1,9 @@
 window {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .root {
-  font-size: 14px;
+  font-size: 15px;
   font-family: IosevkaNerdFont;
 }
 
@@ -69,14 +69,10 @@ button {
   }
 }
 
-scale {
-  min-width: 8em;
-
-  slider {
-    min-height: 10px;
-    min-width: 10px;
-    margin: -5px;
-  }
+scale slider {
+  min-height: 10px;
+  min-width: 10px;
+  margin: -5px;
 }
 
 .slider {
