@@ -1,0 +1,19 @@
+#!/usr/bin/env dash
+
+DIRECTION="$1"
+SIZE="$2"
+
+[ -z "$1" ] && echo "No direction provided" && exit 1
+[ -z "$2" ] && echo "No size provided" && exit 1
+
+moveChoice() {
+  i3-msg resize "$1" "$2" "$SIZE" | grep '"success":true' || \
+    i3-msg resize "$3" "$4" "$SIZE"
+}
+
+case $1 in
+  up) moveChoice grow up shrink down ;;
+  down) moveChoice shrink up grow down ;;
+  left) moveChoice shrink right grow left ;;
+  right) moveChoice grow right shrink left ;;
+esac

@@ -66,20 +66,20 @@ bindsym $mod+e exec --no-startup-id "thunar ~"
 bindsym $mod+Shift+e exec --no-startup-id\
     ~/.scripts/rofi-prompt "exit" "i3-msg -q exit"
 
-bindsym $mod+h focus left
-bindsym $mod+j focus down
 bindsym $mod+k focus up
+bindsym $mod+j focus down
+bindsym $mod+h focus left
 bindsym $mod+l focus right
 
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+h move left
 bindsym $mod+Shift+l move right
 
-bindsym $mod+Shift+equal resize grow height 15 px or 5 ppt
-bindsym $mod+Shift+minus resize shrink height 15 px or 5 ppt
-bindsym $mod+equal resize grow width 15 px or 5 ppt
-bindsym $mod+minus resize shrink width 15 px or 5 ppt
+bindsym $mod+Ctrl+k exec --no-startup-id i3resize up 100px
+bindsym $mod+Ctrl+j exec --no-startup-id i3resize down 100px
+bindsym $mod+Ctrl+h exec --no-startup-id i3resize left 100px
+bindsym $mod+Ctrl+l exec --no-startup-id i3resize right 100px
 
 bindsym $mod+Up split v
 bindsym $mod+Down split v
