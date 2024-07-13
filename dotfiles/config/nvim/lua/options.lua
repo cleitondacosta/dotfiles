@@ -13,7 +13,6 @@ vim.opt.filetype = 'on'
 vim.opt.writebackup = false
 vim.opt.swapfile = false
 vim.opt.colorcolumn = '80'
-vim.opt.textwidth = 80
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.nu = true
