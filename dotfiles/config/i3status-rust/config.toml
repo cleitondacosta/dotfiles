@@ -30,6 +30,13 @@ command = "~/.config/i3status-rust/scripts/test-internet-connection.sh"
 format = " \uf0ac  $text"
 interval = 2
 
+# VPN
+[[block]]
+block = "custom"
+command = "nmcli -f type connection show --active | grep tun >/dev/null && echo \uf06e || echo \uf070" 
+format = " $text "
+interval = 2
+
 # disk usage
 [[block]]
 block = "disk_space"
