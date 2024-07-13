@@ -32,6 +32,7 @@ sd
 starship
 sxiv
 thunar
+ttf-font-awesome
 vlc
 xorg-server
 xorg-xinit
