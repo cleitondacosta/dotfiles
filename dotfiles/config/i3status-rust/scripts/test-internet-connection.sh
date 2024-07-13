@@ -9,7 +9,7 @@ function sping() {
     ping -W 1 -c 1 "$1" > /dev/null
 
     if [ $? -eq 0 ]; then
-        echo "ON"
+        echo "{\"text\": \"\\uf0ac  ON\"}"
 
         if [ -e "$LOCK_FILE" ]; then 
             notify-send "Nice" "Connected to the internet."
@@ -29,7 +29,7 @@ for server in "${servers[@]}"; do
     sping "$server"
 done
 
-echo "OFF"
+echo "{\"text\": \"  \\uf0ac  OFF  \", \"state\": \"critical\"}"
 
 if [ ! -e "$LOCK_FILE" ]; then 
     notify-send "Warning" "No internet connection."

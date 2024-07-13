@@ -5,37 +5,52 @@ theme = "plain"
 [theme.overrides]
 idle_bg = "#222222"
 idle_fg = "#ffffff"
-separator = " | "
+warning_bg = "#f0ad4e"
+warning_fg = "#000000"
+critical_bg = "#cc3300"
+critical_fg = "#ffffff"
+separator = "    "
 separator_bg = "#222222"
 separator_fg = "#ffffff"
+
+# vpn
+[[block]]
+block = "custom"
+json = true
+command = """
+    nmcli -f type connection show --active | grep tun >/dev/null\
+    && echo '{"text": " \uf06e  ", "state": "critical"}'\
+    || echo '{}'
+"""
+format = "$text"
+interval = 3
+
+# internet connection
+[[block]]
+json = true
+block = "custom"
+command = "~/.config/i3status-rust/scripts/test-internet-connection.sh"
+format = "$text"
+interval = 3
 
 # cpu
 [[block]]
 block = "custom"
+json=true
 interval = 3
 command = "~/.config/i3status-rust/scripts/cpu.sh"
-format = " \uf2db  $text"
+format = "$text"
 
 # gpu
 [[block]]
 block = "custom"
-command = "echo \"$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)° $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)% $(nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits)v\""
+command = """
+    echo "$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)° \
+    $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)% \
+    $(nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits)v"
+"""
 format = "\uf11b  $text"
 interval = 5
-
-# internet connection
-[[block]]
-block = "custom"
-command = "~/.config/i3status-rust/scripts/test-internet-connection.sh"
-format = " \uf0ac  $text"
-interval = 2
-
-# VPN
-[[block]]
-block = "custom"
-command = "nmcli -f type connection show --active | grep tun >/dev/null && echo \uf06e || echo \uf070" 
-format = " $text "
-interval = 2
 
 # disk usage
 [[block]]
@@ -45,28 +60,28 @@ info_type = "available"
 alert_unit = "GB"
 interval = 5
 warning = 20.0
-alert = 10.0
-format = " \uf0a0  $percentage"
+alert = 100.0
+format = "\uf0a0  $percentage"
 
 # ram usage
 [[block]]
 block = "memory"
-format = " \uf538 $mem_used_percents"
+format = "\uf538 $mem_used_percents"
 interval = 5
 
 # sound
 [[block]]
 block = "sound"
-format = " \uf026  {$volume.eng(w:2)}"
+format = "\uf026  {$volume.eng(w:2)}"
 
 # mic
 [[block]]
 block = "sound"
-format = " \uf130  {$volume.eng(w:2)}"
+format = "\uf130  {$volume.eng(w:2)}"
 device_kind = "source"
 
 # time, that humiliating arbitrary adjudicator
 [[block]]
 block = "time"
 interval = 1
-format = " \uf017  $timestamp.datetime(f:'%R:%S %d/%m/%Y') "
+format = "\uf017  $timestamp.datetime(f:'%R:%S %d/%m/%Y') "
