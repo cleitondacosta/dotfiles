@@ -5,9 +5,6 @@ theme = "dracula"
 
 [icons]
 icons = "awesome6"
-[icons.overrides]
-bat = ["|E|", "|_|", "|=|", "|F|"]
-bat_charging = "|^| "
 
 # cpu
 [[block]]
