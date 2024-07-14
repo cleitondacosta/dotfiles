@@ -30,6 +30,7 @@ rsync
 sd
 starship
 sxiv
+taskwarrior
 thunar
 ttf-font-awesome
 vlc
