@@ -57,6 +57,57 @@ vim.keymap.set('n', '<leader>fm', telescope_api.git_status, {})
 
 vim.keymap.set('n', "<leader>o", function() require('oil').open() end)
 
+-- Angular
+local is_angular_project = vim.fs.dirname(vim.fs.find({"angular.json"}, { upward = true })[1]) ~= nil
+
+if is_angular_project then
+    -- Open corresponding typescript file
+    vim.keymap.set('n', '<leader>at', function()
+        local file_extension = vim.fn.expand('%:e')
+
+        if file_extension ~= 'ts' then
+            local ts_file = vim.fn.expand('%:r') .. '.ts'
+            local ts_file_exists = vim.fn.filereadable(ts_file) == 1
+
+            if ts_file_exists then
+                vim.cmd('edit ' .. ts_file)
+            end
+        end
+    end)
+
+    -- Open corresponding style file (css/scss)
+    vim.keymap.set('n', '<leader>as', function()
+        local file_extension = vim.fn.expand('%:e')
+
+        if file_extension ~= 'css' and file_extension ~= 'scss' then
+            local css_file = vim.fn.expand('%:r') .. '.css'
+            local scss_file = vim.fn.expand('%:r') .. '.scss'
+            local css_file_exists = vim.fn.filereadable(css_file) == 1
+            local scss_file_exists = vim.fn.filereadable(scss_file) == 1
+
+            if css_file_exists then
+                vim.cmd('edit ' .. css_file)
+            elseif scss_file_exists then
+                vim.cmd('edit ' .. scss_file)
+            end
+        end
+    end)
+
+    -- Open corresponding html file
+    vim.keymap.set('n', '<leader>ah', function()
+        local file_extension = vim.fn.expand('%:e')
+
+        if file_extension ~= 'html' then
+            local html_file = vim.fn.expand('%:r') .. '.html'
+            local html_file_exists = vim.fn.filereadable(html_file) == 1
+
+            if html_file_exists then
+                vim.cmd('edit ' .. html_file)
+            end
+        end
+    end)
+end
+
 keymaps.on_lsp_attach = function(_, bufnr)
     local nmap = function(keys, func, desc)
         if desc then
@@ -213,4 +264,3 @@ vim.keymap.set('n', '<F4>', function() harpoonUI.nav_file(4) end, {})
 vim.keymap.set('n', '<leader><leader>m', harpoonMarks.rm_file, {})
 
 return keymaps
-
