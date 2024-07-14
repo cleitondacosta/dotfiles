@@ -105,7 +105,6 @@ smart_link "$DOTFILES_DIR/config/alacritty/alacritty.yml"\
 smart_link "$DOTFILES_DIR/config/i3/config" ~/.config/i3/config
 smart_link "$DOTFILES_DIR/config/nvim/" ~/.config/nvim/
 smart_link "$DOTFILES_DIR/config/dunst/dunstrc" ~/.config/dunst/dunstrc
-smart_link "$DOTFILES_DIR/config/picom/picom.conf" ~/.config/picom/picom.conf
 smart_link "$DOTFILES_DIR/config/fish" ~/.config/fish
 smart_link "$DOTFILES_DIR/config/starship/starship.toml"\
             ~/.config/startship.toml
