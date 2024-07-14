@@ -23,7 +23,6 @@ mpv
 neovim
 pdfgrep
 perl-image-exiftool
-picom
 pulseaudio
 ripgrep
 rofi
