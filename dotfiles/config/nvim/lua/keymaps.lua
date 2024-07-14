@@ -30,8 +30,23 @@ vim.keymap.set('n', '<leader>n', function()
 end, {})
 
 vim.keymap.set('n', '<leader>ff', function()
-    telescope_api.find_files({ hidden = true, path_display = { 'truncate' }})
+    telescope_api.find_files({
+        hidden = true,
+        path_display = { 'truncate' }
+    })
 end, {})
+
+vim.keymap.set('n', '<leader>fo', function()
+    local current_file_name = vim.fn.expand('%:t')
+    local current_file_name_without_extension = string.gsub(current_file_name, "%..*$", "")
+
+    telescope_api.find_files({
+        hidden = true,
+        path_display = { 'truncate' },
+        default_text = current_file_name_without_extension .. ' '
+    })
+end, {})
+
 vim.keymap.set('n', '<leader>fg', telescope_api.live_grep, {})
 vim.keymap.set('n', '<leader>fh', telescope_api.help_tags, {})
 vim.keymap.set('n', '<leader>fb', telescope_api.buffers, {})

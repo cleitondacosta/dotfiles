@@ -31,7 +31,6 @@ require "lazy".setup {
     { 'nvim-lualine/lualine.nvim' },
     { 'tpope/vim-fugitive' },
     { 'lewis6991/gitsigns.nvim' },
-    { 'rgroli/other.nvim' },
     { 'L3MON4D3/LuaSnip' },
     { 'windwp/nvim-autopairs' },
     { 'windwp/nvim-ts-autotag' },
