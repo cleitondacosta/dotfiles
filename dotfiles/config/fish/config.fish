@@ -12,6 +12,7 @@ end
 
 add_to_path ~/.yarn/bin
 add_to_path ~/.cargo/bin
+add_to_path ~/.secret/scripts
 add_to_path ~/.bin
 add_to_path ~/.local/bin
 add_to_path ~/.scripts
