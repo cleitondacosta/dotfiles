@@ -9,9 +9,16 @@ warning_bg = "#f0ad4e"
 warning_fg = "#000000"
 critical_bg = "#cc3300"
 critical_fg = "#ffffff"
-separator = "    "
+separator = "   "
 separator_bg = "#222222"
 separator_fg = "#ffffff"
+
+# taskwarrior
+[[block]]
+block = "custom"
+command = "task +PENDING count"
+format = "\uf0ae  $text"
+interval = 6
 
 # vpn
 [[block]]
