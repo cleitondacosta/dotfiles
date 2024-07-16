@@ -17,7 +17,7 @@ separator_fg = "#ffffff"
 [[block]]
 block = "taskwarrior"
 interval = 60
-format = " \uf0ae $count"
+format = " \uf0ae $count "
 format_everything_done = ""
 warning_threshold = 10
 critical_threshold = 20
