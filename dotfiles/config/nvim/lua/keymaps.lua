@@ -14,8 +14,16 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('n', '<CR>', 'i<Enter><esc>k$')
 
-vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
+vim.keymap.set("n", "<A-k>", "<c-w><c-k>")
+vim.keymap.set("n", "<A-j>", "<c-w><c-j>")
+vim.keymap.set("n", "<A-h>", "<c-w><c-h>")
+vim.keymap.set("n", "<A-l>", "<c-w><c-l>")
+
+vim.keymap.set('n', 'H', 'gT')
+vim.keymap.set('n', 'L', 'gt')
+
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
+vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
 vim.keymap.set('v', '<tab>', '>')
 
 ---- Plugins
@@ -147,7 +155,6 @@ keymaps.on_lsp_attach = function(_, bufnr)
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     vim.api.nvim_buf_create_user_command(
         bufnr,
