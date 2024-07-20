@@ -1,14 +1,13 @@
 local telescope_api = require 'telescope/builtin'
 local nvimtree_api = require 'nvim-tree.api'
-local cmp = require 'cmp'
 local keymaps = {}
 local luasnip = require 'luasnip'
 local harpoonMarks = require 'harpoon.mark'
 local harpoonUI = require 'harpoon.ui'
+local smartSplitsApi = require 'smart-split-resize'
+local angular = require 'angular'
 
 local config_path = vim.fn.stdpath('config') .. '/init.lua'
-
-vim.g.mapleader = ' '
 
 -- Vanilla
 vim.keymap.set('n', 'J', 'mzJ`z')
@@ -19,6 +18,11 @@ vim.keymap.set("n", "<A-j>", "<c-w><c-j>")
 vim.keymap.set("n", "<A-h>", "<c-w><c-h>")
 vim.keymap.set("n", "<A-l>", "<c-w><c-l>")
 
+vim.keymap.set('n', '<C-h>', smartSplitsApi.resize_left)
+vim.keymap.set('n', '<C-j>', smartSplitsApi.resize_down)
+vim.keymap.set('n', '<C-k>', smartSplitsApi.resize_up)
+vim.keymap.set('n', '<C-l>', smartSplitsApi.resize_right)
+
 vim.keymap.set('n', 'H', 'gT')
 vim.keymap.set('n', 'L', 'gt')
 
@@ -26,7 +30,12 @@ vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
 vim.keymap.set('v', '<tab>', '>')
 
----- Plugins
+if angular.is_angular_project then
+    vim.keymap.set('n', '<leader>at', angular.openTs)
+    vim.keymap.set('n', '<leader>ah', angular.openHtml)
+    vim.keymap.set('n', '<leader>as', angular.openStyle)
+end
+
 vim.keymap.set('n', "<leader>et", function()
     require('nvim-tree.api').tree.toggle()
 end)
@@ -64,57 +73,6 @@ vim.keymap.set('n', '<leader>fd', telescope_api.diagnostics, {})
 vim.keymap.set('n', '<leader>fm', telescope_api.git_status, {})
 
 vim.keymap.set('n', "<leader>o", function() require('oil').open() end)
-
--- Angular
-local is_angular_project = vim.fs.dirname(vim.fs.find({"angular.json"}, { upward = true })[1]) ~= nil
-
-if is_angular_project then
-    -- Open corresponding typescript file
-    vim.keymap.set('n', '<leader>at', function()
-        local file_extension = vim.fn.expand('%:e')
-
-        if file_extension ~= 'ts' then
-            local ts_file = vim.fn.expand('%:r') .. '.ts'
-            local ts_file_exists = vim.fn.filereadable(ts_file) == 1
-
-            if ts_file_exists then
-                vim.cmd('edit ' .. ts_file)
-            end
-        end
-    end)
-
-    -- Open corresponding style file (css/scss)
-    vim.keymap.set('n', '<leader>as', function()
-        local file_extension = vim.fn.expand('%:e')
-
-        if file_extension ~= 'css' and file_extension ~= 'scss' then
-            local css_file = vim.fn.expand('%:r') .. '.css'
-            local scss_file = vim.fn.expand('%:r') .. '.scss'
-            local css_file_exists = vim.fn.filereadable(css_file) == 1
-            local scss_file_exists = vim.fn.filereadable(scss_file) == 1
-
-            if css_file_exists then
-                vim.cmd('edit ' .. css_file)
-            elseif scss_file_exists then
-                vim.cmd('edit ' .. scss_file)
-            end
-        end
-    end)
-
-    -- Open corresponding html file
-    vim.keymap.set('n', '<leader>ah', function()
-        local file_extension = vim.fn.expand('%:e')
-
-        if file_extension ~= 'html' then
-            local html_file = vim.fn.expand('%:r') .. '.html'
-            local html_file_exists = vim.fn.filereadable(html_file) == 1
-
-            if html_file_exists then
-                vim.cmd('edit ' .. html_file)
-            end
-        end
-    end)
-end
 
 keymaps.on_lsp_attach = function(_, bufnr)
     local nmap = function(keys, func, desc)
@@ -170,35 +128,39 @@ keymaps.on_lsp_attach = function(_, bufnr)
     vim.cmd [[ autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float( nil, {focus=false}) ]]
 end
 
-keymaps.cmp = {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.select_next_item()
-        elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-        else
-            fallback()
-        end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.select_prev_item()
-        elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-        else
-            fallback()
-        end
-    end, { 'i', 's' }),
-}
+keymaps.cmp = function()
+    local cmp = require 'cmp'
+
+    return {
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete {},
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true,
+        },
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+    }
+end
 
 keymaps.on_gitsigngs_attach = function(bufnr)
     local gitsigns = require('gitsigns')
@@ -255,8 +217,6 @@ keymaps.trouble = {
         desc = "Quickfix List (Trouble)",
     },
 }
-
--- vim.keymap.set('n', '<leader>x', utils.toggle_auto_save)
 
 vim.keymap.set('n', '<leader>1', function() harpoonMarks.set_current_at(1) end, {})
 vim.keymap.set('n', '<leader>2', function() harpoonMarks.set_current_at(2) end, {})
