@@ -1,3 +1,19 @@
+local function count_unsaved_buffers()
+    local count = 0
+
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if vim.api.nvim_get_option_value('modified', { buf = bufnr }) then
+            count = count + 1
+        end
+    end
+
+    if count > 0 then
+        return string.format('%s*', count)
+    else
+        return ''
+    end
+end
+
 return {
     {
         'nvim-lualine/lualine.nvim',
@@ -28,7 +44,7 @@ return {
                     lualine_c = {'filename'},
                     lualine_x = {'encoding', 'fileformat', 'filetype'},
                     lualine_y = {'progress'},
-                    lualine_z = {'location'}
+                    lualine_z = {'location', count_unsaved_buffers}
                 },
                 inactive_sections = {
                     lualine_a = {},
