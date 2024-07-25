@@ -1,4 +1,7 @@
-local telescope_api = require 'telescope/builtin'
+local telescope_builtin = require 'telescope.builtin'
+local telescope_actions = require 'telescope.actions'
+local telescope_actions_state = require 'telescope.actions.state'
+local oil = require 'oil'
 local nvimtree_api = require 'nvim-tree.api'
 local keymaps = {}
 local luasnip = require 'luasnip'
@@ -47,7 +50,7 @@ vim.keymap.set('n', '<leader>n', function()
 end, {})
 
 vim.keymap.set('n', '<leader>ff', function()
-    telescope_api.find_files({
+    telescope_builtin.find_files({
         hidden = true,
         path_display = { 'truncate' }
     })
@@ -57,22 +60,39 @@ vim.keymap.set('n', '<leader>fo', function()
     local current_file_name = vim.fn.expand('%:t')
     local current_file_name_without_extension = string.gsub(current_file_name, "%..*$", "")
 
-    telescope_api.find_files({
+    telescope_builtin.find_files({
         hidden = true,
         path_display = { 'truncate' },
         default_text = current_file_name_without_extension .. ' '
     })
 end, {})
 
-vim.keymap.set('n', '<leader>fg', telescope_api.live_grep, {})
-vim.keymap.set('n', '<leader>fh', telescope_api.help_tags, {})
-vim.keymap.set('n', '<leader>fb', telescope_api.buffers, {})
-vim.keymap.set('n', '<leader>ft', telescope_api.treesitter, {})
-vim.keymap.set('n', '<leader>fw', telescope_api.grep_string, {})
-vim.keymap.set('n', '<leader>fd', telescope_api.diagnostics, {})
-vim.keymap.set('n', '<leader>fm', telescope_api.git_status, {})
+local function telescope_open_in_oil(bufnr)
+    local directory_name = telescope_actions_state.get_selected_entry()[1]
+    telescope_actions.close(bufnr)
+    oil.open(directory_name)
+end
 
-vim.keymap.set('n', "<leader>o", function() require('oil').open() end)
+vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers, {})
+vim.keymap.set('n', '<leader>ft', telescope_builtin.treesitter, {})
+vim.keymap.set('n', '<leader>fw', telescope_builtin.grep_string, {})
+vim.keymap.set('n', '<leader>fd', telescope_builtin.diagnostics, {})
+vim.keymap.set('n', '<leader>fm', telescope_builtin.git_status, {})
+vim.keymap.set('n', '<leader>fe', function()
+    telescope_builtin.find_files({
+        find_command = {'fd', '-t', 'd'},
+        attach_mappings = function(_, map)
+            map("n", "<cr>", telescope_open_in_oil)
+            map("i", "<cr>", telescope_open_in_oil)
+
+            return true
+        end,
+    })
+end, {})
+
+vim.keymap.set('n', "<leader>o", function() oil.open() end)
 
 keymaps.on_lsp_attach = function(_, bufnr)
     local nmap = function(keys, func, desc)
@@ -95,15 +115,15 @@ keymaps.on_lsp_attach = function(_, bufnr)
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-    nmap('<leader>fr', telescope_api.lsp_references, '[G]oto [R]eferences')
+    nmap('<leader>fr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
     nmap(
         '<leader>fs',
-        telescope_api.lsp_document_symbols,
+        telescope_builtin.lsp_document_symbols,
         '[D]ocument [S]ymbols'
     )
     nmap(
         '<leader>fa',
-        telescope_api.lsp_dynamic_workspace_symbols,
+        telescope_builtin.lsp_dynamic_workspace_symbols,
         '[W]orkspace [S]ymbols'
     )
 
