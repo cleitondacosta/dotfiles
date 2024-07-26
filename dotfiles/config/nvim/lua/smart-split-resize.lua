@@ -46,7 +46,13 @@ end
 vim.tbl_map(
     function(direction)
         resizeApi[string.format('resize_%s', direction)] = function()
-            resize(direction, 3)
+            local amount = (
+                (direction == Direction.left or direction == Direction.right)
+                and 6
+                or 2
+            )
+
+            resize(direction, amount)
         end
     end,
     {
