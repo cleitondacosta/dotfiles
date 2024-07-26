@@ -250,4 +250,7 @@ vim.keymap.set('n', '<F4>', function() harpoonUI.nav_file(4) end, {})
 
 vim.keymap.set('n', '<leader><leader>m', harpoonMarks.rm_file, {})
 
+vim.keymap.set('n', '<leader>jc', '<cmd>:ConvertJSONtoLangBuffer csharp<cr>')
+vim.keymap.set('n', '<leader>jt', '<cmd>:ConvertJSONtoLangBuffer typescript<cr>')
+
 return keymaps
