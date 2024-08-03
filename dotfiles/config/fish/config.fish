@@ -33,7 +33,6 @@ if test -f /opt/android-studio/bin/studio.sh
     set -x CAPACITOR_ANDROID_STUDIO_PATH /opt/android-studio/bin/studio.sh
 end
 
-
 add_to_path "$ANDROID_HOME/platform-tools"
 add_to_path "$ANDROID_HOME/tools"
 add_to_path "$ANDROID_HOME/tools/bin"
