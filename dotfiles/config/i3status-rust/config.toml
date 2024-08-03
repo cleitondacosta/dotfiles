@@ -72,7 +72,7 @@ info_type = "available"
 alert_unit = "GB"
 interval = 5
 warning = 20.0
-alert = 100.0
+alert = 30.0
 format = "\uf0a0  $percentage"
 
 # ram usage
