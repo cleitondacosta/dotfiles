@@ -10,6 +10,11 @@ return {
                 git = { ignore = false },
                 view = {
                     adaptive_size = true,
+                },
+                filters = {
+                    custom = {
+                        '__pycache__',
+                    }
                 }
             })
         end,
