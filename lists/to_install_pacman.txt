@@ -9,6 +9,7 @@ eza
 fd
 feh
 ffmpeg
+firefox
 fish
 fzf
 gcc
