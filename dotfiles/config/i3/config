@@ -176,4 +176,5 @@ exec --no-startup-id "~/.fehbg &"
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
 
+exec --no-startup-id eww open quote
 exec_always --no-startup-id dunst

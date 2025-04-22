@@ -1,6 +1,26 @@
 (include "./ui-widgets/all.yuck")
 (include "./widgets/all.yuck")
 
+(defwindow quote
+  :monitor 0
+  :stacking "bg"
+  :windowtype "dock"
+  :wm-ignore true
+  :geometry (
+    geometry
+      :width "100%"
+      :y "3.15%"
+      :height "30px"
+      :anchor "center top"
+  )
+
+  (box
+    :class "quote-text"
+    :halign "center"
+      (label  :text quote :limit-width 200)
+  )
+)
+
 (defwindow main
   :monitor 0
   :stacking "bg"
@@ -62,6 +82,10 @@
 
 (defpoll vpn :interval "3s"
   `bash ~/.scripts/eww/vpn.sh`
+)
+
+(defpoll quote :interval "1h"
+  `bash ~/.scripts/eww/quote.sh`
 )
 
 (defvar isVpnActive false)

@@ -8,3 +8,15 @@
   font-size: 1.5rem;
   border: 1px solid #fff;
 }
+
+// Remember: the defwindow name creates a class with that name that is applied to the window
+.quote {
+  background: rgba(0, 0, 0, 0);
+}
+
+.quote-text {
+  color: #ddd;
+  font-size: 1.129rem;
+  background: rgba(0, 0, 0, .5);
+  padding: 0 16px;
+}
