@@ -42,6 +42,7 @@ set -x VISUAL nvim
 set -x EDITOR $VISUAL
 set -x TERMINAL alacritty
 set -x TERM alacritty
+set -g fish_autosuggestion_enabled 0
 
 functions -e add_to_path
 
