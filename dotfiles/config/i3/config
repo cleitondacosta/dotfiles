@@ -61,8 +61,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+x exec --no-startup-id\
     ~/.scripts/rofi-prompt "shutdown" "shutdown -h now"
 bindsym $mod+z exec --no-startup-id\
-    ~/.scripts/rofi-prompt "lock" "i3lock --color=282828"
-bindsym $mod+e exec --no-startup-id "thunar ~"
+    ~/.scripts/rofi-prompt "lock" "$HOME/.scripts/lock.sh"
 bindsym $mod+Shift+e exec --no-startup-id\
     ~/.scripts/rofi-prompt "exit" "i3-msg -q exit"
 
