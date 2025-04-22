@@ -2,6 +2,7 @@ icons_format = "{icon}"
 
 [theme]
 theme = "plain"
+
 [theme.overrides]
 idle_bg = "#222222"
 idle_fg = "#ffffff"
