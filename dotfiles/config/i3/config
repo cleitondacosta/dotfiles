@@ -57,6 +57,7 @@ bindsym $mod+a exec --no-startup-id "~/.scripts/rofi-ascii"
 bindsym $mod+e exec --no-startup-id "thunar ~"
 bindsym $mod+y exec --no-startup-id "~/.scripts/rofi-clipboard"
 bindsym $mod+p exec --no-startup-id "~/.scripts/eww/pomodoro"
+bindsym $mod+b exec --no-startup-id "librewolf"
 bindsym $mod+Shift+r restart
 
 bindsym $mod+x exec --no-startup-id\
