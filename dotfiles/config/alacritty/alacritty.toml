@@ -1,7 +1,41 @@
-general.live_config_reload = true
+[general]
+live_config_reload = true
+
+[font]
+size = 14.0
+
+[font.normal]
+family = "FiraMonoNerdFont"
+style = "Regular"
+
+[env]
+TERM = "alacritty"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "Escape"
+mode = "Vi"
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "Q"
+mode = "Vi"
+
+[window]
+decorations = "none"
+dynamic_padding = false
+opacity=0.75
+
+[window.padding]
+x = 0
+y = 0
+
+[colors.primary]
+background = "#111111"
+foreground = "#eeeeee"
 
 [colors.bright]
-black = "0x565656"
+black = "#000000"
 blue = "0x49a4f8"
 cyan = "0x99faf2"
 green = "0xc0e17d"
@@ -19,36 +53,3 @@ magenta = "0x7b5cb0"
 red = "0xeb4129"
 white = "0xe5e9f0"
 yellow = "0xf6c744"
-
-[colors.primary]
-background = "0x101421"
-foreground = "0xfffbf6"
-
-[env]
-TERM = "alacritty"
-
-[font]
-size = 14.0
-
-[font.normal]
-family = "FiraMonoNerdFont"
-style = "Regular"
-
-[[keyboard.bindings]]
-action = "ToggleViMode"
-key = "Escape"
-mode = "Vi"
-
-[[keyboard.bindings]]
-action = "ToggleViMode"
-key = "Q"
-mode = "Vi"
-
-[window]
-decorations = "none"
-dynamic_padding = false
-opacity = 0
-
-[window.padding]
-x = 0
-y = 0
