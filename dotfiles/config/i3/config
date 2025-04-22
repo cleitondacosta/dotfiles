@@ -176,6 +176,7 @@ exec --no-startup-id "~/.fehbg &"
 # Software startup
 exec --no-startup-id flameshot
 exec --no-startup-id redshift
+exec --no-startup-id picom --backend glx --vsync
 
 exec --no-startup-id eww open quote
 exec_always --no-startup-id dunst
