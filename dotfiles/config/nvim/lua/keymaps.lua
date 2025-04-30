@@ -56,17 +56,6 @@ vim.keymap.set('n', '<leader>ff', function()
     })
 end, {})
 
-vim.keymap.set('n', '<leader>fo', function()
-    local current_file_name = vim.fn.expand('%:t')
-    local current_file_name_without_extension = string.gsub(current_file_name, "%..*$", "")
-
-    telescope_builtin.find_files({
-        hidden = true,
-        path_display = { 'truncate' },
-        default_text = current_file_name_without_extension .. ' '
-    })
-end, {})
-
 local function telescope_open_in_oil(bufnr)
     local directory_name = telescope_actions_state.get_selected_entry()[1]
     telescope_actions.close(bufnr)
@@ -75,14 +64,12 @@ end
 
 vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, {})
-vim.keymap.set('n', '<leader>fb', telescope_builtin.buffers, {})
-vim.keymap.set('n', '<leader>ft', telescope_builtin.treesitter, {})
 vim.keymap.set('n', '<leader>fw', telescope_builtin.grep_string, {})
-vim.keymap.set('n', '<leader>fd', telescope_builtin.diagnostics, {})
 vim.keymap.set('n', '<leader>fm', telescope_builtin.git_status, {})
-vim.keymap.set('n', '<leader>fe', function()
+
+vim.keymap.set('n', '<leader>fo', function()
     telescope_builtin.find_files({
-        find_command = {'fd', '-t', 'd'},
+        find_command = { 'fd', '-t', 'd' },
         attach_mappings = function(_, map)
             map("n", "<cr>", telescope_open_in_oil)
             map("i", "<cr>", telescope_open_in_oil)
@@ -109,18 +96,12 @@ keymaps.on_lsp_attach = function(_, bufnr)
         else
             vim.diagnostic.enable(false)
         end
-
     end, '[D]iagnostics [T]oggle')
 
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
     nmap('<leader>fr', telescope_builtin.lsp_references, '[G]oto [R]eferences')
-    nmap(
-        '<leader>fs',
-        telescope_builtin.lsp_document_symbols,
-        '[D]ocument [S]ymbols'
-    )
     nmap(
         '<leader>fa',
         telescope_builtin.lsp_dynamic_workspace_symbols,
@@ -196,8 +177,8 @@ keymaps.on_gitsigngs_attach = function(bufnr)
     map('n', '<leader>hs', gitsigns.stage_hunk)
     map('n', '<leader>hS', gitsigns.undo_stage_hunk)
     map('n', '<leader>hu', gitsigns.reset_hunk)
-    map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-    map('v', '<leader>hu', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+    map('v', '<leader>hu', function() gitsigns.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
     map('n', '<leader>hp', gitsigns.preview_hunk)
     map('n', '<leader>gb', gitsigns.toggle_current_line_blame)
     map('n', '<leader>gd', gitsigns.diffthis)
@@ -212,7 +193,7 @@ keymaps.trouble = {
         desc = "Diagnostics (Trouble)",
     },
     {
-       "<leader>xX",
+        "<leader>xX",
         "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
         desc = "Buffer Diagnostics (Trouble)",
     },
@@ -231,7 +212,7 @@ keymaps.trouble = {
         "<cmd>Trouble loclist toggle<cr>",
         desc = "Location List (Trouble)",
     },
-   {
+    {
         "<leader>xQ",
         "<cmd>Trouble qflist toggle<cr>",
         desc = "Quickfix List (Trouble)",
