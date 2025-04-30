@@ -10,8 +10,6 @@ local harpoonUI = require 'harpoon.ui'
 local smartSplitsApi = require 'smart-split-resize'
 local angular = require 'angular'
 
-local config_path = vim.fn.stdpath('config') .. '/init.lua'
-
 -- Vanilla
 vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('n', '<CR>', 'i<Enter><esc>k$')
@@ -43,10 +41,15 @@ vim.keymap.set('n', "<leader>et", function()
     require('nvim-tree.api').tree.toggle()
 end)
 
-vim.keymap.set('n', '<leader>n', function()
-    nvimtree_api.tree.open()
+vim.keymap.set('n', '<leader>no', function()
     nvimtree_api.tree.change_root(vim.fn.stdpath('config'))
-    vim.cmd.edit(config_path)
+    oil.open(vim.fn.stdpath('config'))
+end, {})
+
+vim.keymap.set('n', '<leader>nf', function()
+    telescope_builtin.find_files({
+        cwd = vim.fn.stdpath('config')
+    })
 end, {})
 
 vim.keymap.set('n', '<leader>ff', function()
