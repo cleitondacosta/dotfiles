@@ -68,11 +68,12 @@ return {
                             t('export '),
                             t('export default ')
                         }),
-                        propsDestructuring = d(2, function(args)
+                        propsDestructuring = d(2, function()
+                            local emptyResult = sn(nil, { t '' })
                             local node = vim.treesitter.get_node()
 
                             if node == nil then
-                                return sn(nil, { t '' })
+                                return emptyResult
                             end
 
                             while node ~= nil do
@@ -84,7 +85,7 @@ return {
                             end
 
                             if node == nil then
-                                return sn(nil, { t '' })
+                                return emptyResult
                             end
 
                             local query = vim.treesitter.query.parse('tsx', [[
@@ -108,16 +109,18 @@ return {
                                     end_row,
                                     end_col,
                                     {}
-                                )
+                                )[1]
 
-                                table.insert(identifiers, text[1])
+                                table.insert(identifiers, text)
                             end
 
                             if #identifiers == 0 then
-                                return sn(nil, { t '' })
+                                return emptyResult
                             end
 
-                            return sn(nil, { t(vim.fn.join(identifiers, ', ')) })
+                            return sn(nil, {
+                                t(vim.fn.join(identifiers, ', '))
+                            })
                         end, { 1 }),
                         componentName = i(4, 'ComponentName'),
                         type1 = extras.rep(4),
