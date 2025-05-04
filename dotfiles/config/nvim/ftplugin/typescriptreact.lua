@@ -1,1 +1,1 @@
-require('snippets.typescriptreact')
+require('snippets.react')
