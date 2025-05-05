@@ -46,7 +46,7 @@ vim.keymap.set('n', '<leader>no', function()
     oil.open(vim.fn.stdpath('config'))
 end, {})
 
-vim.keymap.set('n', '<leader>nf', function()
+vim.keymap.set('n', '<leader>fn', function()
     telescope_builtin.find_files({
         cwd = vim.fn.stdpath('config')
     })
