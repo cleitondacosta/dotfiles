@@ -7,8 +7,8 @@ local keymaps = {}
 local luasnip = require 'luasnip'
 local harpoonMarks = require 'harpoon.mark'
 local harpoonUI = require 'harpoon.ui'
-local smartSplitsApi = require 'smart-split-resize'
-local angular = require 'angular'
+local smartSplitsApi = require 'utils.smart-split-resize'
+local angular = require 'utils.angular'
 
 -- Vanilla
 vim.keymap.set('n', 'J', 'mzJ`z')
