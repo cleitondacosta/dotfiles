@@ -1,5 +1,5 @@
 vim.g.mapleader = ' '
 
-require 'plugins'
+require 'package-manager'
 require 'options'
 require 'keymaps'
