@@ -1,5 +1,3 @@
-vim.g.mapleader = ' '
-
-require 'package-manager'
 require 'options'
+require 'package-manager'
 require 'keymaps'
