@@ -37,11 +37,11 @@ if angular.is_angular_project then
     vim.keymap.set('n', '<leader>as', angular.openStyle)
 end
 
-vim.keymap.set('n', "<leader>et", function()
+vim.keymap.set('n', "<leader>tt", function()
     require('nvim-tree.api').tree.toggle()
 end)
 
-vim.keymap.set('n', '<leader>no', function()
+vim.keymap.set('n', '<leader>ne', function()
     nvimtree_api.tree.change_root(vim.fn.stdpath('config'))
     oil.open(vim.fn.stdpath('config'))
 end, {})
@@ -70,7 +70,7 @@ vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fw', telescope_builtin.grep_string, {})
 vim.keymap.set('n', '<leader>fm', telescope_builtin.git_status, {})
 
-vim.keymap.set('n', '<leader>fo', function()
+vim.keymap.set('n', '<leader>fe', function()
     telescope_builtin.find_files({
         find_command = { 'fd', '-t', 'd' },
         attach_mappings = function(_, map)
@@ -82,7 +82,7 @@ vim.keymap.set('n', '<leader>fo', function()
     })
 end, {})
 
-vim.keymap.set('n', "<leader>o", function() oil.open() end)
+vim.keymap.set('n', "<leader>e", function() oil.open() end)
 
 keymaps.on_lsp_attach = function(_, bufnr)
     local nmap = function(keys, func, desc)
