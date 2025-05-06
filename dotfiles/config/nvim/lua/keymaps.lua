@@ -27,6 +27,9 @@ vim.keymap.set('n', '<C-l>', smartSplitsApi.resize_right)
 vim.keymap.set('n', 'H', 'gT')
 vim.keymap.set('n', 'L', 'gt')
 
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>')
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>')
+
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
 vim.keymap.set('v', '<tab>', '>')
