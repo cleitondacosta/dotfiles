@@ -121,15 +121,6 @@ keymaps.on_lsp_attach = function(_, bufnr)
 
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
-    vim.api.nvim_buf_create_user_command(
-        bufnr,
-        'Format',
-        function(_)
-            vim.lsp.buf.format()
-        end,
-        { desc = 'Format current buffer with LSP' }
-    )
-
     vim.o.updatetime = 2500
 
     vim.cmd [[ autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float( nil, {focus=false}) ]]
