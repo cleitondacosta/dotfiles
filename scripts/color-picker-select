@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Credits: https://github.com/BreadOnPenguins
+
+export DISPLAY=:0
+FILE="$HOME/$(date +%F___%T | tr ':' '-').png"
+
+TMP="/tmp/color.png"
+
+if command -v slop >/dev/null; then 
+    import -window root -crop "$(slop --tolerance=0 || exit 0)" "$TMP"
+else 
+    import "$TMP"
+fi
+
+HEX=$(magick "$TMP" -scale 1x1\! -format "#%[hex:p{0,0}]" info:)
+
+notify-send -i "$TMP" $HEX
+echo -n "$HEX" | xclip -i -selection clipboard
+rm "$TMP"
