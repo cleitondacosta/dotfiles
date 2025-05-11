@@ -48,7 +48,7 @@ font pango: verdana 12
 
 # Launcher shortcuts
 bindsym $mod+Return exec --no-startup-id alacritty --title "terminal"
-bindsym $mod+c exec --no-startup-id "~/.scripts/color-picker"
+bindsym $mod+c exec --no-startup-id "~/.scripts/color-picker-select"
 bindsym $mod+d exec "~/.scripts/application-launcher"
 bindsym Print --release exec --no-startup-id flameshot gui
 bindsym $mod+Print exec --no-startup-id "~/.scripts/screen-record"
