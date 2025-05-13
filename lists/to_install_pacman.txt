@@ -34,6 +34,7 @@ sxiv
 taskwarrior
 thunar
 ttf-font-awesome
+udiskie
 vlc
 xorg-server
 xorg-xinit
