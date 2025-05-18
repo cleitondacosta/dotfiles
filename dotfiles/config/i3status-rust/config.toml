@@ -51,6 +51,7 @@ format = "\uf2db  $text"
 # gpu
 [[block]]
 block = "custom"
+if_command = "nvidia-smi --version"
 command = """
     echo "$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)° \
     $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)%"
