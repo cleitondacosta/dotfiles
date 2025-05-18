@@ -1,6 +1,7 @@
 alias keycodes 'xmodmap -pke'
 alias c 'cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
 alias p 'cd "$(fd -H --type d \'^.git$\' ~/projects -X dirname | fzf)"'
+alias ep 'cd "$(fd -H --type d \'^.git$\' ~/projects -X dirname | fzf)" && nvim .'
 alias er 'cd ~/.myrice && nvim'
 alias ewp 'cd "$(fd -H --type d \'^.git$\' ~/work/projects -X dirname | fzf)" && nvim .'
 alias wp 'cd "$(fd -H --type d \'^.git$\' ~/work/projects -X dirname | fzf)"'
