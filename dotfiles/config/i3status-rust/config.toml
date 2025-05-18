@@ -38,25 +38,22 @@ interval = 3
 json = true
 block = "custom"
 command = "~/.config/i3status-rust/scripts/test-internet-connection.sh"
-format = "$text"
+format = "\uf0ac  $text"
 interval = 3
 
 # cpu
 [[block]]
 block = "custom"
-json=true
 interval = 3
 command = "~/.config/i3status-rust/scripts/cpu.sh"
-
-format = "$text"
+format = "\uf2db  $text"
 
 # gpu
 [[block]]
 block = "custom"
 command = """
     echo "$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits)° \
-    $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)% \
-    $(nvidia-smi --query-gpu=power.draw --format=csv,noheader,nounits)v"
+    $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)%"
 """
 format = "\uf11b  $text"
 interval = 5
@@ -81,12 +78,12 @@ interval = 5
 # sound
 [[block]]
 block = "sound"
-format = "\uf026  {$volume.eng(w:2)}"
+format = "\uf026 {$volume.eng(w:2)}"
 
 # mic
 [[block]]
 block = "sound"
-format = "\uf130  {$volume.eng(w:2)}"
+format = "\uf130 {$volume.eng(w:2)}"
 device_kind = "source"
 
 # time, that humiliating arbitrary adjudicator
