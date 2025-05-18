@@ -16,11 +16,10 @@ separator_fg = "#ffffff"
 
 # docker
 [[block]]
-json = true
 block = "custom"
-command = "~/.config/i3status-rust/scripts/docker.sh"
+command = "docker ps -q | wc -l"
 interval = 3
-format = "$text"
+format = "\uf21f  $text"
 
 # vpn
 [[block]]
