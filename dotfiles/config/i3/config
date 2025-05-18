@@ -8,7 +8,7 @@ set $predominantColor #0C1828
 set $secondaryColor #4E6C91
 set $accentColor #ccdced
 
-set $innerGap 30
+set $innerGap 15
 set $outerGap 15
 
 # Windows conf
