@@ -48,6 +48,7 @@ block = "custom"
 json=true
 interval = 3
 command = "~/.config/i3status-rust/scripts/cpu.sh"
+
 format = "$text"
 
 # gpu
@@ -73,8 +74,9 @@ format = "\uf0a0  $percentage"
 
 # ram usage
 [[block]]
-block = "memory"
-format = "\uf538 $mem_used_percents"
+block = "custom"
+command = "~/.config/i3status-rust/scripts/ram.sh"
+format = "\uf538 $text"
 interval = 5
 
 # sound
