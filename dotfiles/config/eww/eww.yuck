@@ -85,7 +85,7 @@
 )
 
 (defpoll quote :interval "1h"
-  `bash ~/.scripts/eww/quote.sh`
+  `shuf -n 1 ~/.myrice/lists/quotes.txt`
 )
 
 (defvar isVpnActive false)
