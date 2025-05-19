@@ -24,6 +24,6 @@ alias increase_sound_volume 'pactl set-sink-volume @DEFAULT_SINK@ +5%'
 alias decrease_sound_volume 'pactl set-sink-volume @DEFAULT_SINK@ -5%'
 alias set_background_image 'feh --bg-fill ~/.bg'
 alias n "nvim"
-alias bot "btm"
+alias bot "btm --process_memory_as_value"
 alias tl 'task list'
 alias ta 'task add'
