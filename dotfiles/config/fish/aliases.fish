@@ -28,3 +28,15 @@ alias n "nvim"
 alias bot "btm --process_memory_as_value"
 alias tl 'task list'
 alias ta 'task add'
+
+function ewp
+    cd "$(fd -H --type d '^.git$' ~/work/projects -X dirname | fzf)" &> /dev/null
+
+    test $status != 0 && return
+
+    if test -f '.nvmrc' && type -q nvm
+        nvm use > /dev/null
+    end
+
+    nvim .
+end
