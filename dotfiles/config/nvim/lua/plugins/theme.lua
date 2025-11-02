@@ -1,9 +1,10 @@
 return {
     {
-        "diegoulloao/neofusion.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
         config = function()
-            vim.o.background = "dark"
-            vim.cmd([[ colorscheme neofusion ]])
+            vim.cmd([[colorscheme catppuccin-frappe ]])
         end,
     }
 }
