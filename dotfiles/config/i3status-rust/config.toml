@@ -65,7 +65,7 @@ block = "disk_space"
 path = "/"
 info_type = "used"
 interval = 5
-warning = 70.0
+warning = 80.0
 alert = 90.0
 format = "\uf0a0  $percentage"
 
