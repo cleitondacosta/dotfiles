@@ -20,6 +20,7 @@ add_to_path ~/.sass
 add_to_path ~/.flutter/bin
 add_to_path ~/.pub-cache/bin
 add_to_path /usr/lib/jvm/java-17-openjdk/bin/
+add_to_path /opt/nvim-linux-x86_64/bin
 
 if test -d /opt/android-sdk 
     set -x ANDROID_HOME /opt/android-sdk
