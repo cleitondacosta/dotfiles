@@ -1,55 +1,16 @@
-#!/usr/bin/env bash
-# Description: Uses rofi to ask the user for an screenshot option, and then
-#              take a screenshot using scrot.
+#!/bin/bash
 
-SCREENSHOT_DIR="$HOME/image/screenshot"
+PACKAGE="org.flameshot.Flameshot"
+FLAMESHOT="$(flatpak list | grep -e $PACKAGE)"
 
-ask_option() {
-    ROFI_THEME=~/.config/rofi/option-list-theme.rasi
-    OPTIONS="$(echo "$@" | tr ' ' '\n')"
-    echo "$(echo "$OPTIONS" | rofi -theme $ROFI_THEME -dmenu)"
-}  
-
-ask_filename() {
-    ROFI_THEME=~/.config/rofi/type-theme.rasi
-    echo "$(rofi -theme $ROFI_THEME -dmenu -p "File name: ")"
-}
-
-format_filename() {
-    FILE_NAME="$1"
-    FORMATTED_FILE_NAME="$SCREENSHOT_DIR/$FILE_NAME.png"
-    N=2
-
-    [[ ! -e "$SCREENSHOT_DIR" ]] && mkdir -p "$SCREENSHOT_DIR"
-
-    while [ -e "$FORMATTED_FILE_NAME" ]; do
-        FORMATTED_FILE_NAME="$SCREENSHOT_DIR/$FILE_NAME($N).png"
-        N=$((N+1))
-    done
-
-    echo "$FORMATTED_FILE_NAME"
-}
-
-OPTION="$(ask_option "Fullscreen Selection Window")"
-[[ -z $OPTION ]] && exit
-
-case "$OPTION" in
-    "Selection") sleep 0.5 ;;
-    *)
-      FILE_NAME="$(ask_filename)"
-      [[ -z $FILE_NAME ]] && exit
-      FILE_NAME="$(format_filename "$FILE_NAME")"
-      sleep 0.5
-esac
-
-case "$OPTION" in
-    Fullscreen) scrot -q 100 "$FILE_NAME" ;;
-    Selection) flameshot gui -p "$SCREENSHOT_DIR" ;;
-    Window) scrot -u -q 100 "$FILE_NAME" ;;
-esac
-
-if [ $? -eq 0 ] && [ "$OPTION" != "Selection" ]; then
-    notify-send "Screenshot" "$FILE_NAME" 
-else
-    notify-send -u urgent "Screenshot error" "Couldn't screenshot."
+if [ -z "$FLAMESHOT" ]; then
+    echo "Flameshot is not installed. Installing..."
+    flatpak install $PACKAGE -y
+    flatpak permission-set \
+        screenshot \
+        screenshot \
+        $PACKAGE \
+        yes
 fi
+
+flatpak run $PACKAGE gui -r | wl-copy
