@@ -16,11 +16,6 @@ action = "ToggleViMode"
 key = "Escape"
 mode = "Vi"
 
-[[keyboard.bindings]]
-action = "ToggleViMode"
-key = "Q"
-mode = "Vi"
-
 [window]
 dynamic_padding = false
 opacity=0.75
