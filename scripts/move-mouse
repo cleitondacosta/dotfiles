@@ -1,27 +1,39 @@
 #!/bin/bash
 
-x_start_point="$1"
-x_max_point="$2"
+export YDOTOOL_SOCKET="/tmp/.ydotool_socket"
 
-move_mouse_continuous() {
-    local screen_height=$(xdpyinfo | awk '/dimensions/{print $2}' | cut -d 'x' -f 2)
-    local current_x=$x_start_point
-    local direction=1
+SERVICE_NAME=ydotoold
+SERVICE_FILE=~/.myrice/assets/services/ydotoold.service
 
-    while true; do
-        xdotool mousemove "$current_x" "$((screen_height / 2))"
-        current_x=$((current_x + direction * 10))
+if ! command -v ydotool &> /dev/null; then
+    echo "Dependency not found. Installing..."
 
-        if [ "$current_x" -le $x_start_point ]; then
-            direction=1
-        fi
+    sudo dnf install -y ydotool || {
+        echo "Could not install ydotool. Aborting.";
+        exit 1;
+    }
+fi
 
-        if [ "$current_x" -ge "$x_max_point" ]; then
-            direction=-1
-        fi
+if ! systemctl is-active --quiet $SERVICE_NAME; then
+    echo "ydotoold service is not active. Activating..."
 
-        sleep 1
-    done
-}
+    chmod 0644 "$SERVICE_FILE"
+    sudo cp "$SERVICE_FILE" /etc/systemd/system
 
-move_mouse_continuous
+    sudo systemctl daemon-reload
+    sudo systemctl enable ydotool
+    sudo systemctl start ydotool
+fi
+
+X_1="$1"
+Y_1="$2"
+
+X_2="$3"
+Y_2="$4"
+
+while true; do
+    sleep 2
+    ydotool mousemove -- "$X_1" "$Y_1"
+    sleep 2
+    ydotool mousemove -- "$X_2" "$Y_2"
+done

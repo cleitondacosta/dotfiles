@@ -1,0 +1,12 @@
+[Unit]
+Description=ydotool daemon
+Documentation=https://github.com/ReimuNotMoe/ydotool
+After=systemd-user-sessions.service
+Requires=systemd-user-sessions.service
+[Service]
+Type=simple
+ExecStart=ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm 0666
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
