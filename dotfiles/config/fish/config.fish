@@ -10,6 +10,12 @@ function add_to_path -a path
     end
 end
 
+function set_env_var_if_file_exists -a var file
+    if test -e "$file"; and test -n "$var"
+        set -gx "$var" "$file"
+    end
+end
+
 add_to_path ~/.yarn/bin
 add_to_path ~/.cargo/bin
 add_to_path ~/.secret/scripts
@@ -22,17 +28,10 @@ add_to_path ~/.pub-cache/bin
 add_to_path /usr/lib/jvm/java-17-openjdk/bin/
 add_to_path /opt/nvim-linux-x86_64/bin
 
-if test -d /opt/android-sdk 
-    set -x ANDROID_HOME /opt/android-sdk
-end
-
-if test -d ~/Android/Sdk
-    set -x ANDROID_HOME ~/Android/Sdk
-end
-
-if test -f /opt/android-studio/bin/studio.sh
-    set -x CAPACITOR_ANDROID_STUDIO_PATH /opt/android-studio/bin/studio.sh
-end
+set_env_var_if_file_exists ANDROID_HOME /opt/android-sdk
+set_env_var_if_file_exists ANDROID_HOME ~/Android/Sdk
+set_env_var_if_file_exists CAPACITOR_ANDROID_STUDIO_PATH \
+    /opt/android-studio/bin/studio.sh
 
 add_to_path "$ANDROID_HOME/platform-tools"
 add_to_path "$ANDROID_HOME/tools"
@@ -46,5 +45,6 @@ set -x TERM alacritty
 set -g fish_autosuggestion_enabled 0
 
 functions -e add_to_path
+functions -e set_env_var_if_dir_exists
 
 starship init fish | source
