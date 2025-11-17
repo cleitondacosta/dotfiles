@@ -32,6 +32,8 @@ set_env_var_if_file_exists ANDROID_HOME /opt/android-sdk
 set_env_var_if_file_exists ANDROID_HOME ~/Android/Sdk
 set_env_var_if_file_exists CAPACITOR_ANDROID_STUDIO_PATH \
     /opt/android-studio/bin/studio.sh
+set_env_var_if_file_exists CAPACITOR_ANDROID_STUDIO_PATH \
+    ~/android-studio/bin/studio.sh
 
 add_to_path "$ANDROID_HOME/platform-tools"
 add_to_path "$ANDROID_HOME/tools"
