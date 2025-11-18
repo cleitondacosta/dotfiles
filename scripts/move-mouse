@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ "$(pgrep -c move-mouse)" -gt 1 ]]; then
+    echo "move-mouse already running. Killing it."
+    pkill move-mouse && echo "Killed." && exit 0
+    exit 1
+fi
+
 export YDOTOOL_SOCKET="/tmp/.ydotool_socket"
 
 SERVICE_NAME=ydotoold
