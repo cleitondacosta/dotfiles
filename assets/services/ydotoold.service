@@ -5,7 +5,7 @@ After=systemd-user-sessions.service
 Requires=systemd-user-sessions.service
 [Service]
 Type=simple
-ExecStart=ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm 0666
+ExecStart=ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm 666
 Restart=on-failure
 RestartSec=5
 [Install]

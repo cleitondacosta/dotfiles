@@ -21,8 +21,8 @@ if ! systemctl is-active --quiet $SERVICE_NAME; then
     sudo cp "$SERVICE_FILE" /etc/systemd/system
 
     sudo systemctl daemon-reload
-    sudo systemctl enable ydotool
-    sudo systemctl start ydotool
+    sudo systemctl enable $SERVICE_NAME
+    sudo systemctl start $SERVICE_NAME
 fi
 
 X_1="$1"
