@@ -29,7 +29,7 @@ background = "#111111"
 foreground = "#eeeeee"
 
 [colors.bright]
-black = "#000000"
+black = "0x999999"
 blue = "0x49a4f8"
 cyan = "0x99faf2"
 green = "0xc0e17d"
@@ -39,7 +39,7 @@ white = "0xffffff"
 yellow = "0xf9da6a"
 
 [colors.normal]
-black = "0x2e2e2e"
+black = "0x666666"
 blue = "0x47a0f3"
 cyan = "0x64dbed"
 green = "0xabe047"
