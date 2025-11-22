@@ -9,18 +9,23 @@ return {
         config = function()
             require('mason').setup()
 
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
             vim.diagnostic.config({ virtual_text = false })
 
             local mason_lspconfig = require 'mason-lspconfig'
 
             mason_lspconfig.setup()
 
-            vim.lsp.config('*', {
-                capabilities = capabilities,
-                on_attach = require('keymaps').on_lsp_attach,
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function(ev)
+                    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+                    local bufnr = ev.buf
+
+                    require('keymaps').on_lsp_attach(bufnr)
+
+                    vim.o.updatetime = 2500
+
+                    vim.cmd [[ autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float( nil, {focus=false}) ]]
+                end,
             })
         end,
     },

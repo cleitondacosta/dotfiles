@@ -87,7 +87,7 @@ end, {})
 
 vim.keymap.set('n', "<leader>e", function() oil.open() end)
 
-keymaps.on_lsp_attach = function(_, bufnr)
+keymaps.on_lsp_attach = function(bufnr)
     local nmap = function(keys, func, desc)
         if desc then
             desc = 'LSP: ' .. desc
@@ -120,10 +120,6 @@ keymaps.on_lsp_attach = function(_, bufnr)
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-
-    vim.o.updatetime = 2500
-
-    vim.cmd [[ autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float( nil, {focus=false}) ]]
 end
 
 keymaps.cmp = function()
