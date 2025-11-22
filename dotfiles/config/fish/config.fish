@@ -50,4 +50,6 @@ set -g fish_autosuggestion_enabled 0
 functions -e add_to_path
 functions -e set_env_var_if_dir_exists
 
+fzf_configure_bindings --directory=\cf
+
 starship init fish | source
