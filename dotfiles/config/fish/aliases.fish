@@ -1,9 +1,6 @@
 alias keycodes 'xmodmap -pke'
 alias c 'cd "$(fd --type d --hidden --follow --exclude .git | fzf)"'
-alias p 'cd "$(fd -H --type d \'^.git$\' ~/projects -X dirname | fzf)"'
-alias ep 'cd "$(fd -H --type d \'^.git$\' ~/projects -X dirname | fzf)" && nvim .'
 alias er 'cd ~/.myrice && nvim .'
-alias wp 'cd "$(fd -H --type d \'^.git$\' ~/work/projects -X dirname | fzf)" && test -f .nvmrc && nvm use'
 alias e 'fd --type f --hidden --follow --exclude .git | fzf --preview \'bat --style=plain --color=always {}\' | xargs -r nvim'
 alias t '$TERM & disown'
 alias cdc 'cd ~/code'
@@ -29,8 +26,16 @@ alias bot "btm --process_memory_as_value"
 alias tl 'task list'
 alias ta 'task add'
 
+function p
+    cd "$(fd -H --type d '^.git$' ~/projects -X dirname | fzf -1 -q "$argv")"
+end
+
+function wp
+    cd "$(fd -H --type d '^.git$' ~/work/projects -X dirname | fzf -1 -q "$argv")" && test -f .nvmrc && nvm use
+end
+
 function ewp
-    cd "$(fd -H --type d '^.git$' ~/work/projects -X dirname | fzf)" &> /dev/null
+    cd "$(fd -H --type d '^.git$' ~/work/projects -X dirname | fzf -1 -q "$argv")" &> /dev/null
 
     test $status != 0 && return
 
@@ -40,3 +45,16 @@ function ewp
 
     nvim .
 end
+
+function ep
+    cd "$(fd -H --type d '^.git$' ~/projects -X dirname | fzf -1 -q "$argv")" &> /dev/null
+
+    test $status != 0 && return
+
+    if test -f '.nvmrc' && type -q nvm
+        nvm use > /dev/null
+    end
+
+    nvim .
+end
+
