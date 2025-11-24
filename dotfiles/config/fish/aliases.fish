@@ -26,35 +26,24 @@ alias bot "btm --process_memory_as_value"
 alias tl 'task list'
 alias ta 'task add'
 
-function p
-    cd "$(fd -H --type d '^.git$' ~/projects -X dirname | fzf -1 -q "$argv")"
-end
+function cd_fuzzy_projects -a projects_basedir
+    set directory "$(fd -H --type d '^.git$' "$projects_basedir" -X dirname | fzf -1 -q "$argv")"
 
-function wp
-    cd "$(fd -H --type d '^.git$' ~/work/projects -X dirname | fzf -1 -q "$argv")" && test -f .nvmrc && nvm use
-end
-
-function ewp
-    cd "$(fd -H --type d '^.git$' ~/work/projects -X dirname | fzf -1 -q "$argv")" &> /dev/null
-
-    test $status != 0 && return
-
-    if test -f '.nvmrc' && type -q nvm
-        nvm use > /dev/null
+    if not test -d "$directory"
+        return 1
     end
 
-    nvim .
-end
-
-function ep
-    cd "$(fd -H --type d '^.git$' ~/projects -X dirname | fzf -1 -q "$argv")" &> /dev/null
-
-    test $status != 0 && return
+    cd "$directory"
 
     if test -f '.nvmrc' && type -q nvm
-        nvm use > /dev/null
+        nvm use
     end
 
-    nvim .
+    return 0
 end
+
+alias p 'cd_fuzzy_projects ~/projects'
+alias ep 'cd_fuzzy_projects ~/projects && nvim .'
+alias wp 'cd_fuzzy_projects ~/work/projects'
+alias ewp 'cd_fuzzy_projects ~/work/projects && nvim .'
 
