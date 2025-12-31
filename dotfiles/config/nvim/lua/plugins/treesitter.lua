@@ -3,7 +3,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         config = function()
-            require('nvim-treesitter.configs').setup {
+            require('nvim-treesitter.config').setup {
                 ensure_installed = {
                     'angular', 'bash', 'c', 'c_sharp', 'css', 'dockerfile',
                     'fish', 'html', 'javascript', 'json', 'lua', 'markdown',
