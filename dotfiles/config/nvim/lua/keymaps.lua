@@ -85,6 +85,33 @@ vim.keymap.set('n', '<leader>fe', function()
     })
 end, {})
 
+vim.keymap.set('v', '<leader>fs', function ()
+    local selected = ''
+
+    local _, start_row, start_col, _ = unpack(vim.fn.getpos("v"))
+    local _, end_row, end_col, _ = unpack(vim.fn.getpos("."))
+
+    if start_row > end_row
+        or (start_row == end_row and start_col > end_col)
+    then
+        start_row, end_row = end_row, start_row
+        start_col, end_col = end_col, start_col
+    end
+
+    local lines = vim.api.nvim_buf_get_text(
+        0,
+        start_row - 1,
+        start_col - 1,
+        end_row - 1,
+        end_col,
+        {}
+    )
+
+    selected = table.concat(lines, "\n")
+
+    telescope_builtin.live_grep({ default_text = selected })
+end, { desc = 'Telescope live grep selection' })
+
 vim.keymap.set('n', "<leader>e", function() oil.open() end)
 
 keymaps.on_lsp_attach = function(bufnr)
