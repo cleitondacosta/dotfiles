@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+OUTPUT_DIRECTORY="tracks"
+FLAC_FILE="$1"
+CUE_FILE="$2"
+
+function usage() {
+    echo "usage: flacsplit FLAC_FILE CUE_FILE"
+    exit 1
+}
+
+function does_command_exists() {
+    if [ -z "$1" ]; then
+        echo "$FUNCNAME: missing function argument. Aborting."
+        exit 1
+    fi
+
+    if ! command -v "$1" &>/dev/null; then
+        echo "Dependency '$1' not found."
+        echo "If you're on Fedora, make sure to run:"
+        echo "    sudo dnf install cuetools shntool flac"
+        echo "Aborting."
+        exit 1
+    fi
+}
+
+does_command_exists 'shnsplit'
+does_command_exists 'cuetag.sh'
+
+if [ -z "$FLAC_FILE" ] || [ -z "$CUE_FILE" ]; then
+    usage
+fi
+
+if [ ! -f "$1" ]; then
+    echo "FLAC file '$FLAC_FILE' not found. Aborting."
+    exit 1
+fi
+
+if [ ! -f "$2" ]; then
+    echo "CUE file '$CUE_FILE' not found. Aborting."
+    exit 1
+fi
+
+if [ -e "$OUTPUT_DIRECTORY" ]; then
+    echo "'$OUTPUT_DIRECTORY' file already exists. Aborting."
+    exit 1
+else
+    mkdir "$OUTPUT_DIRECTORY"
+fi
+
+cd "$OUTPUT_DIRECTORY"
+
+shnsplit \
+    -f "../$CUE_FILE" \
+    -t '%n - %t' \
+    -o flac "../$FLAC_FILE"
+
+cuetag.sh "../$CUE_FILE" *.flac
+
+cd - > /dev/null
+
+echo "Done. Tracks are in '$(realpath "$OUTPUT_DIRECTORY")' directory."
