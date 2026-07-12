@@ -5,14 +5,11 @@ convert_video_to_mp4_whatsapp_compliant() {
     VIDEO_TO_CONVERT_PATH="$1"
     VIDEO_CONVERTED_PATH="$2"
 
-    SCREEN_RESOLUTION="$(xdpyinfo | grep dimensions | awk '{print $2}')"
-
     ffmpeg \
         -thread_queue_size 512 \
         -i "$VIDEO_TO_CONVERT_PATH" \
         -probesize 10M \
         -y \
-        -s "$SCREEN_RESOLUTION" \
         -r 60 \
         -c:v libx264 \
         -preset fast \
